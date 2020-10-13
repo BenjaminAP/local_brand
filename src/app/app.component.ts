@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import * as firebase from 'firebase';
-import {Shop} from './models/shop';
+import {IShop} from './models/i.shop';
 
 @Component({
   selector: 'app-root',

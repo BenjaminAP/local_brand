@@ -1,4 +1,4 @@
-export interface Shop {
+export interface IShop {
   name: string;
   social_media_type: string;
   url: string;

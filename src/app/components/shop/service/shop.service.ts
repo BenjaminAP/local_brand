@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 // import * as firebase from 'firebase';
-import {Shop} from '../../../models/shop';
+import {IShop} from '../../../models/i.shop';
+
 
 
 
@@ -10,7 +11,7 @@ import {Shop} from '../../../models/shop';
 export class ShopService {
   // protected config: DbConfig;
   // protected database: firebase.database.Database;
-  private shopList: Array<Shop>;
+  private shopList: Array<IShop>;
 
   constructor() {
     // this.config = {
@@ -25,7 +26,7 @@ export class ShopService {
 
     // this.database.ref('/').once('value').then((snapshot => {
     //
-    //   snapshot.val().forEach((shop: Shop) => {
+    //   snapshot.val().forEach((shop: IShop) => {
     //     this.shopList.push({
     //       name: shop.name,
     //       social_media_type: shop.social_media_type,
@@ -40,7 +41,7 @@ export class ShopService {
     //   });
     // }));
 
-    this.shopList = new Array<Shop>();
+    this.shopList = new Array<IShop>();
     this.shopList.push(
       {
         name: 'Jam',
@@ -111,7 +112,7 @@ export class ShopService {
     );
   }
 
-  public getShopsDetail(): Array<Shop> {
+  public getShopsDetail(): Array<IShop> {
     return this.shopList;
   }
 }
