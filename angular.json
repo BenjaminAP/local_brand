@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "local-brands"
+    }
+  },
+  "defaultProject": "local-brands",
+  "cli": {
+    "analytics": false
+  }
 }
