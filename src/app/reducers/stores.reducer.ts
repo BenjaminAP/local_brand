@@ -4,90 +4,25 @@ import {Action, createReducer, on} from '@ngrx/store';
 import * as ShopActions from '../actions/shop.action';
 
 
-export interface IStoresState {
+export interface IShopState {
   filter: string[];
   shops: IShop[];
 }
 
-export const initialState: IStoresState = {
-  filter: ['ALl'],
-  shops: [
-    {
-      name: 'Jam',
-      social_media_type: 'Instagram',
-      url: 'www.shopjampr.com',
-      powered_by: 'Shopify',
-      store_type: 'Boutique',
-      attire_type: 'Clothing',
-      social_media: '@shopjampr',
-      country: 'Puerto Rico',
-      email: ''
-    },
-    {
-      name: 'Aloha Sandals',
-      social_media_type: 'Instagram',
-      url: 'www.alohas.io',
-      powered_by: 'Shopify',
-      store_type: 'Brand',
-      attire_type: 'Shoes',
-      social_media: '@alohas',
-      country: 'España / Barcelona',
-      email: ''
-    },
-    {
-      name: 'Gypsy Beach',
-      social_media_type: 'Instagram',
-      url: 'https://snapppt.com/gypsy_beach',
-      powered_by: 'SNPT',
-      store_type: 'Store',
-      attire_type: 'Swimwear/ Beachwear',
-      social_media: '@gypsy_beach',
-      country: 'Unknown',
-      email: ''
-    },
-    {
-      name: 'Fleur of England',
-      social_media_type: 'Instagram',
-      url: 'https://www.fleurofengland.com',
-      powered_by: '',
-      store_type: 'Brand',
-      attire_type: 'Lingerie',
-      social_media: '@fleurofengland',
-      country: 'England',
-      email: ''
-    },
-    {
-      name: 'Costa Jewelry',
-      social_media_type: 'Instagram',
-      url: 'https://costajewelrypr.com',
-      powered_by: 'Shopify',
-      store_type: 'Brand',
-      attire_type: 'Jewelry',
-      social_media: '@costajewelry_bytmt',
-      country: 'Puerto Rico, San Juan',
-      email: ''
-    },
-    {
-      name: 'Baghsu Jewels',
-      social_media_type: 'Instagram',
-      url: 'https://bahgsujewels.com',
-      powered_by: '',
-      store_type: 'Brand',
-      attire_type: 'Jewelry',
-      social_media: '@bahgsujewels',
-      country: 'Unknown',
-      email: ''
-    }
-    ],
+export const initialState: IShopState = {
+  filter: ['All'],
+  shops: [],
 };
 
-export function shopsReducer(state: IStoresState, action: Action){
-  return createReducer(
-    initialState,
-    on(ShopActions.loadAllShops, (existingState) => ({
-      ...existingState,
-      shops
-    }),
-  )(state, action);
+const shopReducer = createReducer(
+  initialState,
+  on(ShopActions.loadAllShops, (existingState: IShopState) => ({
+    ...existingState,
+    shops: [...existingState.shops],
+  }))
+)
+
+export function reducer(state: IShopState, action: Action){
+  return shopReducer(state, action);
 }
 

@@ -1,7 +1,3 @@
-import {Action, createAction, props} from '@ngrx/store';
-import {IShop} from '../models/i.shop';
+import {createAction, props} from '@ngrx/store';
 
-export const loadAllShops =  createAction(
-  '[Shops] Load shops',
-  props<{shops: IShop}>(),
-);
+export const loadAllShops = createAction('[Shops] Load Shops');

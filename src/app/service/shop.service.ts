@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 // import * as firebase from 'firebase';
-import {IShop} from '../../../models/i.shop';
+import {IShop} from '../models/i.shop';
+import {Observable, of} from "rxjs";
 
 
 
@@ -11,7 +12,7 @@ import {IShop} from '../../../models/i.shop';
 export class ShopService {
   // protected config: DbConfig;
   // protected database: firebase.database.Database;
-  private shopList: Array<IShop>;
+  private shopList: IShop[];
 
   constructor() {
     // this.config = {
@@ -112,7 +113,7 @@ export class ShopService {
     );
   }
 
-  public getShopsDetail(): Array<IShop> {
-    return this.shopList;
+  public getAllShops(): Observable<IShop[]> {
+    return of(this.shopList);
   }
 }
