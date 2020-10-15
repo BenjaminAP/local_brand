@@ -1,5 +1,5 @@
-import {Action, createAction, props} from '@ngrx/store';
-import {IShop} from "../models/i.shop";
+import {Action} from '@ngrx/store';
+import {IShop} from '../models/i.shop';
 
 
 
