@@ -1,7 +1,7 @@
 
 import {IShop} from '../models/i.shop';
 import {Action, createReducer, on} from '@ngrx/store';
-import * as ShopActions from '../actions/shop.action';
+import * as Shop from '../actions/shop.action';
 
 
 export interface IShopState {
@@ -14,15 +14,24 @@ export const initialState: IShopState = {
   shops: [],
 };
 
-const shopReducer = createReducer(
-  initialState,
-  on(ShopActions.loadAllShops, (existingState: IShopState) => ({
-    ...existingState,
-    shops: [...existingState.shops],
-  }))
-)
+// const shopReducer = createReducer(
+//   initialState,
+//   on(ShopActions.LoadAllShops, state => ({...state, shops: state.shops})),
+//   on(ShopActions.loadShopsSuccessful, state => {
+//     console.log(state)
+//     return ({...state, shops: state.shops})
+//   })
+// );
 
-export function reducer(state: IShopState, action: Action){
-  return shopReducer(state, action);
+export function reducer(state = initialState, action: Shop.Actions): IShopState{
+  switch(action.type){
+    case(Shop.LOAD_SHOPS):
+    case(Shop.LOAD_SHOPS_SUCCESSFUL):
+      return {
+        filter: ['All'],
+        shops: action.payload,
+      }
+
+  }
 }
 
