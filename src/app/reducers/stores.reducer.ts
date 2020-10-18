@@ -1,10 +1,10 @@
 
 import {IShop} from '../models/i.shop';
-import * as Shop from '../actions/shop.action';
+import {LOAD_SHOPS_COMPLETED, ShopActions} from '../actions/shop.action';
 
 
 export interface ShopState {
-  filter: string[]
+  filter: string[];
   shops: IShop[];
 }
 
@@ -13,11 +13,19 @@ export const initialState: ShopState = {
   shops: [],
 };
 
-export function reducer(state: ShopState = initialState, action: Shop.Actions): ShopState {
-  switch (action.type){
-    case(Shop.LOAD_SHOPS):
-    case(Shop.LOAD_SHOPS_SUCCESSFUL):
-      return action.payload;
+export function shopReducer(state: ShopState = initialState, action: ShopActions): ShopState {
+
+  switch (action.type) {
+    case LOAD_SHOPS_COMPLETED:
+      return {
+        ...state,
+        shops: action.payload
+      };
+    default:
+      return state;
   }
 }
+
+export const shops = (state: ShopState) => state.shops;
+export const filters = (state: ShopState) => state.filter;
 

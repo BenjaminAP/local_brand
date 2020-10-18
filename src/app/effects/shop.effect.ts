@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {EMPTY, Observable} from 'rxjs';
-import {Action} from '@ngrx/store';
+import {EMPTY} from 'rxjs';
 import {AppService} from '../service/app.service';
-import * as Shop from '../actions/shop.action';
-import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap} from 'rxjs/operators';
+import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from '../actions/shop.action';
 
 @Injectable()
-export class ShopEffect {
+export class ShopEffects {
 
   @Effect()
-  shops$: Observable<Action> = this.actions$.pipe(
-    ofType(Shop.LOAD_SHOPS),
-    mergeMap(() => {
+  public loadAllShops$ = this.actions$.pipe(
+    ofType(LOAD_SHOPS_STARTED),
+    switchMap(() => {
       return this.appService.loadShops().pipe(
-          map(shops => new Shop.LoadShopsSuccessful(shops)),
+          map(shops => new LoadShopsCompleted(shops)),
           catchError(() => EMPTY));
       }
     ));

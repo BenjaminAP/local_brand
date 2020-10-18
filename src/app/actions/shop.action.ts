@@ -1,25 +1,19 @@
-import {Action} from '@ngrx/store';
+import {Action, createAction} from '@ngrx/store';
 import {IShop} from '../models/i.shop';
-import {ShopState} from "../reducers/stores.reducer";
 
 
 
-export const LOAD_SHOPS = '[Shops] Load Shops';
-export const LOAD_SHOPS_SUCCESSFUL = '[Shops] Load Shops Successful';
+export const LOAD_SHOPS_STARTED = '[Shops] Load Shops';
+export const LOAD_SHOPS_COMPLETED = '[Shops] Load Shops Successful';
 
 export class LoadAllShops implements Action {
-  type = LOAD_SHOPS;
-
-  constructor(public payload: any) {
-  }
+  public readonly type = LOAD_SHOPS_STARTED;
 }
 
-export class LoadShopsSuccessful implements Action {
-  type = LOAD_SHOPS_SUCCESSFUL;
+export class LoadShopsCompleted implements Action {
+  public readonly type = LOAD_SHOPS_COMPLETED;
 
-  constructor(public payload: IShop[]) {
-  }
+  constructor(public payload: IShop[]) {}
 }
 
-export type Actions = LoadAllShops | LoadShopsSuccessful;
-
+export type ShopActions = LoadAllShops | LoadShopsCompleted;

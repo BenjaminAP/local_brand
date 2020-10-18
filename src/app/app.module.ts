@@ -4,12 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ShopComponent } from './components/shop/shop.component';
 import {EffectsModule} from '@ngrx/effects';
-import {ShopEffect} from './effects/shop.effect';
+import { ShopEffects} from './effects/shop.effect';
 import {StoreModule} from '@ngrx/store';
 
-import * as fromShop from '../app/reducers/stores.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {shopReducer} from '../app/reducers/stores.reducer';
 
 @NgModule({
   declarations: [
@@ -18,8 +18,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
   ],
   imports: [
     BrowserModule,
-    EffectsModule.forRoot([ShopEffect]),
-    StoreModule.forRoot({shops: fromShop.reducer}),
+    EffectsModule.forRoot([ShopEffects]),
+    StoreModule.forFeature('shops', shopReducer),
+    StoreModule.forRoot(shopReducer),
     BrowserAnimationsModule,
     MatGridListModule
   ],

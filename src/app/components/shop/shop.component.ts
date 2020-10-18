@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
-import {Store} from '@ngrx/store';
-import * as Shop from '../../actions/shop.action';
-import {ShopState} from '../../reducers/stores.reducer';
-import {ShopService} from "./shop.service";
+import {ShopService} from './shop.service';
 
 @Component({
   selector: 'app-shop',
@@ -17,11 +14,14 @@ export class ShopComponent implements OnInit {
   filters$: Observable<string[]>;
 
   constructor(private shopService: ShopService) {
-    this.shops$ = this.shopService.getAllShops();
-    this.filters$ = this.shopService.getFilters();
+    this.shops$ = this.shopService.allShops$;
+    this.filters$ = this.shopService.allFilters$;
   }
 
   ngOnInit(): void {
+
+    this.shops$.subscribe(shop => console.log(shop));
+    this.filters$.subscribe(filter => console.log(filter));
   }
 
 }
