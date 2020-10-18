@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {IShop} from '../models/i.shop';
+import {ShopState} from "../reducers/stores.reducer";
 
 
 

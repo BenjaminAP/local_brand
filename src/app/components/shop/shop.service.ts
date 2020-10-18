@@ -4,7 +4,7 @@ import {IShop} from "../../models/i.shop";
 import * as Shop from "../../actions/shop.action";
 import {ShopState} from "../../reducers/stores.reducer";
 import {Observable} from "rxjs";
-import {selectAllShops} from "../../selectors/shop.selector";
+import * as ShopSelector from "../../selectors/shop.selector";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,10 @@ export class ShopService {
   }
 
   getAllShops(): Observable<IShop[]> {
-    return this.store.select(selectAllShops);
+    return this.store.select(ShopSelector.selectAllShops);
+  }
+
+  getFilters(): Observable<string[]> {
+    return this.store.select(ShopSelector.selectAllFilters)
   }
 }

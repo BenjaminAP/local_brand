@@ -1,14 +1,15 @@
 
 import {IShop} from '../models/i.shop';
-import {Action, createReducer, on} from '@ngrx/store';
 import * as Shop from '../actions/shop.action';
 
 
 export interface ShopState {
+  filter: string[]
   shops: IShop[];
 }
 
 export const initialState: ShopState = {
+  filter: ['All'],
   shops: [],
 };
 

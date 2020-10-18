@@ -9,7 +9,7 @@ import {Observable, of} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class ShopService {
+export class AppService {
   // protected config: DbConfig;
   // protected database: firebase.database.Database;
   private shopList: IShop[];
@@ -113,7 +113,7 @@ export class ShopService {
     );
   }
 
-  public getAllShops(): Observable<IShop[]> {
+  public loadShops(): Observable<IShop[]> {
     return of(this.shopList);
   }
 }

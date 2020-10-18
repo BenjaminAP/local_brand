@@ -14,9 +14,11 @@ import {ShopService} from "./shop.service";
 export class ShopComponent implements OnInit {
 
   shops$: Observable<IShop[]>;
+  filters$: Observable<string[]>;
 
   constructor(private shopService: ShopService) {
-    this.shops$ = this.shopService.getAllShops()
+    this.shops$ = this.shopService.getAllShops();
+    this.filters$ = this.shopService.getFilters();
   }
 
   ngOnInit(): void {
