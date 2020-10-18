@@ -4,6 +4,7 @@ import {IShop} from '../../models/i.shop';
 import {Store} from '@ngrx/store';
 import * as Shop from '../../actions/shop.action';
 import {ShopState} from '../../reducers/stores.reducer';
+import {ShopService} from "./shop.service";
 
 @Component({
   selector: 'app-shop',
@@ -14,12 +15,11 @@ export class ShopComponent implements OnInit {
 
   shops$: Observable<IShop[]>;
 
-  constructor(private store: Store<{shops: IShop[]}>) {
-    this.store.dispatch({type: Shop.LOAD_SHOPS});
+  constructor(private shopService: ShopService) {
+    this.shops$ = this.shopService.getAllShops()
   }
 
   ngOnInit(): void {
-    this.shops$ = this.store.select((state: ShopState) => state.shops);
   }
 
 }
