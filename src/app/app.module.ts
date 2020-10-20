@@ -9,9 +9,11 @@ import {StoreModule} from '@ngrx/store';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {shopReducer} from '../app/reducers/stores.reducer';
-import {MatCard, MatCardModule} from "@angular/material/card";
-import {MatRippleModule} from "@angular/material/core";
+import {shopReducer} from './reducers/stores.reducer';
+import {MatCardModule} from '@angular/material/card';
+import {MatRippleModule} from '@angular/material/core';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import {MatRippleModule} from "@angular/material/core";
     MatGridListModule,
     MatCardModule,
     MatRippleModule,
+    MatDividerModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

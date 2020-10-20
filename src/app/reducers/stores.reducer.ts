@@ -26,6 +26,3 @@ export function shopReducer(state: ShopState = initialState, action: ShopActions
   }
 }
 
-export const shops = (state: ShopState) => state.shops;
-export const filters = (state: ShopState) => state.filter;
-

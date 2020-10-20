@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
-import * as Shop from '../../actions/shop.action';
 import {ShopState} from '../../reducers/stores.reducer';
 import {Observable} from 'rxjs';
 import * as ShopSelector from '../../selectors/shop.selector';

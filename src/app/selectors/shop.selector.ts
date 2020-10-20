@@ -1,15 +1,14 @@
 import {ShopState} from '../reducers/stores.reducer';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {shops, filters} from '../reducers/stores.reducer';
 
-export const shopsSelector = createFeatureSelector<ShopState>('shops');
+export const shopFeaturesSelector = createFeatureSelector<ShopState>('shops');
 
 export const allShops = createSelector(
-  shopsSelector,
-  shops,
+  shopFeaturesSelector,
+  (state: ShopState) => state.shops,
 );
 
 export const allFilters = createSelector(
-  shopsSelector,
-  filters,
+  shopFeaturesSelector,
+  (state: ShopState) => state.filter,
 );

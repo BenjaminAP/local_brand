@@ -1,0 +1,14 @@
+
+span {
+  font-weight: bold;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.content {
+  padding: 16px;
+  height: auto;
+}
