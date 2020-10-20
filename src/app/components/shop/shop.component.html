@@ -1,4 +1,23 @@
-<mat-grid-list cols="3" rowHeight="2:1" style="padding-top: 5em;">
-  <mat-grid-tile style="margin:4em; padding: 4em; border:thick solid #24292e; align-content: center; overflow: hidden" *ngFor="let shop of shops$ | async">{{shop.name}}</mat-grid-tile>
-  <div *ngFor="let filter of filters$ | async">{{filter}}</div>
+<mat-grid-list cols="3" rowHeight="1:1" style="padding-top: 5em;">
+  <mat-grid-tile style="align-content: center;" *ngFor="let shop of shops$ | async">
+    <div class="example-ripple-container mat-elevation-z4"
+         matRipple
+         [matRippleCentered]=false
+         [matRippleDisabled]=false
+         [matRippleUnbounded]=false>
+      <mat-card style="align-content: center">
+        <mat-card-header>
+          <mat-card-title>
+            {{shop.name}}
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="{{shop.image}}">
+        <mat-card-content>
+          <span>Country: </span>{{shop.country}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-grid-tile>
 </mat-grid-list>
+
+

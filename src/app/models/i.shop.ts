@@ -8,4 +8,5 @@ export interface IShop {
   social_media: string;
   country: string;
   email: string;
+  image: string;
 }

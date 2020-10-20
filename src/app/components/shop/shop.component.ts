@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: 'app-shop',

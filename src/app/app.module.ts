@@ -10,6 +10,8 @@ import {StoreModule} from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {shopReducer} from '../app/reducers/stores.reducer';
+import {MatCard, MatCardModule} from "@angular/material/card";
+import {MatRippleModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import {shopReducer} from '../app/reducers/stores.reducer';
     StoreModule.forFeature('shops', shopReducer),
     StoreModule.forRoot(shopReducer),
     BrowserAnimationsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
