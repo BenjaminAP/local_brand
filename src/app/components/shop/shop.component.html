@@ -1,9 +1,9 @@
-<mat-grid-list cols="{{breakpoint}}" rowHeight="2:2" (window:resize)="onResize($event)">
+<mat-grid-list cols="{{breakpoint}}" rowHeight="1:1.5" (window:resize)="onResize($event)">
   <mat-grid-tile *ngFor="let shop of shops$ | async">
 
     <div class="content">
 
-      <mat-card style="flex: auto">
+      <mat-card>
 
         <mat-card-header>
           <mat-card-title>
