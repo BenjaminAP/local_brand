@@ -1,4 +1,4 @@
-<mat-grid-list cols="4" rowHeight="1:1">
+<mat-grid-list cols="{{breakpoint}}" rowHeight="2:2" (window:resize)="onResize($event)">
   <mat-grid-tile *ngFor="let shop of shops$ | async">
 
     <div class="content">

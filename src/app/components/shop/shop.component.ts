@@ -13,15 +13,19 @@ export class ShopComponent implements OnInit {
   shops$: Observable<IShop[]>;
   filters$: Observable<string[]>;
 
+  breakpoint;
+
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
     this.filters$ = this.shopService.allFilters$;
   }
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 900) ? 1 : 4;
+  }
 
-    this.shops$.subscribe(shop => console.log(shop));
-    this.filters$.subscribe(filter => console.log(filter));
+  onResize(event): void {
+    this.breakpoint = (event.target.innerWidth <= 900) ? 1 : 4;
   }
 
 }
