@@ -14,11 +14,13 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShopComponent
+    ShopComponent,
+    FilterBarComponent
   ],
   imports: [
     BrowserModule,

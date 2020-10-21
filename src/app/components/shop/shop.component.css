@@ -3,7 +3,12 @@ span {
   font-weight: bold;
 }
 
-img {
+.shop_image {
+  width: 100%;
+  height: auto;
+}
+
+.insta_img {
   width: 100%;
   height: auto;
 }
@@ -11,4 +16,8 @@ img {
 .content {
   padding: 16px;
   height: auto;
+}
+
+mat-card-content {
+  padding-top: 16px;
 }
