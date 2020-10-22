@@ -13,8 +13,8 @@ export const filteredShops = createSelector(
   shopFeaturesSelector,
 (state : ShopState) => {
 
-      const activeFilters: string[] = [];
-      const filteredShopsList: IShop[] = [];
+      const activeFilters: Array<string> = [];
+      const filteredShopsList = new Set();
 
       state.filters.forEach(f => {
         if (f.active) {
@@ -26,7 +26,7 @@ export const filteredShops = createSelector(
         state.shops.forEach(shop => {
           activeFilters.forEach(filterType => {
             if (filterType === shop.store_type || filterType === shop.attire_type) {
-              filteredShopsList.push(shop);
+              filteredShopsList.add(shop);
             }
           });
         });

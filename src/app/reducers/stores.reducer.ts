@@ -11,9 +11,9 @@ export interface ShopState {
 export const initialState: ShopState = {
   filters: [
     {type: 'Boutique', active: false},
-    {type: 'Brand', active: false},
+    {type: 'Brand', active: true},
     {type: 'Shoes', active: false},
-    {type: 'Beachwear', active: true},
+    {type: 'Beachwear', active: false},
     {type: 'Store', active: false},
     {type: 'Lingerie', active: false},
     {type: 'Jewelry', active: false},
