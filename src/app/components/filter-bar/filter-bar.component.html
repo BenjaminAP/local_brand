@@ -10,11 +10,14 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-chip-list aria-label="Fish selection">
-      <mat-chip
-        color="{{chipColor.get(chip.active)}}"
-        *ngFor="let chip of filterChips$ | async" (click)="toggleFilter(chip)" selected>
-        {{chip.type}}
-      </mat-chip>
+      <div style="padding-top: 16px;">
+        <mat-chip
+          color="{{chipColor.get(chip.active)}}"
+          *ngFor="let chip of filterChips$ | async" (click)="toggleFilter(chip)" selected>
+          {{chip.type}}
+        </mat-chip>
+      </div>
+
     </mat-chip-list>
   </mat-expansion-panel>
 </mat-accordion>

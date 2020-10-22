@@ -12,13 +12,15 @@ import {IFilter} from '../../models/i.filter';
 export class ShopComponent implements OnInit {
 
   shops$: Observable<IShop[]>;
-  filters$: Observable<IFilter[]>;
+  filteredShops$: Observable<IShop[]>;
 
   columns: number;
   rowFormat: string;
 
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
+    this.filteredShops$ = this.shopService.filteredShops$;
+    this.filteredShops$.subscribe(shop => console.log(shop));
   }
 
   ngOnInit(): void {

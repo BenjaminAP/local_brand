@@ -13,10 +13,12 @@ import {IFilter} from '../../models/i.filter';
 export class ShopService {
 
   allShops$: Observable<IShop[]>;
+  filteredShops$: Observable<IShop[]>;
   allFilters$: Observable<IFilter[]>;
 
   constructor(private store: Store<ShopState>) {
     this.allShops$ = this.store.select(ShopSelector.allShops);
+    this.filteredShops$ = this.store.select(ShopSelector.filteredShops);
     this.store.dispatch(new LoadAllShops());
   }
 }

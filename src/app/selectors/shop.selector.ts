@@ -1,29 +1,41 @@
 import {ShopState} from '../reducers/stores.reducer';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {IShop} from "../models/i.shop";
-import {IFilter} from "../models/i.filter";
-import {filter} from "rxjs/operators";
+import {IShop} from '../models/i.shop';
 
 export const shopFeaturesSelector = createFeatureSelector<ShopState>('shops');
 
 export const allShops = createSelector(
   shopFeaturesSelector,
-  (state: ShopState) => {
+  (state: ShopState) => state.shops,
+);
 
-    const filterTypes = state.filters.filter((filter: IFilter) => filter.active)
+export const filteredShops = createSelector(
+  shopFeaturesSelector,
+(state : ShopState) => {
 
-    if (filterTypes.length != 0) {
-      state.shops.map((shop: IShop) => {
-        filterTypes.forEach((filter: IFilter) => {
-          if (shop.store_type === filter.type || shop.attire_type === filter.type) {
-            return shop;
-          }
-        })
+      const activeFilters: string[] = [];
+      const filteredShopsList: IShop[] = [];
+
+      state.filters.forEach(f => {
+        if (f.active) {
+          activeFilters.push(f.type);
+        }
       });
-    }
 
-    return state.shops;
-  }
+      if (activeFilters.length !== 0) {
+        state.shops.forEach(shop => {
+          activeFilters.forEach(filterType => {
+            if (filterType === shop.store_type || filterType === shop.attire_type) {
+              filteredShopsList.push(shop);
+            }
+          });
+        });
+
+        return filteredShopsList;
+      }
+
+      return state.shops;
+  },
 );
 
 export const allFilters = createSelector(

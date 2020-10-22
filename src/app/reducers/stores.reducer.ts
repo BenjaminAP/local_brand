@@ -3,14 +3,14 @@ import {IShop} from '../models/i.shop';
 import {LOAD_SHOPS_COMPLETED, ShopActions, TOGGLE_FILTER} from '../actions/shop.action';
 import {IFilter} from '../models/i.filter';
 
-
 export interface ShopState {
   filters: IFilter[];
   shops: IShop[];
 }
 
 export const initialState: ShopState = {
-  filters: [{type: 'Boutique', active: false},
+  filters: [
+    {type: 'Boutique', active: false},
     {type: 'Brand', active: false},
     {type: 'Shoes', active: false},
     {type: 'Beachwear', active: true},
@@ -18,9 +18,11 @@ export const initialState: ShopState = {
     {type: 'Lingerie', active: false},
     {type: 'Jewelry', active: false},
     {type: 'Designer', active: false},
-    {type: 'Cloth', active: false},
-    {type: 'Swimwear', active: false}],
+    {type: 'Clothing', active: false},
+    {type: 'Swimwear', active: false}
+  ],
   shops: [],
+  // filteredShops: [],
 };
 
 export function shopReducer(state: ShopState = initialState, action: ShopActions): ShopState {
@@ -33,6 +35,7 @@ export function shopReducer(state: ShopState = initialState, action: ShopActions
       };
     }
     case TOGGLE_FILTER: {
+
       const newFilters = state.filters.map((filter: IFilter) => {
         if (filter.type === action.payload) {
           return {
