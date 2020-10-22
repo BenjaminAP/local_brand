@@ -1,28 +1,55 @@
 
 import {IShop} from '../models/i.shop';
-import {LOAD_SHOPS_COMPLETED, ShopActions} from '../actions/shop.action';
+import {LOAD_SHOPS_COMPLETED, ShopActions, TOGGLE_FILTER} from '../actions/shop.action';
+import {IFilter} from '../models/i.filter';
 
 
 export interface ShopState {
-  filter: string[];
+  filters: IFilter[];
   shops: IShop[];
 }
 
 export const initialState: ShopState = {
-  filter: ['All'],
+  filters: [{type: 'Boutique', active: false},
+    {type: 'Brand', active: false},
+    {type: 'Shoes', active: false},
+    {type: 'Beachwear', active: true},
+    {type: 'Store', active: false},
+    {type: 'Lingerie', active: false},
+    {type: 'Jewelry', active: false},
+    {type: 'Designer', active: false},
+    {type: 'Cloth', active: false},
+    {type: 'Swimwear', active: false}],
   shops: [],
 };
 
 export function shopReducer(state: ShopState = initialState, action: ShopActions): ShopState {
 
   switch (action.type) {
-    case LOAD_SHOPS_COMPLETED:
+    case LOAD_SHOPS_COMPLETED: {
       return {
         ...state,
         shops: action.payload
       };
-    default:
+    }
+    case TOGGLE_FILTER: {
+      return {
+        ...state,
+        filters: state.filters.map((filter: IFilter) => {
+          if (filter.type === action.payload) {
+            return {
+              type: filter.type,
+              active: !filter.active
+            };
+          }
+
+          return filter;
+        })
+      };
+    }
+    default: {
       return state;
+    }
   }
 }
 

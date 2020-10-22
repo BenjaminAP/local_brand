@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
+import {IFilter} from '../../models/i.filter';
 
 @Component({
   selector: 'app-shop',
@@ -11,17 +12,18 @@ import {ShopService} from './shop.service';
 export class ShopComponent implements OnInit {
 
   shops$: Observable<IShop[]>;
-  filters$: Observable<string[]>;
+  filters$: Observable<IFilter[]>;
 
   columns: number;
   rowFormat: string;
 
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
-    this.filters$ = this.shopService.allFilters$;
   }
 
   ngOnInit(): void {
+    this.columns = 3;
+    this.rowFormat = '1:1.5';
   }
 
   columnNumber(): number {
@@ -30,7 +32,7 @@ export class ShopComponent implements OnInit {
 
     if (windowWidth <= 414) {
       columnNumber = 1;
-    } else if (windowWidth <= 540)  {
+    } else if (windowWidth <= 800)  {
       columnNumber = 2;
     } else if (windowWidth <= 1024)  {
       columnNumber = 3;
@@ -51,6 +53,7 @@ export class ShopComponent implements OnInit {
       rowFormat = '1:2';
     } else {
       // windowHeight <= 1366
+      // windowHeight > 1024
       rowFormat = '1:1.5';
     }
 

@@ -15,6 +15,8 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
     MatRippleModule,
     MatDividerModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

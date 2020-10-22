@@ -10,5 +10,5 @@ export const allShops = createSelector(
 
 export const allFilters = createSelector(
   shopFeaturesSelector,
-  (state: ShopState) => state.filter,
+  (state: ShopState) => state.filters,
 );
