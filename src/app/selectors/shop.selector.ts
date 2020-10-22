@@ -14,7 +14,7 @@ export const filteredShops = createSelector(
 (state : ShopState) => {
 
       const activeFilters: Array<string> = [];
-      const filteredShopsList = new Set();
+      const filteredShopsList = new Set<IShop>();
 
       state.filters.forEach(f => {
         if (f.active) {

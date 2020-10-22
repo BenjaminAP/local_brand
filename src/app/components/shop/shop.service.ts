@@ -4,7 +4,7 @@ import {IShop} from '../../models/i.shop';
 import {ShopState} from '../../reducers/stores.reducer';
 import {Observable} from 'rxjs';
 import * as ShopSelector from '../../selectors/shop.selector';
-import {LOAD_SHOPS_STARTED, LoadAllShops} from '../../actions/shop.action';
+import {LoadAllShops} from '../../actions/shop.action';
 import {IFilter} from '../../models/i.filter';
 
 @Injectable({
@@ -13,7 +13,7 @@ import {IFilter} from '../../models/i.filter';
 export class ShopService {
 
   allShops$: Observable<IShop[]>;
-  filteredShops$: Observable<IShop[]>;
+  filteredShops$: Observable<Set<IShop> | IShop[]>;
   allFilters$: Observable<IFilter[]>;
 
   constructor(private store: Store<ShopState>) {

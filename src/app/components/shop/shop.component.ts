@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
-import {IFilter} from '../../models/i.filter';
 
 @Component({
   selector: 'app-shop',
@@ -12,7 +11,7 @@ import {IFilter} from '../../models/i.filter';
 export class ShopComponent implements OnInit {
 
   shops$: Observable<IShop[]>;
-  filteredShops$: Observable<IShop[]>;
+  filteredShops$: Observable<IShop[] | Set<IShop>>;
 
   columns: number;
   rowFormat: string;
@@ -20,7 +19,6 @@ export class ShopComponent implements OnInit {
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
     this.filteredShops$ = this.shopService.filteredShops$;
-    this.filteredShops$.subscribe(shop => console.log(shop));
   }
 
   ngOnInit(): void {
