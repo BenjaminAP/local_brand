@@ -22,7 +22,7 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.columns = 3;
+    this.columns = 4;
     this.rowFormat = '1:1.5';
   }
 

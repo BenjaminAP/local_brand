@@ -2,8 +2,6 @@ import {Action} from '@ngrx/store';
 import {IShop} from '../models/i.shop';
 import {IFilter} from '../models/i.filter';
 
-
-
 export const LOAD_SHOPS_STARTED = '[Shops] Load Shops';
 export const LOAD_SHOPS_COMPLETED = '[Shops] Load Shops Successful';
 export const TOGGLE_FILTER = '[Shops] TOGGLE FILTER';

@@ -33,18 +33,20 @@ export function shopReducer(state: ShopState = initialState, action: ShopActions
       };
     }
     case TOGGLE_FILTER: {
+      const newFilters = state.filters.map((filter: IFilter) => {
+        if (filter.type === action.payload) {
+          return {
+            type: filter.type,
+            active: !filter.active
+          };
+        }
+
+        return filter;
+      });
+
       return {
         ...state,
-        filters: state.filters.map((filter: IFilter) => {
-          if (filter.type === action.payload) {
-            return {
-              type: filter.type,
-              active: !filter.active
-            };
-          }
-
-          return filter;
-        })
+        filters: newFilters
       };
     }
     default: {

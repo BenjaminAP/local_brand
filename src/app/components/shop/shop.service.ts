@@ -17,7 +17,6 @@ export class ShopService {
 
   constructor(private store: Store<ShopState>) {
     this.allShops$ = this.store.select(ShopSelector.allShops);
-    this.allFilters$ = this.store.select(ShopSelector.allFilters);
     this.store.dispatch(new LoadAllShops());
   }
 }
