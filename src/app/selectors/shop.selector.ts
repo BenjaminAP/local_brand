@@ -25,7 +25,7 @@ export const filteredShops = createSelector(
       if (activeFilters.length !== 0) {
         state.shops.forEach(shop => {
           activeFilters.forEach(filterType => {
-            if (filterType === shop.store_type || filterType === shop.attire_type) {
+            if (filterType === shop.store_type || shop.attire_type.find((attire: string) => filterType === attire)) {
               filteredShopsList.add(shop);
             }
           });
