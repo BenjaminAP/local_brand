@@ -22,8 +22,8 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.columns = 4;
-    this.rowFormat = '1:1.5';
+    this.columns = this.columnNumber();
+    this.rowFormat = this.rowHeight();
   }
 
   columnNumber(): number {
