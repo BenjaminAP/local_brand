@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {IShop} from '../models/i.shop';
 import {Observable, of} from 'rxjs';
+import {AngularFireDatabase} from '@angular/fire/database';
 
-// import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -10,33 +10,12 @@ import {Observable, of} from 'rxjs';
 export class AppService {
   private shopList: IShop[];
 
-  constructor() {
-    // this.config = {
-    //   apiKey: 'AIzaSyAaVgvtFxivNr2YR06RpakeVq0K8xTbxrQ',
-    //   authDomain: 'localbrands-966b6.firebaseio.com',
-    //   databaseURL: 'https://localbrands-966b6.firebaseio.com',
-    //   storageBucket: 'localbrands-966b6.appspot.com',
-    // };
+  temp: Observable<any>;
 
-    // firebase.initializeApp(this.config);
-    // this.database = firebase.database();
+  constructor(private db: AngularFireDatabase) {
 
-    // this.database.ref('/').once('value').then((snapshot => {
-    //
-    //   snapshot.val().forEach((shop: IShop) => {
-    //     this.shopList.push({
-    //       name: shop.name,
-    //       social_media_type: shop.social_media_type,
-    //       url: shop.url,
-    //       powered_by: shop.powered_by,
-    //       store_type: shop.store_type,
-    //       attire_type: shop.attire_type,
-    //       social_media: shop.social_media,
-    //       country: shop.country,
-    //       email: shop.email
-    //     });
-    //   });
-    // }));
+    // this.temp = db.list('shops').valueChanges();
+    // this.temp.subscribe(shops => console.log(shops));
 
     this.shopList = new Array<IShop>();
     this.shopList.push(

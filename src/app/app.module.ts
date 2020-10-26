@@ -17,6 +17,10 @@ import {MatButtonModule} from '@angular/material/button';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireDatabase, AngularFireDatabaseModule} from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,8 @@ import {MatChipsModule} from '@angular/material/chips';
     FilterBarComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     BrowserModule,
     EffectsModule.forRoot([ShopEffects]),
     StoreModule.forFeature('shops', shopReducer),
