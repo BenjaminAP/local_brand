@@ -514,7 +514,6 @@ class AppComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const provider = new firebase__WEBPACK_IMPORTED_MODULE_2__["auth"].GoogleAuthProvider();
             const credentials = yield this.auth.signInWithPopup(provider);
-            console.log(credentials.user);
         });
     }
     logout() {
