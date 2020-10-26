@@ -7,3 +7,4 @@ export const environment = {
     projectId: 'localbrands-966b6',
     storageBucket: 'localbrands-966b6.appspot.com',
   }
+};
