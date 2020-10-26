@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import * as firebase from 'firebase';
-import {IShop} from './models/i.shop';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {auth} from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,15 @@ export class AppComponent {
 
   title = 'Local Brands';
 
-  constructor() {
+  constructor(public auth: AngularFireAuth) {
 
+  }
+  login(): void {
+    this.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    this.auth.getRedirectResult().then(result => console.log(result.user));
+  }
+  logout(): void {
+    this.auth.signOut();
   }
 
 }

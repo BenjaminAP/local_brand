@@ -19,8 +19,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireDatabase, AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import {AngularFireDatabase, AngularFireDatabaseModule} from '@angular/fire/data
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     BrowserModule,
     EffectsModule.forRoot([ShopEffects]),
     StoreModule.forFeature('shops', shopReducer),
