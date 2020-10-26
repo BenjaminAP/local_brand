@@ -30,16 +30,19 @@ export class ShopComponent implements OnInit {
     let columnNumber: number;
     const windowWidth = window.innerWidth;
 
-    if (windowWidth <= 414) {
+    if (windowWidth <= 525) {
       columnNumber = 1;
     } else if (windowWidth <= 800)  {
       columnNumber = 2;
-    } else if (windowWidth <= 1024)  {
+    } else if (windowWidth <= 1320)  {
       columnNumber = 3;
+    }else if (windowWidth <= 2560)  {
+      columnNumber = 5;
     } else {
       columnNumber = 4;
     }
 
+    console.log('width: ', windowWidth);
     return columnNumber;
 }
 
@@ -57,6 +60,7 @@ export class ShopComponent implements OnInit {
       rowFormat = '1:1.5';
     }
 
+    console.log('height: ', windowHeight);
     return rowFormat;
   }
 

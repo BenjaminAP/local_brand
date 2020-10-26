@@ -14,7 +14,7 @@ export class AppService {
 
   constructor(private db: AngularFireDatabase) {
 
-    // this.temp = db.list('shops').valueChanges();
+    this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
 
     this.shopList = new Array<IShop>();
@@ -231,6 +231,7 @@ export class AppService {
   }
 
   public loadShops(): Observable<IShop[]> {
-    return of(this.shopList);
+    // return of(this.shopList);
+    return this.temp;
   }
 }
