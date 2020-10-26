@@ -1,10 +1,14 @@
 //Install express server
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 
 const app = express();
 
 // Serve only the static files form the dist directory
+app.use(helmet.frameguard({
+  action: 'SAMEORIGIN',
+}));
 app.use(express.static('./dist/local-brands'));
 
 app.get('/*', function(req,res) {

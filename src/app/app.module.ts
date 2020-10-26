@@ -21,6 +21,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     BrowserModule,
     EffectsModule.forRoot([ShopEffects]),
     StoreModule.forFeature('shops', shopReducer),
