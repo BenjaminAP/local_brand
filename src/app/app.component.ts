@@ -18,7 +18,6 @@ export class AppComponent {
   async login(): Promise<any> {
     const provider = new auth.GoogleAuthProvider();
     const credentials = await this.auth.signInWithPopup(provider);
-    console.log(credentials.user);
   }
   logout(): void {
     this.auth.signOut();
