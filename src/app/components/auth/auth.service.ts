@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {InitiateLogin} from "../../actions/auth.action";
+// @ts-ignore
+import {AuthState} from "../../reducers/auth.reducer";
+import {Observable} from "rxjs";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  authDetails$: Observable<any>;
+
+  constructor(private store: Store<AuthState>) {
+    this.store.dispatch(new InitiateLogin());
+    this.authDetails$ = this.store.select(AuthSelector.authDetails$)
+  }
+}

@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
-import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +11,8 @@ export class AppComponent {
 
   title = 'Local Brands';
 
-  constructor(public auth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor() {
 
-  }
-  async login(): Promise<any> {
-    const provider = new auth.GoogleAuthProvider();
-    const credentials = await this.auth.signInWithPopup(provider);
-  }
-  logout(): void {
-    this.auth.signOut();
   }
 
 }

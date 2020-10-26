@@ -2,19 +2,22 @@ import { Injectable } from '@angular/core';
 import {IShop} from '../models/i.shop';
 import {Observable, of} from 'rxjs';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {AngularFireAuth} from "@angular/fire/auth";
+import {auth} from "firebase";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  private shopList: IShop[];
+  private readonly shopList: IShop[];
+  private provider = new auth.GoogleAuthProvider();
 
   temp: Observable<any>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
 
-    this.temp = db.list('shops').valueChanges();
+    // this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
 
     this.shopList = new Array<IShop>();
@@ -231,7 +234,15 @@ export class AppService {
   }
 
   public loadShops(): Observable<IShop[]> {
-    // return of(this.shopList);
-    return this.temp;
+    return of(this.shopList);
+    // return this.temp;
+  }
+
+  async login(): Promise<firebase.auth.UserCredential> {
+    return await this.afAuth.signInWithPopup(this.provider);
+  }
+
+  logout(): void {
+    this.afAuth.signOut();
   }
 }

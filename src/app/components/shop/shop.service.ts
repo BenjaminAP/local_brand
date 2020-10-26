@@ -14,7 +14,6 @@ export class ShopService {
 
   allShops$: Observable<IShop[]>;
   filteredShops$: Observable<Set<IShop> | IShop[]>;
-  allFilters$: Observable<IFilter[]>;
 
   constructor(private store: Store<ShopState>) {
     this.allShops$ = this.store.select(ShopSelector.allShops);

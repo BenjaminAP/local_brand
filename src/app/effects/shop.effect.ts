@@ -8,6 +8,9 @@ import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from '../actions/shop.action';
 @Injectable()
 export class ShopEffects {
 
+  constructor(private actions$: Actions, private appService: AppService) {
+  }
+
   @Effect()
   public loadAllShops$ = this.actions$.pipe(
     ofType(LOAD_SHOPS_STARTED),
@@ -16,9 +19,9 @@ export class ShopEffects {
           map(shops => new LoadShopsCompleted(shops)),
           catchError(() => EMPTY));
       }
-    ));
+    )
+  );
 
-  constructor(private actions$: Actions, private appService: AppService) {
-  }
+
 }
 

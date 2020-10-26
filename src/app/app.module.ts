@@ -22,12 +22,15 @@ import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { AuthComponent } from './components/auth/auth.component';
+import {AuthEffect} from "./effects/auth.effect";
 
 @NgModule({
   declarations: [
     AppComponent,
     ShopComponent,
-    FilterBarComponent
+    FilterBarComponent,
+    AuthComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -35,7 +38,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserModule,
-    EffectsModule.forRoot([ShopEffects]),
+    EffectsModule.forRoot([ShopEffects, AuthEffect]),
     StoreModule.forFeature('shops', shopReducer),
     StoreModule.forRoot(shopReducer),
     BrowserAnimationsModule,

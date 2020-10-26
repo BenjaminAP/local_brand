@@ -22,7 +22,6 @@ export const initialState: ShopState = {
     {type: 'Swimwear', active: false}
   ],
   shops: [],
-  // filteredShops: [],
 };
 
 export function shopReducer(state: ShopState = initialState, action: ShopActions): ShopState {
