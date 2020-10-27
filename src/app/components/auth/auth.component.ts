@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "./auth.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-auth',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  authDetails$: Observable<any>;
+  constructor(private authService: AuthService) {
+    this.authDetails$ = this.authService.authDetails$;
+    this.authDetails$.subscribe(details => console.log(details));
+  }
 
   ngOnInit(): void {
   }

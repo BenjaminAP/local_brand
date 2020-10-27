@@ -238,8 +238,8 @@ export class AppService {
     // return this.temp;
   }
 
-  async login(): Promise<firebase.auth.UserCredential> {
-    return await this.afAuth.signInWithPopup(this.provider);
+  login(): any {
+    return this.afAuth.signInWithPopup(this.provider);
   }
 
   logout(): void {

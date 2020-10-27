@@ -14,15 +14,15 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
 
   switch (action.type) {
 
-    case LOGIN_COMPLETED: {
-      console.log(action.payload);
+    case LOGIN_COMPLETED:
       return {
         ...state,
         auth: action.payload
-      };
-    }
-    default: {
+      }
+
+    default:
       return state;
-    }
+
   }
 }
+

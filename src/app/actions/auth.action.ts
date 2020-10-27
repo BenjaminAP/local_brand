@@ -6,6 +6,7 @@ export const LOGIN_COMPLETED = '[Auth] Login Completed';
 
 export class InitiateLogin implements Action {
   public readonly type = INITIATE_LOGIN;
+
 }
 
 export class LoginCompleted implements Action {
