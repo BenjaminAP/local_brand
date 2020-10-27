@@ -24,6 +24,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AuthComponent } from './components/auth/auth.component';
 import {authReducer} from "./reducers/auth.reducer";
+import {AuthEffect} from "./effects/auth.effect";
 
 @NgModule({
   declarations: [
@@ -38,8 +39,9 @@ import {authReducer} from "./reducers/auth.reducer";
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserModule,
-    EffectsModule.forRoot([ShopEffects  ]),
+    EffectsModule.forRoot([ShopEffects, AuthEffect]),
     StoreModule.forFeature('shops', shopReducer),
+    StoreModule.forFeature('auth', authReducer),
     StoreModule.forRoot({'shop': shopReducer, 'auth': authReducer}),
     BrowserAnimationsModule,
     MatGridListModule,

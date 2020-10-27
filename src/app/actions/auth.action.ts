@@ -11,9 +11,7 @@ export class InitiateLogin implements Action {
 export class LoginCompleted implements Action {
   public readonly type = LOGIN_COMPLETED;
 
-  constructor(public payload: any) {
-
-  }
+  constructor(public payload: any) {}
 }
 
 export type AuthActions =

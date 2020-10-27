@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Actions, Effect, ofType} from "@ngrx/effects";
 import {AppService} from "../service/app.service";
-import {INITIATE_LOGIN, InitiateLogin, LoginCompleted} from "../actions/auth.action";
-import {catchError, map, switchMap} from "rxjs/operators";
-import {ERROR} from "@angular/compiler-cli/src/ngtsc/logging/src/console_logger";
+import {INITIATE_LOGIN, LoginCompleted} from "../actions/auth.action";
+import {catchError, switchMap} from "rxjs/operators";
+import {EMPTY} from "rxjs";
 
 @Injectable()
 export class AuthEffect {
@@ -17,7 +17,7 @@ export class AuthEffect {
     switchMap(() => {
       return this.appService.login().then(
           r => new LoginCompleted(r),
-          catchError(() => ERROR));
+          catchError(() => EMPTY));
       }
     )
   );
