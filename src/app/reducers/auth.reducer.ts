@@ -10,7 +10,7 @@ export const initialState: AuthState = {
   uid: undefined,
 }
 
-export function authReducer(state: AuthState = initialState, action: AuthActions) {
+export function authReducer(state: AuthState = initialState, action: AuthActions): AuthState {
 
   switch (action.type) {
 
@@ -21,6 +21,8 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
         auth: action.payload
       };
     }
-
+    default: {
+      return state;
+    }
   }
 }

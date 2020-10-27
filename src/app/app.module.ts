@@ -23,7 +23,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AuthComponent } from './components/auth/auth.component';
-import {AuthEffect} from "./effects/auth.effect";
+import {authReducer} from "./reducers/auth.reducer";
 
 @NgModule({
   declarations: [
@@ -38,9 +38,9 @@ import {AuthEffect} from "./effects/auth.effect";
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserModule,
-    EffectsModule.forRoot([ShopEffects, AuthEffect]),
+    EffectsModule.forRoot([ShopEffects  ]),
     StoreModule.forFeature('shops', shopReducer),
-    StoreModule.forRoot(shopReducer),
+    StoreModule.forRoot({'shop': shopReducer, 'auth': authReducer}),
     BrowserAnimationsModule,
     MatGridListModule,
     MatCardModule,

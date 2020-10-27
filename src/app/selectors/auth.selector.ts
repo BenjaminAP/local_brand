@@ -1,5 +1,4 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
-// @ts-ignore
 import {AuthState} from "../reducers/auth.reducer";
 
 export const authFeaturesSelector = createFeatureSelector<AuthState>('auth');
