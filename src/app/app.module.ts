@@ -4,12 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ShopComponent } from './components/shop/shop.component';
 import {EffectsModule} from '@ngrx/effects';
-import { ShopEffects} from './effects/shop.effect';
+import { ShopEffects} from './store/shops';
 import {StoreModule} from '@ngrx/store';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {shopReducer} from './reducers/stores.reducer';
 import {MatCardModule} from '@angular/material/card';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
@@ -23,8 +22,8 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AuthComponent } from './components/auth/auth.component';
-import {authReducer} from "./reducers/auth.reducer";
-import {AuthEffect} from "./effects/auth.effect";
+import {AuthEffect} from './store/auth';
+import * as fromStore from './store';
 
 @NgModule({
   declarations: [
@@ -40,9 +39,7 @@ import {AuthEffect} from "./effects/auth.effect";
     AngularFirestoreModule,
     BrowserModule,
     EffectsModule.forRoot([ShopEffects, AuthEffect]),
-    StoreModule.forFeature('shops', shopReducer),
-    StoreModule.forFeature('auth', authReducer),
-    StoreModule.forRoot({'shop': shopReducer, 'auth': authReducer}),
+    StoreModule.forRoot(fromStore.reducers),
     BrowserAnimationsModule,
     MatGridListModule,
     MatCardModule,

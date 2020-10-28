@@ -42,7 +42,7 @@ export class ShopComponent implements OnInit {
       columnNumber = 4;
     }
 
-    console.log('width: ', windowWidth);
+    // console.log('width: ', windowWidth);
     return columnNumber;
 }
 
@@ -60,7 +60,7 @@ export class ShopComponent implements OnInit {
       rowFormat = '1:1.5';
     }
 
-    console.log('height: ', windowHeight);
+    // console.log('height: ', windowHeight);
     return rowFormat;
   }
 
