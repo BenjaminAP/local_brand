@@ -11,12 +11,13 @@ import {auth} from "firebase";
 })
 export class AppService {
   private readonly shopList: IShop[];
-  private provider = new auth.GoogleAuthProvider();
+  private provider: firebase.auth.GoogleAuthProvider;
 
   temp: Observable<any>;
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
 
+    this.provider = new auth.GoogleAuthProvider();
     // this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
 
@@ -238,7 +239,7 @@ export class AppService {
     // return this.temp;
   }
 
-  login(): any {
+  login(): ReturnType<firebase.auth.Auth["signInWithPopup"]> {
     return this.afAuth.signInWithPopup(this.provider);
   }
 

@@ -13,7 +13,6 @@ export class AuthService {
   authDetails$: Observable<any>;
 
   constructor(private store: Store<AuthState>) {
-    this.store.dispatch(new InitiateLogin());
     this.authDetails$ = this.store.select(authDetails);
   }
 }
