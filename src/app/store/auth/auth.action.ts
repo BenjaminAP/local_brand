@@ -1,4 +1,5 @@
 import {Action} from '@ngrx/store';
+import * as firebase from 'firebase';
 
 
 export const INITIATE_LOGIN = '[Auth] Initiate Login';
@@ -12,7 +13,7 @@ export class InitiateLogin implements Action {
 export class LoginCompleted implements Action {
   public readonly type = LOGIN_COMPLETED;
 
-  constructor(public payload: any) {}
+  constructor(public payload: firebase.auth.AdditionalUserInfo) {}
 }
 
 export type AuthActions =

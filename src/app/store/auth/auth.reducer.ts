@@ -1,7 +1,8 @@
 import {AuthActions, LOGIN_COMPLETED} from './auth.action';
+import * as firebase from 'firebase';
 
 export interface IAuthState {
-  auth: any | undefined;
+  auth: firebase.auth.AdditionalUserInfo| any;
 }
 
 export const initialState: IAuthState = {
@@ -13,7 +14,6 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
   switch (action.type) {
 
     case LOGIN_COMPLETED:
-      console.log('reducer', action.payload);
       return {
         ...state,
         auth: action.payload

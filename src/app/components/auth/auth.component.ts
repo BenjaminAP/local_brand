@@ -3,6 +3,7 @@ import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 import {InitiateLogin} from '../../store/auth';
 import {Store} from '@ngrx/store';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-auth',
@@ -11,11 +12,12 @@ import {Store} from '@ngrx/store';
 })
 export class AuthComponent implements OnInit {
 
-  authDetails$: Observable<any>;
-  constructor(private authService: AuthService, private store: Store) {
-    this.store.dispatch(new InitiateLogin());
+  authDetails$: Observable<firebase.auth.AdditionalUserInfo>;
+
+  constructor(private authService: AuthService) {
+    this.authService.initiateLogin();
     this.authDetails$ = this.authService.authDetails$;
-    this.authDetails$.subscribe(details => console.log('auth details', details));
+    this.authDetails$.subscribe((details: firebase.auth.AdditionalUserInfo) => console.log('auth details', details));
   }
 
   ngOnInit(): void {

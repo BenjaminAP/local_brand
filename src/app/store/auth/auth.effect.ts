@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {INITIATE_LOGIN, LoginCompleted} from './auth.action';
+import {AuthActions, INITIATE_LOGIN, LoginCompleted} from './auth.action';
 import {catchError, exhaustMap, map} from 'rxjs/operators';
 import { EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -14,12 +14,11 @@ export class AuthEffect {
   }
 
   @Effect()
-  public initLogIn$ = this.actions$.pipe(
+  public initLogIn$: Observable<AuthActions> = this.actions$.pipe(
     ofType(INITIATE_LOGIN),
     exhaustMap(() => {
       return from(this.popupLogin()).pipe(
         map((userCredentials: firebase.auth.UserCredential) => {
-          console.log(userCredentials);
           return new LoginCompleted(userCredentials.additionalUserInfo);
         }),
         catchError(() => EMPTY));
