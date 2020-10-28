@@ -19,6 +19,7 @@ export class AuthEffect {
     exhaustMap(() => {
       return from(this.popupLogin()).pipe(
         map((userCredentials: firebase.auth.UserCredential) => {
+          console.log(userCredentials);
           return new LoginCompleted(userCredentials.additionalUserInfo);
         }),
         catchError(() => EMPTY));
