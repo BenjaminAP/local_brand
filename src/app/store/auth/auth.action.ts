@@ -1,10 +1,10 @@
 import {Action} from '@ngrx/store';
-import * as firebase from 'firebase';
-import {IAuthState} from "./auth.reducer";
+import {IAuthState} from './auth.reducer';
 
 
 export const INITIATE_LOGIN = '[Auth] Initiate Login';
 export const LOGIN_COMPLETED = '[Auth] Login Completed';
+export const LOGOUT = '[Auth] Logout';
 
 export class InitiateLogin implements Action {
   public readonly type = INITIATE_LOGIN;
@@ -17,6 +17,11 @@ export class LoginCompleted implements Action {
   constructor(public payload: IAuthState) {}
 }
 
+export class Logout implements Action {
+  public readonly type = LOGOUT;
+}
+
 export type AuthActions =
   InitiateLogin
-| LoginCompleted;
+| LoginCompleted
+| Logout;

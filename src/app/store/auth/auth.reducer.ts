@@ -1,7 +1,6 @@
-import {AuthActions, LOGIN_COMPLETED} from './auth.action';
-import * as firebase from 'firebase';
-import {IUser} from "../../models/i.user";
-import {IAuth} from "../../models/i.auth";
+import {AuthActions, LOGIN_COMPLETED, LOGOUT} from './auth.action';
+import {IUser} from '../../models/i.user';
+import {IAuth} from '../../models/i.auth';
 
 export interface IAuthState {
   user: IUser;
@@ -22,6 +21,13 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
         ...state,
         user: action.payload.user,
         authDetails: action.payload.authDetails,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: undefined,
+        authDetails: undefined,
       };
 
     default:
