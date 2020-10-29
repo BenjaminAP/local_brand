@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
@@ -50,7 +50,7 @@ export class ShopComponent implements OnInit {
     let rowFormat: string;
     const windowHeight = window.innerHeight;
 
-    if (windowHeight <= 823) {
+    if (windowHeight <= 825) {
       rowFormat = '1:1.5';
     } else if (windowHeight <= 1024) {
       rowFormat = '1:2';
@@ -64,6 +64,7 @@ export class ShopComponent implements OnInit {
     return rowFormat;
   }
 
+  @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.columns = this.columnNumber();
     this.rowFormat = this.rowHeight();

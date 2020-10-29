@@ -64,7 +64,7 @@ import {RouterModule} from '@angular/router';
     MatSelectModule,
     MatToolbarModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

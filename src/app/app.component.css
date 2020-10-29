@@ -297,3 +297,8 @@ svg#clouds {
   right: 0;
 }
 
+.app-content {
+  overflow-y: auto;
+  min-height: 92%;
+}
+

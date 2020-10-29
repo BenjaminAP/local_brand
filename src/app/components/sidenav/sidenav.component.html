@@ -2,22 +2,15 @@
 
 
 <mat-drawer-container class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer opened="{{sideNavPosition}}" mode="over">I'm a drawer</mat-drawer>
-  <mat-drawer-content>
-<!--    <mat-form-field>-->
-<!--      <mat-label>Has backdrop</mat-label>-->
-<!--      <mat-select #hasBackdrop>-->
-<!--        <mat-option>Unset</mat-option>-->
-<!--        <mat-option [value]="true">True</mat-option>-->
-<!--        <mat-option [value]="false">False</mat-option>-->
-<!--      </mat-select>-->
-<!--    </mat-form-field>-->
-<!--    <button mat-raised-button >Toggle drawer</button>-->
-      <div style="padding-right: 16px; padding-left: 16px; padding-top: 1em">
-        <!--    <app-auth></app-auth>-->
-        <app-filter-bar></app-filter-bar>
-      </div>
+  <mat-drawer opened="{{sideNavPosition}}" mode="over">
+    <div class="filter-container">
+      <!--    <app-auth></app-auth>-->
+      <app-filter-bar></app-filter-bar>
+    </div>
+  </mat-drawer>
 
+  <mat-drawer-content>
       <app-shop></app-shop>
   </mat-drawer-content>
+
 </mat-drawer-container>

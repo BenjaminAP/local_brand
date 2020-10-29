@@ -1,4 +1,5 @@
-<mat-grid-list cols="{{columns}}" rowHeight="{{rowFormat}}" (window:resize)="onResize()">
+
+<mat-grid-list cols="{{columns}}" rowHeight="{{rowFormat}}">
   <mat-grid-tile *ngFor="let shop of filteredShops$ | async">
 
     <div class="content">
