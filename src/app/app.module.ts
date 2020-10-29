@@ -25,9 +25,13 @@ import { AuthComponent } from './components/auth/auth.component';
 import {AuthEffect} from './store/auth';
 import * as fromStore from './store';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import {MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
+import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import {MatSelectModule} from "@angular/material/select";
     ShopComponent,
     FilterBarComponent,
     AuthComponent,
-    SidenavComponent
+    SidenavComponent,
+    HeaderToolbarComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -56,7 +61,10 @@ import {MatSelectModule} from "@angular/material/select";
     MatSidenavModule,
     MatFormFieldModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatToolbarModule,
+    MatIconModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

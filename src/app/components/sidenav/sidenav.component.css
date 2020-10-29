@@ -1,9 +1,13 @@
-/*.example-container {*/
-/*  width: 400px;*/
-/*  height: 200px;*/
-/*  margin: 12px;*/
-/*  border: 1px solid #555;*/
-/*}*/
+.example-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
 
 /*mat-drawer-content {*/
 /*  padding: 12px;*/
