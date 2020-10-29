@@ -2,7 +2,7 @@
 
 
 <mat-drawer-container class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer opened="{{sideNavPosition}}" mode="over">
+  <mat-drawer opened="{{sideNavPosition}}" mode="{{sideBarMode()}}">
     <div class="filter-container">
       <!--    <app-auth></app-auth>-->
       <app-filter-bar></app-filter-bar>

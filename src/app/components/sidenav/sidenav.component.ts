@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sidenav',
@@ -15,4 +15,13 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener('window:resize', ['$event'])
+  sideBarMode(): string {
+
+    if (window.innerWidth <= 1024) {
+      return 'over';
+    }
+
+    return 'side';
+  }
 }
