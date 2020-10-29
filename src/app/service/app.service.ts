@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {IShop} from '../models/i.shop';
 import { Observable, of} from 'rxjs';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {Store} from '@ngrx/store';
+import {authDetails, IAuthState, InitiateLogin} from '../store/auth';
 
 
 @Injectable({
@@ -9,10 +11,11 @@ import {AngularFireDatabase} from '@angular/fire/database';
 })
 export class AppService {
   private readonly shopList: IShop[];
-
+  private readonly authDetails$: Observable<IAuthState>;
   temp: Observable<any>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private store: Store<IAuthState>) {
+    this.authDetails$ = this.store.select(authDetails);
     // this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
 
@@ -232,5 +235,13 @@ export class AppService {
   public loadShops(): Observable<IShop[]> {
     return of(this.shopList.sort( () => .5 - Math.random() ));
     // return this.temp;
+  }
+
+  public initiateLogin(): void {
+    this.store.dispatch(new InitiateLogin());
+  }
+
+  public getAuthDetails(): Observable<IAuthState> {
+    return this.authDetails$;
   }
 }

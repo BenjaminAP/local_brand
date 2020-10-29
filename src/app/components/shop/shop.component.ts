@@ -14,7 +14,6 @@ export class ShopComponent implements OnInit {
   filteredShops$: Observable<IShop[] | Set<IShop>>;
 
   columns: number;
-  rowFormat: string;
 
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
@@ -23,7 +22,6 @@ export class ShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.columns = this.columnNumber();
-    this.rowFormat = this.rowHeight();
   }
 
   columnNumber(): number {
@@ -42,32 +40,12 @@ export class ShopComponent implements OnInit {
       columnNumber = 4;
     }
 
-    // console.log('width: ', windowWidth);
     return columnNumber;
 }
-
-  rowHeight(): string {
-    let rowFormat: string;
-    const windowHeight = window.innerHeight;
-
-    if (windowHeight <= 747) {
-      rowFormat = '1:1.5';
-    } else if (windowHeight <= 1024) {
-      rowFormat = '1:2';
-    } else {
-      // windowHeight <= 1366
-      // windowHeight > 1024
-      rowFormat = '1:1.5';
-    }
-
-    // console.log('height: ', windowHeight);
-    return rowFormat;
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.columns = this.columnNumber();
-    this.rowFormat = this.rowHeight();
   }
 
 }

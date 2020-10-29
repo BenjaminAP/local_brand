@@ -13,10 +13,22 @@ export interface DialogData {
 })
 export class HeaderToolbarComponent implements OnInit {
 
+  private readonly USER_DIALOG_CONFIG: any;
+
   @Output()
   toggleSideNavEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+    this.USER_DIALOG_CONFIG = {
+      data: {
+        animal: 'panda'
+      },
+      position: {
+        top: '5em',
+        right: '2em'
+      }
+    };
+  }
 
   ngOnInit(): void {
   }
@@ -26,15 +38,7 @@ export class HeaderToolbarComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(UserProfileDialogComponent, {
-      data: {
-        animal: 'panda'
-      },
-      position: {
-        top: '5em',
-        right: '2em'
-      }
-    });
+    this.dialog.open(UserProfileDialogComponent, this.USER_DIALOG_CONFIG);
   }
 
 }
