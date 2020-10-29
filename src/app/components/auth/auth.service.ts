@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 })
 export class AuthService {
 
-  authDetails$: Observable<firebase.auth.AdditionalUserInfo>;
+  authDetails$: Observable<IAuthState>;
 
   constructor(private store: Store<IAuthState>) {
     this.authDetails$ = this.store.select(authDetails);
