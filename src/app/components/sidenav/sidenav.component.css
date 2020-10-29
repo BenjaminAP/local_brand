@@ -1,4 +1,4 @@
-.example-container {
+.drawer-container {
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
 }
+
 
 /*mat-drawer-content {*/
 /*  padding: 12px;*/

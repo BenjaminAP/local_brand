@@ -1,9 +1,10 @@
 
 <div class="app">
-  <app-header-toolbar></app-header-toolbar>
+
+  <app-header-toolbar (toggleSideNavEvent)="receiveSideNavEvent()"></app-header-toolbar>
 
   <div style="overflow-y: auto">
-    <app-sidenav></app-sidenav>
+    <app-sidenav [sideNavPosition]="sideNavPosition"></app-sidenav>
   </div>
 </div>
 

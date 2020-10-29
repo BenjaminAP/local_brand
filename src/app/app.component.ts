@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,14 @@ export class AppComponent {
 
   title = 'Local Brands';
 
+  @Input()
+  sideNavPosition = false;
+
   constructor() {
 
+  }
+  receiveSideNavEvent(): void {
+    this.sideNavPosition = !this.sideNavPosition;
   }
 
 }
