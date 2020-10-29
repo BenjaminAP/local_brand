@@ -1,0 +1,17 @@
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {DialogData} from '../header-toolbar/header-toolbar.component';
+
+@Component({
+  selector: 'app-user-profile-dialog',
+  templateUrl: './user-profile-dialog.component.html',
+  styleUrls: ['./user-profile-dialog.component.css']
+})
+export class UserProfileDialogComponent implements OnInit {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  ngOnInit(): void {
+  }
+
+}

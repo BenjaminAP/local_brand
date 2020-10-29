@@ -32,6 +32,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
 import {RouterModule} from '@angular/router';
+import { UserProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {RouterModule} from '@angular/router';
     FilterBarComponent,
     AuthComponent,
     SidenavComponent,
-    HeaderToolbarComponent
+    HeaderToolbarComponent,
+    UserProfileDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -64,6 +67,7 @@ import {RouterModule} from '@angular/router';
     MatSelectModule,
     MatToolbarModule,
     MatIconModule,
+    MatDialogModule,
     RouterModule,
   ],
   providers: [],

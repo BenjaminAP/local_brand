@@ -1,0 +1,13 @@
+.dialog-content {
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 0;*/
+}
+
+:host /deep/ .mat-dialog-container {
+  max-width: 80vw;
+  pointer-events: auto;
+  position: absolute;
+  top: 5em;
+  right: 2em;
+}

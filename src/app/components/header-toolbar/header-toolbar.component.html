@@ -1,13 +1,17 @@
 <mat-toolbar class="header-bar" color="primary" role="heading">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button aria-label="Menu">
       <mat-icon (click)="toggleSideNav()">menu</mat-icon>
     </button>
     <span>Local Brands</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="openDialog()">
+      <mat-icon>
+        <span class="material-icons">
+          account_circle
+        </span>
+      </mat-icon>
     </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-icon-button aria-label="Example icon-button with share icon">
       <mat-icon>share</mat-icon>
     </button>
 </mat-toolbar>

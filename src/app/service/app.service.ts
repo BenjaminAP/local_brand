@@ -230,7 +230,7 @@ export class AppService {
   }
 
   public loadShops(): Observable<IShop[]> {
-    return of(this.shopList);
+    return of(this.shopList.sort( () => .5 - Math.random() ));
     // return this.temp;
   }
 }

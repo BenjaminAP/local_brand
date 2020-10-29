@@ -50,9 +50,9 @@ export class ShopComponent implements OnInit {
     let rowFormat: string;
     const windowHeight = window.innerHeight;
 
-    if (windowHeight <= 825) {
+    if (windowHeight <= 747) {
       rowFormat = '1:1.5';
-    } else if (windowHeight <= 1024) {
+    } else if (windowHeight >= 1024) {
       rowFormat = '1:2';
     } else {
       // windowHeight <= 1366
