@@ -52,7 +52,7 @@ export class ShopComponent implements OnInit {
 
     if (windowHeight <= 747) {
       rowFormat = '1:1.5';
-    } else if (windowHeight >= 1024) {
+    } else if (windowHeight <= 1024) {
       rowFormat = '1:2';
     } else {
       // windowHeight <= 1366

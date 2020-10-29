@@ -18,7 +18,7 @@ export class SidenavComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   sideBarMode(): string {
 
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 1128) {
       return 'over';
     }
 
