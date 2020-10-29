@@ -10,7 +10,7 @@ import {StoreModule} from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
-import {MatRippleModule} from '@angular/material/core';
+import {MatOptionModule, MatRippleModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
@@ -24,13 +24,18 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AuthComponent } from './components/auth/auth.component';
 import {AuthEffect} from './store/auth';
 import * as fromStore from './store';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import {MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
     ShopComponent,
     FilterBarComponent,
-    AuthComponent
+    AuthComponent,
+    SidenavComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -48,6 +53,10 @@ import * as fromStore from './store';
     MatButtonModule,
     MatExpansionModule,
     MatChipsModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
