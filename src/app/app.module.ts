@@ -33,6 +33,7 @@ import { HeaderToolbarComponent } from './components/header-toolbar/header-toolb
 import {RouterModule} from '@angular/router';
 import { UserProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    CommonModule,
     BrowserModule,
     EffectsModule.forRoot([ShopEffects, AuthEffect]),
     StoreModule.forRoot(fromStore.reducers),

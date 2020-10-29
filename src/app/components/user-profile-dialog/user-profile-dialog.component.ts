@@ -14,10 +14,7 @@ export class UserProfileDialogComponent implements OnInit {
 
   userDetails$: Observable<IUser>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private dialogService: DialogService) {
-    // this.userDetails$ = this.dialogService.userData$;
-    // this.userDetails$.subscribe((user: IUser) => console.log(user));
-  }
+  constructor(private dialogService: DialogService) {}
 
   ngOnInit(): void {
   }
@@ -25,7 +22,6 @@ export class UserProfileDialogComponent implements OnInit {
   login(): void {
     this.dialogService.login();
     this.userDetails$ = this.dialogService.userData$;
-    this.userDetails$.subscribe((user: IUser) => console.log(user));
   }
 
   logout(): void {

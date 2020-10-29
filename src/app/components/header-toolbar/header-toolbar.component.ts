@@ -1,6 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {UserProfileDialogComponent} from '../user-profile-dialog/user-profile-dialog.component';
+import {HeaderToolbarService} from "./header-toolbar.service";
+import {Observable} from "rxjs";
+import {IUser} from "../../models/i.user";
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -18,11 +21,13 @@ export class HeaderToolbarComponent implements OnInit {
   @Output()
   toggleSideNavEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(public dialog: MatDialog) {
+  userDetails$: Observable<IUser>;
+
+  constructor(public dialog: MatDialog, private headerService: HeaderToolbarService) {
+
+    this.userDetails$ = this.headerService.userProfile$;
+
     this.USER_DIALOG_CONFIG = {
-      data: {
-        animal: 'panda'
-      },
       position: {
         top: '5em',
         right: '2em'
