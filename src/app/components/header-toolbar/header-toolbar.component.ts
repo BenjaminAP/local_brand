@@ -36,6 +36,7 @@ export class HeaderToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDetails$.subscribe(user => console.log(user));
   }
 
   toggleSideNav(): void {

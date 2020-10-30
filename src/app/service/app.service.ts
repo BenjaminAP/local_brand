@@ -3,7 +3,13 @@ import {IShop} from '../models/i.shop';
 import { Observable, of} from 'rxjs';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
-import {authDetails, IAuthState, InitiateLogin, Logout} from '../store/auth';
+import {
+  authDetails,
+  CheckForUserLogin,
+  IAuthState,
+  InitiateLogin,
+  Logout,
+} from '../store/auth';
 
 
 @Injectable({
@@ -243,6 +249,10 @@ export class AppService {
 
   public logout(): void {
     this.store.dispatch(new Logout());
+  }
+
+  public checkForLoginUser() {
+    this.store.dispatch(new CheckForUserLogin())
   }
 
 }

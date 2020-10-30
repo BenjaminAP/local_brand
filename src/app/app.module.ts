@@ -48,7 +48,7 @@ import {CommonModule} from "@angular/common";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     CommonModule,
     BrowserModule,
     EffectsModule.forRoot([ShopEffects, AuthEffect]),

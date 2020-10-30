@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthActions, INITIATE_LOGIN, LoginCompleted} from './auth.action';
+import {AuthActions, CHECK_USER_LOGIN, INITIATE_LOGIN, LoginCompleted} from './auth.action';
 import {catchError, exhaustMap, map} from 'rxjs/operators';
 import { EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -51,9 +51,52 @@ export class AuthEffect {
     )
   );
 
+  @Effect()
+  public reLogin$: Observable<AuthActions> = this.actions$.pipe(
+    ofType(CHECK_USER_LOGIN),
+    exhaustMap(() => {
+      return from(this.reLoginUser()).pipe(
+        map(userCredentials => {
+          console.log('Effect', userCredentials);
+
+          const user: IUser = {
+            email: userCredentials.email,
+            family_name: null,
+            name: null,
+            full_name: userCredentials.displayName,
+            picture: userCredentials.photoURL,
+            uid: userCredentials.uid,
+          }
+
+          const authDetails: IAuth = {
+            access_token: null,
+            provider_id: null,
+            refresh_token: userCredentials.refreshToken,
+            verified_email: userCredentials.emailVerified,
+            isNewUser: null
+          }
+
+          const payload: IAuthState = {
+            user: user,
+            authDetails: authDetails
+          }
+
+          return new LoginCompleted(payload);
+        }),
+        catchError(() => EMPTY));
+      }
+    )
+  );
+
+  reLoginUser(): Promise<any> {
+    return this.afAuth.onAuthStateChanged(user => user).
+      then(user =>  user);
+  }
+
   popupLogin(): Promise<firebase.auth.UserCredential | void> {
 
-    return this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())
+    return this.afAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()))
       .catch(error => error);
   }
 }
