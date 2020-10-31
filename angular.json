@@ -15,7 +15,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "@angular/fire/firestore",
-              "firebase/app"
+              "firebase/app",
+              "@firebase/auth"
             ],
             "outputPath": "dist/local-brands",
             "index": "src/index.html",

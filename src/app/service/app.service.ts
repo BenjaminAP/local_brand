@@ -13,7 +13,7 @@ import {
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../models/i.user';
 import {IAuth} from '../models/i.auth';
-import {User} from 'firebase';
+import { User} from 'firebase';
 
 
 @Injectable({

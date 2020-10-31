@@ -5,7 +5,7 @@ import {catchError, exhaustMap, map} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 // @ts-ignore
-import {firebase} from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
@@ -53,7 +53,7 @@ export class AuthEffect {
 
   popupLogin(): Promise<firebase.auth.UserCredential | void> {
 
-    return this.afAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    return this.afAuth.setPersistence('local')
       .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
       .catch(error => error);
   }
