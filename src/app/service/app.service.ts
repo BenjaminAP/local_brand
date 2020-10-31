@@ -7,9 +7,13 @@ import {
   authDetails,
   CheckForUserLogin,
   IAuthState,
-  InitiateLogin,
+  InitiateLogin, LoginCompleted,
   Logout,
 } from '../store/auth';
+import * as firebase from "firebase";
+import {AngularFireAuth} from "@angular/fire/auth";
+import {IUser} from "../models/i.user";
+import {IAuth} from "../models/i.auth";
 
 
 @Injectable({
@@ -20,7 +24,10 @@ export class AppService {
   private readonly authDetails$: Observable<IAuthState>;
   temp: Observable<any>;
 
-  constructor(private db: AngularFireDatabase, private store: Store<IAuthState>) {
+  constructor(private db: AngularFireDatabase,
+              private store: Store<IAuthState>,
+              private afAuth: AngularFireAuth) {
+
     this.authDetails$ = this.store.select(authDetails);
     // this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
@@ -248,11 +255,44 @@ export class AppService {
   }
 
   public logout(): void {
-    this.store.dispatch(new Logout());
+    this.afAuth.signOut()
+      .then(() => this.store.dispatch(new Logout()))
+
   }
 
-  public checkForLoginUser() {
-    this.store.dispatch(new CheckForUserLogin())
+  public checkForLoginUser(): void {
+    this.afAuth.onAuthStateChanged((userCredentials: firebase.User) => {
+
+      if (userCredentials === null) {
+        this.afAuth.signOut();
+      } else {
+        const user: IUser = {
+          email: userCredentials.email,
+          family_name: null,
+          name: null,
+          full_name: userCredentials.displayName,
+          picture: userCredentials.photoURL,
+          uid: userCredentials.uid,
+        }
+
+        const authDetails: IAuth = {
+          access_token: null,
+          provider_id: null,
+          refresh_token: userCredentials.refreshToken,
+          verified_email: userCredentials.emailVerified,
+          isNewUser: null,
+          connected: true
+        }
+
+        const payload: IAuthState = {
+          user: user,
+          authDetails: authDetails
+        }
+
+        this.store.dispatch(new CheckForUserLogin(payload))
+      }
+    })
+      .catch(error => error);
   }
 
 }

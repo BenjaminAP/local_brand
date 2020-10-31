@@ -20,6 +20,8 @@ export class LoginCompleted implements Action {
 
 export class CheckForUserLogin implements Action {
   public readonly type = CHECK_USER_LOGIN;
+
+  constructor(public payload: IAuthState) {}
 }
 
 export class Logout implements Action {

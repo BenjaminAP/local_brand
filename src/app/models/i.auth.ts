@@ -4,4 +4,5 @@ export interface IAuth {
   access_token: string;
   provider_id: string;
   refresh_token: string;
+  connected: boolean;
 }

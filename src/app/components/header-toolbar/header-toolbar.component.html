@@ -5,7 +5,7 @@
     <span>Local Brands</span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="openDialog()">
-      <mat-icon *ngIf="(userDetails$ | async) == undefined; else userProfileImage" >
+      <mat-icon *ngIf="!(userConnected$ | async); else userProfileImage">
         <span class="material-icons">
           account_circle
         </span>
@@ -16,6 +16,6 @@
     </button>
 </mat-toolbar>
 
-<ng-template  #userProfileImage>
+<ng-template #userProfileImage>
   <img mat-card-avatar class="avatar-image" src="{{(userDetails$ | async)?.picture}}">
 </ng-template>

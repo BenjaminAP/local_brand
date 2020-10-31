@@ -13,3 +13,8 @@ export const userDetails = createSelector(
   authFeaturesSelector,
   (state: IAuthState): IUser => state.user,
 );
+
+export const userConnected = createSelector(
+  authFeaturesSelector,
+  (state: IAuthState): boolean => state.authDetails.connected,
+);

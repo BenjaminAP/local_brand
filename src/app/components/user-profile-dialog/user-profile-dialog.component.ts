@@ -4,6 +4,7 @@ import {DialogData} from '../header-toolbar/header-toolbar.component';
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
 import {DialogService} from './dialog.service';
+import {IAuth} from "../../models/i.auth";
 
 @Component({
   selector: 'app-user-profile-dialog',
@@ -14,14 +15,15 @@ export class UserProfileDialogComponent implements OnInit {
 
   userDetails$: Observable<IUser>;
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService) {
+    this.userDetails$ = this.dialogService.userData$;
+  }
 
   ngOnInit(): void {
   }
 
   login(): void {
     this.dialogService.login();
-    this.userDetails$ = this.dialogService.userData$;
   }
 
   logout(): void {

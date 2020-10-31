@@ -22,10 +22,12 @@ export class HeaderToolbarComponent implements OnInit {
   toggleSideNavEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   userDetails$: Observable<IUser>;
+  userConnected$: Observable<boolean>;
 
   constructor(public dialog: MatDialog, private headerService: HeaderToolbarService) {
 
     this.userDetails$ = this.headerService.userProfile$;
+    this.userConnected$ = this.headerService.userConnected$;
 
     this.USER_DIALOG_CONFIG = {
       position: {
@@ -35,9 +37,7 @@ export class HeaderToolbarComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-    this.userDetails$.subscribe(user => console.log(user));
-  }
+  ngOnInit(): void {}
 
   toggleSideNav(): void {
     this.toggleSideNavEvent.emit();
