@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthActions, INITIATE_LOGIN, LoginCompleted} from './auth.action';
-import {catchError, exhaustMap, map} from 'rxjs/operators';
+import {AuthActions, CHECK_USER_LOGIN, INITIATE_LOGIN, LOGIN_COMPLETED, LoginCompleted, ReceiveUserData} from './auth.action';
+import {catchError, exhaustMap, map, switchMap} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 // @ts-ignore
@@ -10,12 +10,14 @@ import 'firebase/auth';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import {IAuthState} from './auth.reducer';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable()
 export class AuthEffect {
 
-  constructor(private actions$: Actions, private afAuth: AngularFireAuth) {
-  }
+  constructor(private actions$: Actions,
+              private afAuth: AngularFireAuth,
+              private afStore: AngularFirestore) {}
 
   @Effect()
   public initLogIn$: Observable<AuthActions> = this.actions$.pipe(
@@ -29,6 +31,7 @@ export class AuthEffect {
             full_name: userCredentials.user.displayName,
             picture: userCredentials.user.photoURL,
             uid: userCredentials.user.uid,
+            fav_stores: []
           };
 
           const authDetails: IAuth = {
@@ -51,10 +54,25 @@ export class AuthEffect {
     )
   );
 
+  @Effect()
+  public userFavorites$: Observable<AuthActions> =  this.actions$.pipe(
+    ofType(LOGIN_COMPLETED),
+    switchMap((action: LoginCompleted) => {
+      return this.getUserData(action.payload.user.uid).pipe(
+        map(userData => new ReceiveUserData(userData)),
+        catchError(error => EMPTY)
+      );
+    })
+  );
+
   popupLogin(): Promise<firebase.auth.UserCredential | void> {
 
     return this.afAuth.setPersistence('local')
       .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
       .catch(error => error);
+  }
+
+  getUserData(uid: string): Observable<any> {
+    return this.afStore.doc<string[]>(`user/${uid}`).valueChanges();
   }
 }

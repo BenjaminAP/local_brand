@@ -3,4 +3,5 @@ export interface IUser {
   full_name: string;
   picture: string;
   uid: string;
+  fav_stores: string[];
 }

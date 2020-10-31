@@ -8,7 +8,7 @@ import {
   CheckForUserLogin,
   IAuthState,
   InitiateLogin,
-  Logout, userConnected, userDetails,
+  Logout, ReceiveUserData, userConnected, userDetails,
 } from '../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../models/i.user';
@@ -278,6 +278,7 @@ export class AppService {
           full_name: userCredentials.displayName,
           picture: userCredentials.photoURL,
           uid: userCredentials.uid,
+          fav_stores: []
         };
 
         const authObj: IAuth = {
@@ -295,6 +296,7 @@ export class AppService {
         };
 
         this.store.dispatch(new CheckForUserLogin(payload));
+        this.store.dispatch(new ReceiveUserData(payload));
       }
     })
       .catch(error => error);

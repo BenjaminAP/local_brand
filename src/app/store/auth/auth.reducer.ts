@@ -1,4 +1,4 @@
-import {AuthActions, CHECK_USER_LOGIN, LOGIN_COMPLETED, LOGOUT} from './auth.action';
+import {AuthActions, CHECK_USER_LOGIN, INITIATE_LOGIN, LOGIN_COMPLETED, LOGOUT, RECEIVE_USER_DATA_FROM_DB} from './auth.action';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 
@@ -23,17 +23,25 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
 
   switch (action.type) {
 
-    case LOGIN_COMPLETED:
+    case RECEIVE_USER_DATA_FROM_DB: {
+      return {
+        ...state,
+        user: {...state.user, fav_stores: action.payload}
+      };
+    }
+
+    case LOGIN_COMPLETED: {
       return {
         ...state,
         user: action.payload.user,
         authDetails: action.payload.authDetails,
       };
+    }
 
-    case CHECK_USER_LOGIN:
+    case CHECK_USER_LOGIN: {
 
-      if(action.payload.authDetails.refresh_token === undefined){
-        return state
+      if (action.payload.authDetails.refresh_token === undefined) {
+        return state;
       }
 
       return {
@@ -41,13 +49,15 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
         user: action.payload.user,
         authDetails: action.payload.authDetails,
       };
+    }
 
-    case LOGOUT:
+    case LOGOUT: {
       return {
         ...state,
         user: initialState.user,
         authDetails: initialState.authDetails,
       };
+    }
 
     default:
       return state;
