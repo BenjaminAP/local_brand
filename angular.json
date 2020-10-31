@@ -13,6 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@angular/fire/firestore",
+              "firebase/app"
+            ],
             "outputPath": "dist/local-brands",
             "index": "src/index.html",
             "main": "src/main.ts",
