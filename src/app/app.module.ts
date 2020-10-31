@@ -10,8 +10,7 @@ import {StoreModule} from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
-import {MatOptionModule, MatRippleModule} from '@angular/material/core';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatRippleModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -25,8 +24,6 @@ import {AuthEffect} from './store/auth';
 import * as fromStore from './store';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
@@ -34,8 +31,7 @@ import {RouterModule} from '@angular/router';
 import { UserProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
-import {MatProgressBar, MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MaterialModule} from './modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -56,22 +52,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     EffectsModule.forRoot([ShopEffects, AuthEffect]),
     StoreModule.forRoot(fromStore.reducers),
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatRippleModule,
-    MatDividerModule,
-    MatButtonModule,
-    MatExpansionModule,
-    MatChipsModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
+    MaterialModule,
     RouterModule,
   ],
   providers: [],

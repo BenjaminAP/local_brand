@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {IAuthState, userConnected, userDetails} from "../../store/auth";
-import {Store} from "@ngrx/store";
-import {IUser} from "../../models/i.user";
-import {Observable} from "rxjs";
+import {IAuthState, userConnected, userDetails} from '../../store/auth';
+import {Store} from '@ngrx/store';
+import {IUser} from '../../models/i.user';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

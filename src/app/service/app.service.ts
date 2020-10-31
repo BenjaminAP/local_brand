@@ -7,13 +7,13 @@ import {
   authDetails,
   CheckForUserLogin,
   IAuthState,
-  InitiateLogin, LoginCompleted,
-  Logout, userConnected,
+  InitiateLogin,
+  Logout, userConnected, userDetails,
 } from '../store/auth';
-import * as firebase from "firebase";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {IUser} from "../models/i.user";
-import {IAuth} from "../models/i.auth";
+import {AngularFireAuth} from '@angular/fire/auth';
+import {IUser} from '../models/i.user';
+import {IAuth} from '../models/i.auth';
+import {User} from 'firebase';
 
 
 @Injectable({
@@ -260,15 +260,13 @@ export class AppService {
   }
 
   public checkForLoginUser(): void {
-    this.afAuth.onAuthStateChanged((userCredentials: firebase.User) => {
+    this.afAuth.onAuthStateChanged((userCredentials: User) => {
 
       if (userCredentials === null) {
         this.afAuth.signOut();
       } else {
         const userObj: IUser = {
           email: userCredentials.email,
-          family_name: null,
-          name: null,
           full_name: userCredentials.displayName,
           picture: userCredentials.photoURL,
           uid: userCredentials.uid,
@@ -296,6 +294,10 @@ export class AppService {
 
   checkUserConnection(): Observable<boolean> {
     return this.store.select(userConnected);
+  }
+
+  userDetails(): Observable<IUser> {
+    return this.store.select(userDetails);
   }
 
 }

@@ -1,7 +1,7 @@
 import {Component, Input, Output} from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/auth";
-import {AppService} from "./service/app.service";
+import {AppService} from './service/app.service';
 import {Observable} from 'rxjs';
+import {IUser} from './models/i.user';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +18,14 @@ export class AppComponent {
   @Output()
   userConnected$: Observable<boolean>;
 
+  @Output()
+  userDetails$: Observable<IUser>;
+
   constructor(private appService: AppService) {
 
     this.appService.checkForLoginUser();
     this.userConnected$ = this.appService.checkUserConnection();
+    this.userDetails$ = this.appService.userDetails();
   }
 
   receiveSideNavEvent(): void {

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
-import {IShopState} from '../../store/shops/shop.reducer';
+import {IShopState} from '../../store/shops';
 import {Observable} from 'rxjs';
 import * as ShopSelector from '../../store/shops/shop.selector';
-import {LoadAllShops} from '../../store/shops/shop.action';
-import {IFilter} from '../../models/i.filter';
+import {LoadAllShops} from '../../store/shops';
 
 @Injectable({
   providedIn: 'root'
