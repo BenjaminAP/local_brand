@@ -1,10 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {DialogData} from '../header-toolbar/header-toolbar.component';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
 import {DialogService} from './dialog.service';
-import {IAuth} from "../../models/i.auth";
 
 @Component({
   selector: 'app-user-profile-dialog',

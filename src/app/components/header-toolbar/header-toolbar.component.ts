@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {UserProfileDialogComponent} from '../user-profile-dialog/user-profile-dialog.component';
-import {HeaderToolbarService} from "./header-toolbar.service";
-import {Observable} from "rxjs";
-import {IUser} from "../../models/i.user";
+import {HeaderToolbarService} from './header-toolbar.service';
+import {Observable} from 'rxjs';
+import {IUser} from '../../models/i.user';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -21,13 +21,12 @@ export class HeaderToolbarComponent implements OnInit {
   @Output()
   toggleSideNavEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  userDetails$: Observable<IUser>;
+  @Input()
   userConnected$: Observable<boolean>;
 
-  constructor(public dialog: MatDialog, private headerService: HeaderToolbarService) {
+  userDetails$: Observable<IUser>;
 
-    this.userDetails$ = this.headerService.userProfile$;
-    this.userConnected$ = this.headerService.userConnected$;
+  constructor(public dialog: MatDialog, private headerService: HeaderToolbarService) {
 
     this.USER_DIALOG_CONFIG = {
       position: {
@@ -37,7 +36,10 @@ export class HeaderToolbarComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userDetails$ = this.headerService.userProfile$;
+    this.userConnected$ = this.headerService.userConnected$;
+  }
 
   toggleSideNav(): void {
     this.toggleSideNavEvent.emit();

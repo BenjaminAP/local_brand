@@ -33,7 +33,9 @@ import { HeaderToolbarComponent } from './components/header-toolbar/header-toolb
 import {RouterModule} from '@angular/router';
 import { UserProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {CommonModule} from "@angular/common";
+import {CommonModule} from '@angular/common';
+import {MatProgressBar, MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import {CommonModule} from "@angular/common";
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
     RouterModule,
   ],
   providers: [],

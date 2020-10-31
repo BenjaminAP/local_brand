@@ -8,7 +8,7 @@ import {
   CheckForUserLogin,
   IAuthState,
   InitiateLogin, LoginCompleted,
-  Logout,
+  Logout, userConnected,
 } from '../store/auth';
 import * as firebase from "firebase";
 import {AngularFireAuth} from "@angular/fire/auth";
@@ -256,8 +256,7 @@ export class AppService {
 
   public logout(): void {
     this.afAuth.signOut()
-      .then(() => this.store.dispatch(new Logout()))
-
+      .then(() => this.store.dispatch(new Logout()));
   }
 
   public checkForLoginUser(): void {
@@ -266,33 +265,37 @@ export class AppService {
       if (userCredentials === null) {
         this.afAuth.signOut();
       } else {
-        const user: IUser = {
+        const userObj: IUser = {
           email: userCredentials.email,
           family_name: null,
           name: null,
           full_name: userCredentials.displayName,
           picture: userCredentials.photoURL,
           uid: userCredentials.uid,
-        }
+        };
 
-        const authDetails: IAuth = {
+        const authObj: IAuth = {
           access_token: null,
           provider_id: null,
           refresh_token: userCredentials.refreshToken,
           verified_email: userCredentials.emailVerified,
           isNewUser: null,
           connected: true
-        }
+        };
 
         const payload: IAuthState = {
-          user: user,
-          authDetails: authDetails
-        }
+          user: userObj,
+          authDetails: authObj
+        };
 
-        this.store.dispatch(new CheckForUserLogin(payload))
+        this.store.dispatch(new CheckForUserLogin(payload));
       }
     })
       .catch(error => error);
+  }
+
+  checkUserConnection(): Observable<boolean> {
+    return this.store.select(userConnected);
   }
 
 }

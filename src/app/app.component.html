@@ -1,7 +1,9 @@
 
 <div class="app">
 
-  <app-header-toolbar (toggleSideNavEvent)="receiveSideNavEvent()"></app-header-toolbar>
+  <app-header-toolbar (toggleSideNavEvent)="receiveSideNavEvent()" [userConnected$]="userConnected$"></app-header-toolbar>
+<!--  <mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+
 
   <div class="app-content">
     <app-sidenav [sideNavPosition]="sideNavPosition"></app-sidenav>
