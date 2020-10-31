@@ -24,6 +24,10 @@ export class ShopComponent implements OnInit {
     this.columns = this.columnNumber();
   }
 
+  toggleFavorite(): void {
+
+  }
+
   columnNumber(): number {
     let columnNumber: number;
     const windowWidth = window.innerWidth;

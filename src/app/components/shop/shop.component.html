@@ -10,6 +10,13 @@
           <mat-card-title>
             {{shop.name}}
           </mat-card-title>
+
+          <button class="star_icon" mat-icon-button (click)="toggleFavorite()">
+            <span class="material-icons">
+              star_rate
+            </span>
+          </button>
+
         </mat-card-header>
 
         <div class="mat-elevation-z4"

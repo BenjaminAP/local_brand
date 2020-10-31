@@ -11,9 +11,11 @@ import {DialogService} from './dialog.service';
 export class UserProfileDialogComponent implements OnInit {
 
   userDetails$: Observable<IUser>;
+  userConnected$: Observable<boolean>;
 
   constructor(private dialogService: DialogService) {
     this.userDetails$ = this.dialogService.userData$;
+    this.userConnected$ = this.dialogService.usserConnected$;
   }
 
   ngOnInit(): void {

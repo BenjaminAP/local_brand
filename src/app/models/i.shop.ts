@@ -1,4 +1,5 @@
 export interface IShop {
+  id: string;
   name: string;
   social_media: string[];
   url: string;
