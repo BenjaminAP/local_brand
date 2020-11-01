@@ -65,7 +65,7 @@ export class AuthEffect {
 
   @Effect()
   public userFavorites$: Observable<AuthActions> =  this.actions$.pipe(
-    ofType(LOGIN_FROM_STATE),
+    ofType(LOGIN_FROM_STATE || INITIATE_LOGIN),
     switchMap((action: LoginFromState) => {
       return this.getUserData(action.payload.user.uid).pipe(
         map(userData => {
@@ -96,9 +96,9 @@ export class AuthEffect {
       isNewUser: false
     };
 
-    const userDoc = this.afStore.doc<IUserFireCloud>(`user/${newUserData.user.uid}`);
-    userDoc.set(newUser);
-
-    // userDoc.collection<IUserFireCloud>(`tUZNJxDRp4Mhr8qf6FWxsWnc1Ag2`).add(newUser);
+    const userDoc = this.afStore.doc<{ isNewUser: boolean }>(`user/${newUserData.user.uid}`);
+    userDoc.set({isNewUser: true})
+      .then(() => userDoc.set(newUser))
+      .catch(error => error);
   }
 }
