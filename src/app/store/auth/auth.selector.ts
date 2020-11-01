@@ -23,9 +23,10 @@ export const userFavoriteShops = createSelector(
   authFeaturesSelector,
   (state: IAuthState) => {
 
-    if (state.user !== undefined){
-      return new Set<string>(state.user.fav_stores);
+    if (state.user === undefined){
+      return new Set<string>();
     }
 
+    return new Set<string>(state.user.fav_stores);
   },
 );

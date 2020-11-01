@@ -12,7 +12,7 @@
           </mat-card-title>
 
           <button class="star_icon" mat-icon-button (click)="toggleFavorite()">
-            <span class="material-icons" [style.color]="(userFavoriteShops$ | async)?.has(shop.id) ? 'yellow' : 'primary'">
+            <span class="material-icons" [ngClass]="{ fav_star_icon : (userFavoriteShops$ | async)?.has(shop.id) }">
               star_rate
             </span>
           </button>

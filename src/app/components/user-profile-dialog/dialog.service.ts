@@ -11,11 +11,11 @@ import {AppService} from '../../service/app.service';
 export class DialogService {
 
   userData$: Observable<IUser>;
-  usserConnected$: Observable<boolean>;
+  userConnected$: Observable<boolean>;
 
   constructor(private store: Store<IAuthState>, private appService: AppService) {
     this.userData$ = store.select(userDetails);
-    this.usserConnected$ = store.select(userConnected);
+    this.userConnected$ = store.select(userConnected);
   }
 
   login(): void {

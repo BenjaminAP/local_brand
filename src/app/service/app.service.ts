@@ -8,7 +8,7 @@ import {
   CheckForUserLogin,
   IAuthState,
   InitiateLogin,
-  Logout, ReceiveUserData, userConnected, userDetails,
+  Logout, userConnected, userDetails, userFavoriteShops,
 } from '../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../models/i.user';
@@ -264,7 +264,8 @@ export class AppService {
 
   public logout(): void {
     this.afAuth.signOut()
-      .then(() => this.store.dispatch(new Logout()));
+      .then(() => this.store.dispatch(new Logout()))
+      .then(() => userFavoriteShops.release());
   }
 
   public checkForLoginUser(): void {

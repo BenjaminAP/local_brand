@@ -19,6 +19,10 @@ span {
   top: 2px;
 }
 
+.fav_star_icon {
+  color: gold;
+}
+
 .content {
   padding: 16px;
   height: auto;
