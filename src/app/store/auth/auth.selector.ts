@@ -18,3 +18,14 @@ export const userConnected = createSelector(
   authFeaturesSelector,
   (state: IAuthState): boolean => state.authDetails.connected,
 );
+
+export const userFavoriteShops = createSelector(
+  authFeaturesSelector,
+  (state: IAuthState) => {
+
+    if (state.user !== undefined){
+      return new Set<string>(state.user.fav_stores);
+    }
+
+  },
+);

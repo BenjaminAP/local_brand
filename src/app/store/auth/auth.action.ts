@@ -40,6 +40,3 @@ export type AuthActions =
 | Logout
 | CheckForUserLogin
 | ReceiveUserData;
-
-
-//// Todo: Need to make better logic path for retrieving user fav stores.

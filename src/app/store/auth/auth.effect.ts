@@ -1,6 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthActions, CHECK_USER_LOGIN, INITIATE_LOGIN, LOGIN_COMPLETED, LoginCompleted, ReceiveUserData} from './auth.action';
+import {
+  AuthActions,
+  CHECK_USER_LOGIN,
+  CheckForUserLogin,
+  INITIATE_LOGIN,
+  LOGIN_COMPLETED,
+  LoginCompleted,
+  ReceiveUserData
+} from './auth.action';
 import {catchError, exhaustMap, map, switchMap} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -56,10 +64,12 @@ export class AuthEffect {
 
   @Effect()
   public userFavorites$: Observable<AuthActions> =  this.actions$.pipe(
-    ofType(LOGIN_COMPLETED),
-    switchMap((action: LoginCompleted) => {
+    ofType(CHECK_USER_LOGIN),
+    switchMap((action: CheckForUserLogin) => {
       return this.getUserData(action.payload.user.uid).pipe(
-        map(userData => new ReceiveUserData(userData)),
+        map(userData => {
+          return new ReceiveUserData(userData.fav_shops_ids);
+        }),
         catchError(error => EMPTY)
       );
     })

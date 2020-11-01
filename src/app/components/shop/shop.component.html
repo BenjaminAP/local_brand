@@ -1,6 +1,6 @@
 
 <mat-grid-list cols="{{columns}}" rowHeight="1:1.5">
-  <mat-grid-tile *ngFor="let shop of filteredShops$ | async">
+  <mat-grid-tile *ngFor="let shop of filteredShops$ | async;">
 
     <div class="content">
 
@@ -12,7 +12,7 @@
           </mat-card-title>
 
           <button class="star_icon" mat-icon-button (click)="toggleFavorite()">
-            <span class="material-icons">
+            <span class="material-icons" [style.color]="(userFavoriteShops$ | async)?.has(shop.id) ? 'yellow' : 'primary'">
               star_rate
             </span>
           </button>

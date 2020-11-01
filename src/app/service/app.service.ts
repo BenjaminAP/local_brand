@@ -296,7 +296,6 @@ export class AppService {
         };
 
         this.store.dispatch(new CheckForUserLogin(payload));
-        this.store.dispatch(new ReceiveUserData(payload));
       }
     })
       .catch(error => error);

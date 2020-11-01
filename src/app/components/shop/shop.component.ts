@@ -8,16 +8,18 @@ import {ShopService} from './shop.service';
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit{
 
   shops$: Observable<IShop[]>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
+  userFavoriteShops$: Observable<Set<string>>;
 
   columns: number;
 
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
     this.filteredShops$ = this.shopService.filteredShops$;
+    this.userFavoriteShops$ = this.shopService.userFavoriteShops$;
   }
 
   ngOnInit(): void {
@@ -25,7 +27,8 @@ export class ShopComponent implements OnInit {
   }
 
   toggleFavorite(): void {
-
+    /// TODO: implement favorite toggle actions/reducer/effect
+    /// TODO: implement favorite toggle update/read/write from fire cloud
   }
 
   columnNumber(): number {
