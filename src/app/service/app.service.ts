@@ -5,7 +5,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
 import {
   authDetails,
-  CheckForUserLogin,
+  LoginFromState,
   IAuthState,
   InitiateLogin,
   Logout, userConnected, userDetails, userFavoriteShops,
@@ -283,11 +283,9 @@ export class AppService {
         };
 
         const authObj: IAuth = {
-          access_token: null,
           provider_id: null,
-          refresh_token: userCredentials.refreshToken,
           verified_email: userCredentials.emailVerified,
-          isNewUser: null,
+          isNewUser: false,
           connected: true
         };
 
@@ -296,8 +294,9 @@ export class AppService {
           authDetails: authObj
         };
 
-        this.store.dispatch(new CheckForUserLogin(payload));
+        this.store.dispatch(new LoginFromState(payload));
       }
+
     })
       .catch(error => error);
   }

@@ -2,10 +2,9 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {
   AuthActions,
-  CHECK_USER_LOGIN,
-  CheckForUserLogin,
+  LOGIN_FROM_STATE,
+  LoginFromState,
   INITIATE_LOGIN,
-  LOGIN_COMPLETED,
   LoginCompleted,
   ReceiveUserData
 } from './auth.action';
@@ -19,6 +18,7 @@ import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import {IAuthState} from './auth.reducer';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {IUserFireCloud} from '../../models/iuser-fire-cloud';
 
 @Injectable()
 export class AuthEffect {
@@ -33,7 +33,6 @@ export class AuthEffect {
     exhaustMap(() => {
       return from(this.popupLogin()).pipe(
         map((userCredentials: firebase.auth.UserCredential) => {
-          // console.log(userCredentials);
           const user: IUser = {
             email: userCredentials.user.email,
             full_name: userCredentials.user.displayName,
@@ -43,19 +42,21 @@ export class AuthEffect {
           };
 
           const authDetails: IAuth = {
-            access_token: userCredentials.credential['accessToken'],
             provider_id: userCredentials.credential.providerId,
-            refresh_token: userCredentials.user.refreshToken,
             verified_email: userCredentials.user.emailVerified,
             isNewUser: userCredentials.additionalUserInfo.isNewUser,
             connected: true
           };
-          const payload: IAuthState = {
+          const userPayload: IAuthState = {
             user,
             authDetails
           };
 
-          return new LoginCompleted(payload);
+          if (userPayload.authDetails.isNewUser){
+            this.signUpUser(userPayload);
+          }
+
+          return new LoginCompleted(userPayload);
         }),
         catchError(() => EMPTY));
       }
@@ -64,8 +65,8 @@ export class AuthEffect {
 
   @Effect()
   public userFavorites$: Observable<AuthActions> =  this.actions$.pipe(
-    ofType(CHECK_USER_LOGIN),
-    switchMap((action: CheckForUserLogin) => {
+    ofType(LOGIN_FROM_STATE),
+    switchMap((action: LoginFromState) => {
       return this.getUserData(action.payload.user.uid).pipe(
         map(userData => {
           return new ReceiveUserData(userData.fav_shops_ids);
@@ -82,7 +83,22 @@ export class AuthEffect {
       .catch(error => error);
   }
 
-  getUserData(uid: string): Observable<any> {
-    return this.afStore.doc<string[]>(`user/${uid}`).valueChanges();
+  getUserData(uid: string): Observable<IUserFireCloud> {
+    return this.afStore.doc<IUserFireCloud>(`user/${uid}`).valueChanges();
+  }
+
+  signUpUser(newUserData: IAuthState): void {
+
+    const newUser: IUserFireCloud = {
+      email: newUserData.user.email,
+      fav_shops_ids: [],
+      full_name: newUserData.user.full_name,
+      isNewUser: false
+    };
+
+    const userDoc = this.afStore.doc<IUserFireCloud>(`user/${newUserData.user.uid}`);
+    userDoc.set(newUser);
+
+    // userDoc.collection<IUserFireCloud>(`tUZNJxDRp4Mhr8qf6FWxsWnc1Ag2`).add(newUser);
   }
 }
