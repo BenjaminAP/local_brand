@@ -14,11 +14,14 @@ export class LoadShopsCompleted implements Action {
 
   constructor(public payload: IShop[]) {}
 }
+
 export class ToggleFilter implements Action {
   public readonly type = TOGGLE_FILTER;
 
   constructor(public payload: string) {}
 }
+
+
 
 export type ShopActions = LoadAllShops
   | LoadShopsCompleted

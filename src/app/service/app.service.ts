@@ -279,7 +279,7 @@ export class AppService {
           full_name: userCredentials.displayName,
           picture: userCredentials.photoURL,
           uid: userCredentials.uid,
-          fav_stores: []
+          fav_stores: new Set<string>()
         };
 
         const authObj: IAuth = {

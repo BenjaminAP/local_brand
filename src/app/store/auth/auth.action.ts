@@ -8,6 +8,7 @@ export const SIGNUP_USER = '[Auth] Signup User';
 export const LOGOUT = '[Auth] Logout';
 export const LOGIN_FROM_STATE = '[Auth] Login from state';
 export const RECEIVE_USER_DATA_FROM_DB = '[Auth] User data from DB';
+export const TOGGLE_FAV_SHOP = '[Shops] TOGGLE favorite shop';
 
 export class InitiateLogin implements Action {
   public readonly type = INITIATE_LOGIN;
@@ -28,7 +29,14 @@ export class LoginFromState implements Action {
 export class ReceiveUserData implements Action {
   public readonly type = RECEIVE_USER_DATA_FROM_DB;
 
-  constructor(public payload: any) {}
+  constructor(public payload: string[]) {}
+}
+
+/// TODO make store file for user.
+export class ToggleFavShop implements Action {
+  public readonly type = TOGGLE_FAV_SHOP;
+
+  constructor(public payload: string) {}
 }
 
 export class Logout implements Action {
@@ -40,4 +48,5 @@ export type AuthActions =
 | LoginCompleted
 | Logout
 | LoginFromState
-| ReceiveUserData;
+| ReceiveUserData
+| ToggleFavShop;

@@ -38,7 +38,7 @@ export class AuthEffect {
             full_name: userCredentials.user.displayName,
             picture: userCredentials.user.photoURL,
             uid: userCredentials.user.uid,
-            fav_stores: []
+            fav_stores: new Set<string>()
           };
 
           const authDetails: IAuth = {

@@ -26,7 +26,8 @@ export class ShopComponent implements OnInit{
     this.columns = this.columnNumber();
   }
 
-  toggleFavorite(): void {
+  toggleFavorite(shopId: string): void {
+    this.shopService.toggleShopFavorite(shopId);
     /// TODO: implement favorite toggle actions/reducer/effect
     /// TODO: implement favorite toggle update/read/write from fire cloud
   }

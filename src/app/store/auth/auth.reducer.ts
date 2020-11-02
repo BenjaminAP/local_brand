@@ -1,4 +1,4 @@
-import {AuthActions, LOGIN_FROM_STATE, INITIATE_LOGIN, LOGIN_COMPLETED, LOGOUT, RECEIVE_USER_DATA_FROM_DB} from './auth.action';
+import {AuthActions, LOGIN_COMPLETED, LOGIN_FROM_STATE, LOGOUT, RECEIVE_USER_DATA_FROM_DB, TOGGLE_FAV_SHOP} from './auth.action';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 
@@ -8,7 +8,13 @@ export interface IAuthState {
 }
 
 export const initialState: IAuthState = {
-  user: undefined,
+  user: {
+    full_name: null,
+    picture: null,
+    email: null,
+    uid: null,
+    fav_stores: new Set<string>()
+  },
   authDetails: {
     isNewUser: null,
     verified_email: null,
@@ -24,7 +30,7 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
     case RECEIVE_USER_DATA_FROM_DB: {
       return {
         ...state,
-        user: {...state.user, fav_stores: action.payload}
+        user: {...state.user, fav_stores: new Set<string>(action.payload)}
       };
     }
 
@@ -50,6 +56,20 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
         ...state,
         user: initialState.user,
         authDetails: initialState.authDetails,
+      };
+    }
+
+    case TOGGLE_FAV_SHOP: {
+
+      if (state.user.fav_stores.has(action.payload)) {
+        state.user.fav_stores.delete(action.payload);
+      } else {
+        state.user.fav_stores.add(action.payload);
+      }
+
+      return {
+        ...state,
+        user: {...state.user}
       };
     }
 

@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import * as ShopSelector from '../../store/shops/shop.selector';
 import * as AuthSelector from '../../store/auth/auth.selector';
 import {LoadAllShops} from '../../store/shops';
+import {ToggleFavShop} from '../../store/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class ShopService {
     this.filteredShops$ = this.store.select(ShopSelector.filteredShops);
     this.userFavoriteShops$ = this.store.select(AuthSelector.userFavoriteShops);
     this.store.dispatch(new LoadAllShops());
+  }
+
+  toggleShopFavorite(shopId: string): void {
+    this.store.dispatch(new ToggleFavShop(shopId));
   }
 }

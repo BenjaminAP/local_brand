@@ -1,4 +1,3 @@
-
 import {IShop} from '../../models/i.shop';
 import {LOAD_SHOPS_COMPLETED, ShopActions, TOGGLE_FILTER} from './shop.action';
 import {IFilter} from '../../models/i.filter';
