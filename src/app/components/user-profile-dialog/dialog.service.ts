@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {IAuthState, InitiateLogin, connected} from '../../store/auth';
 import {AppService} from '../../service/app/app.service';
 import {userDetailsSelector} from '../../store/user';
+import {UserService} from '../../service/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ export class DialogService {
   userData$: Observable<IUser>;
   userConnected$: Observable<boolean>;
 
-  constructor(private store: Store<IAuthState>, private appService: AppService) {
+  constructor(private store: Store<IAuthState>,
+              private appService: AppService,
+              private userService: UserService) {
     this.userData$ = store.select(userDetailsSelector);
     this.userConnected$ = store.select(connected);
   }
@@ -24,6 +27,7 @@ export class DialogService {
   }
 
   logout(): void {
+    this.userService.uploadFavoriteShop();
     this.appService.logout();
   }
 }
