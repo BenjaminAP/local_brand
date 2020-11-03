@@ -30,7 +30,7 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
 
       return {
         ...state,
-        authDetails: action.payload.authDetails,
+        authDetails: action.payload,
       };
     }
 

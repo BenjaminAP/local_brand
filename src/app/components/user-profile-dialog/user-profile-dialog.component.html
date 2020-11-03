@@ -1,11 +1,11 @@
 
 <h1 mat-dialog-title *ngIf="!(userConnected$ | async); else usernameHeader">Anonymous</h1>
 <div mat-dialog-content>
-  <button mat-raised-button (click)="login()" *ngIf="(userDetails$ | async) == undefined; else logoutTemplate"> LogIn</button>
+  <button mat-raised-button (click)="login()" *ngIf="(userDetailsSelector$ | async) == undefined; else logoutTemplate"> LogIn</button>
 </div>
 
 <ng-template #usernameHeader>
-  <h1>{{(userDetails$ | async)?.full_name}}</h1>
+  <h1>{{(userDetailsSelector$ | async)?.full_name}}</h1>
 </ng-template>
 
 <ng-template #logoutTemplate>

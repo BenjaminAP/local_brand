@@ -32,6 +32,7 @@ import { UserProfileDialogComponent } from './components/user-profile-dialog/use
 import {MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from './modules/material/material.module';
+import {UserEffect} from "./store/user";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import {MaterialModule} from './modules/material/material.module';
     AngularFirestoreModule.enablePersistence(),
     CommonModule,
     BrowserModule,
-    EffectsModule.forRoot([ShopEffects, AuthEffect]),
+    EffectsModule.forRoot([ShopEffects, AuthEffect, UserEffect]),
     StoreModule.forRoot(fromStore.reducers),
     BrowserAnimationsModule,
     MaterialModule,

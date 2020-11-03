@@ -15,7 +15,6 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
-import {IAuthState} from './auth.reducer';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
 import {ReceiveUserData} from "../user";
@@ -47,16 +46,12 @@ export class AuthEffect {
             isNewUser: userCredentials.additionalUserInfo.isNewUser,
             connected: true
           };
-          const userPayload: IAuthState = {
-            user,
-            authDetails
-          };
 
-          if (userPayload.authDetails.isNewUser){
-            this.signUpUser(userPayload);
+          if (authDetails.isNewUser){
+            this.signUpUser(user);
           }
 
-          return [new LoginCompleted(userPayload.authDetails), new ReceiveUserData(userPayload.user)];
+          return [new LoginCompleted(authDetails), new ReceiveUserData(user)];
         }),
         catchError(() => EMPTY));
       }
@@ -70,16 +65,16 @@ export class AuthEffect {
       .catch(error => error);
   }
 
-  signUpUser(newUserData: IAuthState): void {
+  signUpUser(newUserData: IUser): void {
 
     const newUser: IUserFireCloud = {
-      email: newUserData.user.email,
+      email: newUserData.email,
       fav_shops_ids: [],
-      full_name: newUserData.user.full_name,
+      full_name: newUserData.full_name,
       isNewUser: false
     };
 
-    const userDoc = this.afStore.doc<{ isNewUser: boolean }>(`user/${newUserData.user.uid}`);
+    const userDoc = this.afStore.doc<{ isNewUser: boolean }>(`user/${newUserData.uid}`);
     userDoc.set({isNewUser: true})
       .then(() => userDoc.set(newUser))
       .catch(error => error);

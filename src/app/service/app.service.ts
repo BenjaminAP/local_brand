@@ -8,12 +8,13 @@ import {
   LoginFromState,
   IAuthState,
   InitiateLogin,
-  Logout, userConnected, userDetails, userFavoriteShops,
+  Logout, userConnected,
 } from '../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../models/i.user';
 import {IAuth} from '../models/i.auth';
 import { User} from 'firebase';
+import {ReceiveUserData, userDetailsSelector, userFavoriteShops} from "../store/user";
 
 
 @Injectable({
@@ -289,12 +290,8 @@ export class AppService {
           connected: true
         };
 
-        const payload: IAuthState = {
-          user: userObj,
-          authDetails: authObj
-        };
-
-        this.store.dispatch(new LoginFromState(payload));
+        this.store.dispatch(new LoginFromState(authObj));
+        this.store.dispatch(new ReceiveUserData(userObj));
       }
 
     })
@@ -306,7 +303,7 @@ export class AppService {
   }
 
   userDetails(): Observable<IUser> {
-    return this.store.select(userDetails);
+    return this.store.select(userDetailsSelector);
   }
 
 }

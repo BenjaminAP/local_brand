@@ -4,9 +4,9 @@ import {IShop} from '../../models/i.shop';
 import {IShopState} from '../../store/shops';
 import {Observable} from 'rxjs';
 import * as ShopSelector from '../../store/shops/shop.selector';
-import * as AuthSelector from '../../store/auth/auth.selector';
+import * as UserSelector from '../../store/user/user.selector';
 import {LoadAllShops} from '../../store/shops';
-import {ToggleFavShop} from '../../store/auth';
+import {ToggleFavShop} from "../../store/user";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class ShopService {
   constructor(private store: Store<IShopState>) {
     this.allShops$ = this.store.select(ShopSelector.allShops);
     this.filteredShops$ = this.store.select(ShopSelector.filteredShops);
-    this.userFavoriteShops$ = this.store.select(AuthSelector.userFavoriteShops);
+    this.userFavoriteShops$ = this.store.select(UserSelector.userFavoriteShops);
     this.store.dispatch(new LoadAllShops());
   }
 

@@ -6,7 +6,7 @@ import {catchError, map, switchMap} from "rxjs/operators";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {IUserFireCloud} from "../../models/iuser-fire-cloud";
-import {ReceiveUserFavShops, UserActions} from "./user.action";
+import {RECEIVE_USER_DATA, ReceiveUserData, ReceiveUserFavShops, UserActions} from "./user.action";
 
 
 @Injectable()
@@ -19,9 +19,9 @@ export class UserEffect {
 
   @Effect()
   public userFavorites$: Observable<UserActions> =  this.actions$.pipe(
-    ofType(LOGIN_FROM_STATE || INITIATE_LOGIN),
-    switchMap((action: LoginFromState) => {
-      return this.getUserData(action.payload.user.uid).pipe(
+    ofType(RECEIVE_USER_DATA),
+    switchMap((action: ReceiveUserData) => {
+      return this.getUserData(action.payload.uid).pipe(
         map(userData => {
           return new ReceiveUserFavShops(new Set<string>(userData.fav_shops_ids));
         }),
