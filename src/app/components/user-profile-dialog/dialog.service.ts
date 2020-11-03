@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
 import {Store} from '@ngrx/store';
 import {IAuthState, InitiateLogin, connected} from '../../store/auth';
-import {AppService} from '../../service/app.service';
+import {AppService} from '../../service/app/app.service';
 import {userDetailsSelector} from '../../store/user';
 
 @Injectable({

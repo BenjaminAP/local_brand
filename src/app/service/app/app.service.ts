@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {IShop} from '../models/i.shop';
+import {IShop} from '../../models/i.shop';
 import { Observable, of} from 'rxjs';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
@@ -9,12 +9,12 @@ import {
   IAuthState,
   InitiateLogin,
   connected, LogoutUser,
-} from '../store/auth';
+} from '../../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {IUser} from '../models/i.user';
-import {IAuth} from '../models/i.auth';
+import {IUser} from '../../models/i.user';
+import {IAuth} from '../../models/i.auth';
 import { User} from 'firebase';
-import {ClearUserData, ReceiveUserData, userDetailsSelector, userFavoriteShops} from '../store/user';
+import {ClearUserData, ReceiveUserData, userDetailsSelector, userFavoriteShops} from '../../store/user';
 
 
 @Injectable({

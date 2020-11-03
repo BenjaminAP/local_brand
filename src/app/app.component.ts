@@ -1,7 +1,8 @@
-import {Component, Input, Output} from '@angular/core';
-import {AppService} from './service/app.service';
+import {Component, HostListener, Input, Output} from '@angular/core';
+import {AppService} from './service/app/app.service';
 import {Observable} from 'rxjs';
 import {IUser} from './models/i.user';
+import {UserService} from './service/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
   @Output()
   userDetails$: Observable<IUser>;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private userService: UserService) {
 
     this.appService.checkForLoginUserData();
     this.userDetails$ = this.appService.userDetails();
@@ -27,5 +28,11 @@ export class AppComponent {
   receiveSideNavEvent(): void {
     this.sideNavPosition = !this.sideNavPosition;
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeOnload(): void {
+    this.userService.uploadFavoriteShop();
+  }
+
 
 }

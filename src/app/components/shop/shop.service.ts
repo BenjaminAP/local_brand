@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import * as ShopSelector from '../../store/shops/shop.selector';
 import * as UserSelector from '../../store/user/user.selector';
 import {LoadAllShops} from '../../store/shops';
-import {ToggleFavShop} from "../../store/user";
+import {ToggleFavShop} from '../../store/user';
 
 @Injectable({
   providedIn: 'root'
