@@ -270,12 +270,13 @@ export class AppService {
       .then(() => userFavoriteShops.release());
   }
 
-  public checkForLoginUser(): void {
+  public checkForLoginUserData(): void {
     this.afAuth.onAuthStateChanged((userCredentials: User) => {
 
       if (userCredentials === null) {
         this.afAuth.signOut();
       } else {
+
         const userObj: IUser = {
           email: userCredentials.email,
           full_name: userCredentials.displayName,

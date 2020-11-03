@@ -20,7 +20,7 @@ export class AppComponent {
 
   constructor(private appService: AppService) {
 
-    this.appService.checkForLoginUser();
+    this.appService.checkForLoginUserData();
     this.userDetails$ = this.appService.userDetails();
   }
 

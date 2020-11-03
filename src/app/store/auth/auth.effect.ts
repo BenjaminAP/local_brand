@@ -24,19 +24,11 @@ export class AuthEffect {
               private afStore: AngularFirestore) {}
 
   @Effect()
-  public initLogIn$: Observable<any[]> = this.actions$.pipe(
+  public initLogIn$: Observable<any> = this.actions$.pipe(
     ofType(INITIATE_LOGIN),
     exhaustMap(() => {
       return from(this.popupLogin()).pipe(
         map((userCredentials: firebase.auth.UserCredential) => {
-
-          const user: IUser = {
-            email: userCredentials.user.email,
-            full_name: userCredentials.user.displayName,
-            picture: userCredentials.user.photoURL,
-            uid: userCredentials.user.uid,
-            fav_stores: new Set<string>()
-          };
 
           const authDetails: IAuth = {
             provider_id: userCredentials.credential.providerId,
@@ -46,10 +38,18 @@ export class AuthEffect {
           };
 
           if (authDetails.isNewUser){
+            const user: IUser = {
+              email: userCredentials.user.email,
+              full_name: userCredentials.user.displayName,
+              picture: userCredentials.user.photoURL,
+              uid: userCredentials.user.uid,
+              fav_stores: new Set<string>()
+            };
+
             this.signUpUser(user);
           }
 
-          return [new LoginCompleted(authDetails), new ReceiveUserData(user)];
+          return new LoginCompleted(authDetails);
         }),
         catchError(() => EMPTY));
       }
