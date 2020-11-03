@@ -1,0 +1,54 @@
+import {IUser} from "../../models/i.user";
+import {RECEIVE_USER_DATA, RECEIVE_USER_FAV_SHOPS, TOGGLE_FAV_SHOP, UserActions} from "./user.action";
+
+
+export interface IUserState {
+  user: IUser;
+}
+
+export const initialState: IUserState = {
+  user: {
+    full_name: null,
+      picture: null,
+      email: null,
+      uid: null,
+      fav_stores: new Set<string>()
+  },
+}
+
+export function userReducer(state: IUserState = initialState, action: UserActions): IUserState {
+
+  switch (action.type) {
+
+    case RECEIVE_USER_FAV_SHOPS: {
+      return {
+        ...state,
+        user: {...state.user, fav_stores: action.payload}
+      }
+    }
+
+    case RECEIVE_USER_DATA: {
+      return {
+        ...state,
+        user: action.payload
+      }
+    }
+
+    case TOGGLE_FAV_SHOP: {
+
+      if (state.user.fav_stores.has(action.payload)) {
+        state.user.fav_stores.delete(action.payload);
+      } else {
+        state.user.fav_stores.add(action.payload);
+      }
+
+      return {
+        ...state,
+        user: {...state.user}
+      };
+    }
+
+    default:
+      return state;
+  }
+}

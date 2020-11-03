@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {IAuthState} from './auth.reducer';
+import {IAuth} from "../../models/i.auth";
 
 
 export const INITIATE_LOGIN = '[Auth] Initiate Login';
@@ -17,19 +18,13 @@ export class InitiateLogin implements Action {
 export class LoginCompleted implements Action {
   public readonly type = LOGIN_COMPLETED;
 
-  constructor(public payload: IAuthState) {}
+  constructor(public payload: IAuth) {}
 }
 
 export class LoginFromState implements Action {
   public readonly type = LOGIN_FROM_STATE;
 
   constructor(public payload: IAuthState) {}
-}
-
-export class ReceiveUserData implements Action {
-  public readonly type = RECEIVE_USER_DATA_FROM_DB;
-
-  constructor(public payload: string[]) {}
 }
 
 /// TODO make store file for user.
@@ -48,5 +43,4 @@ export type AuthActions =
 | LoginCompleted
 | Logout
 | LoginFromState
-| ReceiveUserData
 | ToggleFavShop;

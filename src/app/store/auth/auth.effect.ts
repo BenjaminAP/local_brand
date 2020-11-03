@@ -5,8 +5,7 @@ import {
   LOGIN_FROM_STATE,
   LoginFromState,
   INITIATE_LOGIN,
-  LoginCompleted,
-  ReceiveUserData
+  LoginCompleted
 } from './auth.action';
 import {catchError, exhaustMap, map, switchMap} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
@@ -19,6 +18,7 @@ import {IAuth} from '../../models/i.auth';
 import {IAuthState} from './auth.reducer';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
+import {ReceiveUserData} from "../user";
 
 @Injectable()
 export class AuthEffect {
@@ -28,7 +28,7 @@ export class AuthEffect {
               private afStore: AngularFirestore) {}
 
   @Effect()
-  public initLogIn$: Observable<AuthActions> = this.actions$.pipe(
+  public initLogIn$: Observable<any> = this.actions$.pipe(
     ofType(INITIATE_LOGIN),
     exhaustMap(() => {
       return from(this.popupLogin()).pipe(
@@ -56,24 +56,11 @@ export class AuthEffect {
             this.signUpUser(userPayload);
           }
 
-          return new LoginCompleted(userPayload);
+          return [new LoginCompleted(userPayload.authDetails), new ReceiveUserData(userPayload.user)];
         }),
         catchError(() => EMPTY));
       }
     )
-  );
-
-  @Effect()
-  public userFavorites$: Observable<AuthActions> =  this.actions$.pipe(
-    ofType(LOGIN_FROM_STATE || INITIATE_LOGIN),
-    switchMap((action: LoginFromState) => {
-      return this.getUserData(action.payload.user.uid).pipe(
-        map(userData => {
-          return new ReceiveUserData(userData.fav_shops_ids);
-        }),
-        catchError(error => EMPTY)
-      );
-    })
   );
 
   popupLogin(): Promise<firebase.auth.UserCredential | void> {
@@ -81,10 +68,6 @@ export class AuthEffect {
     return this.afAuth.setPersistence('local')
       .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
       .catch(error => error);
-  }
-
-  getUserData(uid: string): Observable<IUserFireCloud> {
-    return this.afStore.doc<IUserFireCloud>(`user/${uid}`).valueChanges();
   }
 
   signUpUser(newUserData: IAuthState): void {

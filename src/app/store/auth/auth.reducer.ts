@@ -27,18 +27,10 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
 
   switch (action.type) {
 
-    case RECEIVE_USER_DATA_FROM_DB: {
-      return {
-        ...state,
-        user: {...state.user, fav_stores: new Set<string>(action.payload)}
-      };
-    }
-
     case LOGIN_COMPLETED: {
       return {
         ...state,
-        user: action.payload.user,
-        authDetails: action.payload.authDetails,
+        authDetails: action.payload,
       };
     }
 
