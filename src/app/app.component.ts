@@ -16,15 +16,11 @@ export class AppComponent {
   sideNavPosition = false;
 
   @Output()
-  userConnected$: Observable<boolean>;
-
-  @Output()
   userDetails$: Observable<IUser>;
 
   constructor(private appService: AppService) {
 
     this.appService.checkForLoginUser();
-    this.userConnected$ = this.appService.checkUserConnection();
     this.userDetails$ = this.appService.userDetails();
   }
 

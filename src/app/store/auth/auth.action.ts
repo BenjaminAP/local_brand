@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {IAuth} from "../../models/i.auth";
+import {IAuth} from '../../models/i.auth';
 
 
 export const INITIATE_LOGIN = '[Auth] Initiate Login';
@@ -7,8 +7,6 @@ export const LOGIN_COMPLETED = '[Auth] Login Completed';
 export const SIGNUP_USER = '[Auth] Signup User';
 export const LOGOUT = '[Auth] Logout';
 export const LOGIN_FROM_STATE = '[Auth] Login from state';
-export const RECEIVE_USER_DATA_FROM_DB = '[Auth] User data from DB';
-export const TOGGLE_FAV_SHOP = '[Shops] TOGGLE favorite shop';
 
 export class InitiateLogin implements Action {
   public readonly type = INITIATE_LOGIN;
@@ -26,12 +24,12 @@ export class LoginFromState implements Action {
   constructor(public payload: IAuth) {}
 }
 
-export class Logout implements Action {
+export class LogoutUser implements Action {
   public readonly type = LOGOUT;
 }
 
 export type AuthActions =
   InitiateLogin
 | LoginCompleted
-| Logout
+| LogoutUser
 | LoginFromState;

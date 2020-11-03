@@ -8,7 +8,7 @@ export const authDetails = createSelector(
   (state: IAuthState): IAuthState => state,
 );
 
-export const userConnected = createSelector(
+export const connected = createSelector(
   authFeaturesSelector,
   (state: IAuthState): boolean => state.authDetails.connected,
 );

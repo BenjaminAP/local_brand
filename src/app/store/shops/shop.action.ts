@@ -21,8 +21,6 @@ export class ToggleFilter implements Action {
   constructor(public payload: string) {}
 }
 
-
-
 export type ShopActions = LoadAllShops
   | LoadShopsCompleted
   | ToggleFilter;

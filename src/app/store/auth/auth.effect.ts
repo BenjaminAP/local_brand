@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {
-  AuthActions,
-  LOGIN_FROM_STATE,
-  LoginFromState,
   INITIATE_LOGIN,
   LoginCompleted
 } from './auth.action';
@@ -17,7 +14,7 @@ import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
-import {ReceiveUserData} from "../user";
+import {ReceiveUserData} from '../user';
 
 @Injectable()
 export class AuthEffect {
@@ -27,11 +24,12 @@ export class AuthEffect {
               private afStore: AngularFirestore) {}
 
   @Effect()
-  public initLogIn$: Observable<any> = this.actions$.pipe(
+  public initLogIn$: Observable<any[]> = this.actions$.pipe(
     ofType(INITIATE_LOGIN),
     exhaustMap(() => {
       return from(this.popupLogin()).pipe(
         map((userCredentials: firebase.auth.UserCredential) => {
+
           const user: IUser = {
             email: userCredentials.user.email,
             full_name: userCredentials.user.displayName,

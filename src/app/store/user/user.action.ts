@@ -1,5 +1,5 @@
-import {Action} from "@ngrx/store";
-import {IUser} from "../../models/i.user";
+import {Action} from '@ngrx/store';
+import {IUser} from '../../models/i.user';
 
 export const RECEIVE_USER_DATA = '[User] User data';
 export const RECEIVE_USER_FAV_SHOPS = '[User] Received fav shops of User from DB';

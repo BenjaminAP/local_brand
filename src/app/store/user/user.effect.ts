@@ -1,12 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Actions, Effect, ofType} from "@ngrx/effects";
-import {EMPTY, Observable} from "rxjs";
-import {AuthActions, INITIATE_LOGIN, LOGIN_FROM_STATE, LoginFromState} from "../auth";
-import {catchError, map, switchMap} from "rxjs/operators";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {AngularFirestore} from "@angular/fire/firestore";
-import {IUserFireCloud} from "../../models/iuser-fire-cloud";
-import {RECEIVE_USER_DATA, ReceiveUserData, ReceiveUserFavShops, UserActions} from "./user.action";
+import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {EMPTY, Observable} from 'rxjs';
+import {catchError, map, switchMap} from 'rxjs/operators';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {IUserFireCloud} from '../../models/iuser-fire-cloud';
+import {RECEIVE_USER_DATA, ReceiveUserData, ReceiveUserFavShops, UserActions} from './user.action';
 
 
 @Injectable()

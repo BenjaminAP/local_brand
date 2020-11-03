@@ -1,5 +1,4 @@
-import {AuthActions, LOGIN_COMPLETED, LOGIN_FROM_STATE, LOGOUT, RECEIVE_USER_DATA_FROM_DB, TOGGLE_FAV_SHOP} from './auth.action';
-import {IUser} from '../../models/i.user';
+import {AuthActions, LOGIN_COMPLETED, LOGIN_FROM_STATE, LOGOUT} from './auth.action';
 import {IAuth} from '../../models/i.auth';
 
 export interface IAuthState {
@@ -46,4 +45,3 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
 
   }
 }
-

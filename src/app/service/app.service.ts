@@ -8,13 +8,13 @@ import {
   LoginFromState,
   IAuthState,
   InitiateLogin,
-  Logout, userConnected,
+  connected, LogoutUser,
 } from '../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../models/i.user';
 import {IAuth} from '../models/i.auth';
 import { User} from 'firebase';
-import {ClearUserData, ReceiveUserData, userDetailsSelector, userFavoriteShops} from "../store/user";
+import {ClearUserData, ReceiveUserData, userDetailsSelector, userFavoriteShops} from '../store/user';
 
 
 @Injectable({
@@ -265,7 +265,7 @@ export class AppService {
 
   public logout(): void {
     this.afAuth.signOut()
-      .then(() => this.store.dispatch(new Logout()))
+      .then(() => this.store.dispatch(new LogoutUser()))
       .then(() => this.store.dispatch(new ClearUserData()))
       .then(() => userFavoriteShops.release());
   }
@@ -300,7 +300,7 @@ export class AppService {
   }
 
   checkUserConnection(): Observable<boolean> {
-    return this.store.select(userConnected);
+    return this.store.select(connected);
   }
 
   userDetails(): Observable<IUser> {

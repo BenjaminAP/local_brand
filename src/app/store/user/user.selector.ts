@@ -1,6 +1,6 @@
-import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {IUserState} from "./user.reducer";
-import {IUser} from "../../models/i.user";
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {IUserState} from './user.reducer';
+import {IUser} from '../../models/i.user';
 
 export const userFeaturesSelector = createFeatureSelector<IUserState>('user');
 

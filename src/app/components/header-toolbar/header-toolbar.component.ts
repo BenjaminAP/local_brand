@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {UserProfileDialogComponent} from '../user-profile-dialog/user-profile-dialog.component';
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
+import {AppService} from '../../service/app.service';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -21,12 +22,11 @@ export class HeaderToolbarComponent implements OnInit {
   toggleSideNavEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input()
-  userConnected$: Observable<boolean>;
-
-  @Input()
   userDetails$: Observable<IUser>;
 
-  constructor(public dialog: MatDialog) {
+  userConnected$: Observable<boolean>;
+
+  constructor(public dialog: MatDialog, private appService: AppService) {
 
     this.USER_DIALOG_CONFIG = {
       position: {
@@ -37,6 +37,8 @@ export class HeaderToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.userConnected$ = this.appService.checkUserConnection();
   }
 
   toggleSideNav(): void {
