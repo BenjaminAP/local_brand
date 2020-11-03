@@ -7,9 +7,11 @@ import {ActionReducerMap} from '@ngrx/store';
 export interface IAppState {
   auth: auth.IAuthState;
   shops: shop.IShopState;
+  user: user.IUserState;
 }
 
 export const reducers: ActionReducerMap<IAppState> = {
   auth: auth.authReducer,
-  shops: shop.shopReducer
+  shops: shop.shopReducer,
+  user: user.userReducer
 };

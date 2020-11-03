@@ -11,7 +11,6 @@ export class ReceiveUserFavShops implements Action {
   constructor(public payload: Set<string>) {}
 }
 
-
 export class ReceiveUserData implements Action {
   public readonly type = RECEIVE_USER_DATA;
 

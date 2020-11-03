@@ -7,7 +7,7 @@ import {
   INITIATE_LOGIN,
   LoginCompleted
 } from './auth.action';
-import {catchError, exhaustMap, map, switchMap} from 'rxjs/operators';
+import {catchError, exhaustMap, map} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 // @ts-ignore
