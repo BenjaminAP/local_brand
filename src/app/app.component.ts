@@ -30,7 +30,7 @@ export class AppComponent {
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  onBeforeOnload(): void {
+  onBeforeUnload(): void {
     this.userService.uploadFavoriteShop();
   }
 
