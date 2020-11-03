@@ -1,5 +1,5 @@
 import {IUser} from "../../models/i.user";
-import {RECEIVE_USER_DATA, RECEIVE_USER_FAV_SHOPS, TOGGLE_FAV_SHOP, UserActions} from "./user.action";
+import {CLEAR_USER_DATA, RECEIVE_USER_DATA, RECEIVE_USER_FAV_SHOPS, TOGGLE_FAV_SHOP, UserActions} from "./user.action";
 
 
 export interface IUserState {
@@ -31,6 +31,13 @@ export function userReducer(state: IUserState = initialState, action: UserAction
       return {
         ...state,
         user: action.payload
+      }
+    }
+
+    case CLEAR_USER_DATA: {
+      return {
+        ...state,
+        user: initialState.user
       }
     }
 

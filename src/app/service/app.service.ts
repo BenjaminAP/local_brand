@@ -14,7 +14,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../models/i.user';
 import {IAuth} from '../models/i.auth';
 import { User} from 'firebase';
-import {ReceiveUserData, userDetailsSelector, userFavoriteShops} from "../store/user";
+import {ClearUserData, ReceiveUserData, userDetailsSelector, userFavoriteShops} from "../store/user";
 
 
 @Injectable({
@@ -266,6 +266,7 @@ export class AppService {
   public logout(): void {
     this.afAuth.signOut()
       .then(() => this.store.dispatch(new Logout()))
+      .then(() => this.store.dispatch(new ClearUserData()))
       .then(() => userFavoriteShops.release());
   }
 

@@ -24,7 +24,7 @@ export class ShopService {
     this.store.dispatch(new LoadAllShops());
   }
 
-  toggleShopFavorite(shopId: string): void {
+  toggleFavoriteShop(shopId: string): void {
     this.store.dispatch(new ToggleFavShop(shopId));
   }
 }

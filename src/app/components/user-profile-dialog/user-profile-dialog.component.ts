@@ -10,11 +10,11 @@ import {DialogService} from './dialog.service';
 })
 export class UserProfileDialogComponent implements OnInit {
 
-  userDetailsSelector$: Observable<IUser>;
+  userDetails$: Observable<IUser>;
   userConnected$: Observable<boolean>;
 
   constructor(private dialogService: DialogService) {
-    this.userDetailsSelector$ = this.dialogService.userData$;
+    this.userDetails$ = this.dialogService.userData$;
     this.userConnected$ = this.dialogService.userConnected$;
   }
 

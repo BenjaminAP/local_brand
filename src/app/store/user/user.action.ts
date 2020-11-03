@@ -3,7 +3,8 @@ import {IUser} from "../../models/i.user";
 
 export const RECEIVE_USER_DATA = '[User] User data';
 export const RECEIVE_USER_FAV_SHOPS = '[User] Received fav shops of User from DB';
-export const TOGGLE_FAV_SHOP = '[User] TOGGLE favorite shop';
+export const TOGGLE_FAV_SHOP = '[User] Toggle favorite shop';
+export const CLEAR_USER_DATA = '[User] Clear User Data';
 
 export class ReceiveUserFavShops implements Action {
   public readonly type = RECEIVE_USER_FAV_SHOPS;
@@ -17,6 +18,10 @@ export class ReceiveUserData implements Action {
   constructor(public payload: IUser) {}
 }
 
+export class ClearUserData implements Action {
+  public readonly type = CLEAR_USER_DATA;
+}
+
 /// TODO make store file for user.
 export class ToggleFavShop implements Action {
   public readonly type = TOGGLE_FAV_SHOP;
@@ -27,4 +32,5 @@ export class ToggleFavShop implements Action {
 export type UserActions =
   ReceiveUserFavShops
 | ToggleFavShop
-| ReceiveUserData;
+| ReceiveUserData
+| ClearUserData;
