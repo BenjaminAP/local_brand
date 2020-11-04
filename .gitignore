@@ -44,3 +44,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/src/app/modules/admin/localbrands-966b6-firebase-adminsdk-sx76t-2a2500ba4a.json
