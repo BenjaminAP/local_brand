@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {UploadFavShops} from '../../store/user';
 import {Store} from '@ngrx/store';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'

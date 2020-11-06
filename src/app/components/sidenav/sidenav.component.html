@@ -3,13 +3,33 @@
 
 <mat-drawer-container class="drawer-container" [hasBackdrop]="true">
   <mat-drawer opened="{{sideNavPosition}}" mode="{{sideBarMode()}}">
+
+    <div style="padding-top: 1em">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <a routerLink="/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">
+          <a routerLink="/shops" routerLinkActive="active">Shops</a>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">
+          <a>Favorites</a>
+        </mat-list-item>
+      </mat-list>
+
+    </div>
+
     <div class="filter-container">
       <app-filter-bar></app-filter-bar>
     </div>
   </mat-drawer>
 
   <mat-drawer-content style="color: whitesmoke; !important;">
-      <app-shop></app-shop>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 
 </mat-drawer-container>
