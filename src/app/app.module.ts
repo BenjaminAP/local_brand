@@ -23,7 +23,6 @@ import { UserProfileDialogComponent } from './components/user-profile-dialog/use
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from './modules/material/material.module';
 import {UserEffect} from './store/user';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import appRoutes from './routerConfig';
 
 @NgModule({
@@ -34,7 +33,6 @@ import appRoutes from './routerConfig';
     SidenavComponent,
     HeaderToolbarComponent,
     UserProfileDialogComponent,
-    AdminDashboardComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -1,6 +1,5 @@
 import {Routes} from '@angular/router';
 import {ShopComponent} from './components/shop/shop.component';
-import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
 import {AngularFireAuthGuard, hasCustomClaim} from '@angular/fire/auth-guard';
 
 const adminOnly = () => hasCustomClaim('admin');
@@ -16,8 +15,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin-dashboard',
-    component: AdminDashboardComponent,
     canActivate: [AngularFireAuthGuard],
+    loadChildren: () => import('./modules/admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule),
     data: {authGuardPipe: adminOnly}
   }
 ];
