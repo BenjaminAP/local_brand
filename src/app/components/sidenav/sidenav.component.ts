@@ -1,4 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {AdminService} from '../../service/admin/admin.service';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
@@ -10,9 +12,12 @@ export class SidenavComponent implements OnInit {
   @Input()
   sideNavPosition: boolean;
 
-  constructor() { }
+  isAdmin: Observable<boolean> = of(false);
+
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.adminService.isAdmin();
   }
 
   @HostListener('window:resize', ['$event'])

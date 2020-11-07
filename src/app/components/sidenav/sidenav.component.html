@@ -5,21 +5,25 @@
   <mat-drawer opened="{{sideNavPosition}}" mode="{{sideBarMode()}}">
 
     <div style="padding-top: 1em">
-      <mat-list role="list">
-        <mat-list-item role="listitem">
-          <a routerLink="/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
-        </mat-list-item>
+      <mat-selection-list role="list" [multiple]="false">
+        <mat-list-option role="listitem" *ngIf="(isAdmin | async)">
+          <a routerLink="/admin-dashboard" routerLinkActive="active">
+            Admin Dashboard
+          </a>
+          <mat-divider></mat-divider>
+        </mat-list-option>
+
+        <mat-list-option role="listitem">
+          <a routerLink="/shops" routerLinkActive="active">
+            Shops
+          </a>
+        </mat-list-option>
 
         <mat-divider></mat-divider>
-        <mat-list-item role="listitem">
-          <a routerLink="/shops" routerLinkActive="active">Shops</a>
-        </mat-list-item>
-
-        <mat-divider></mat-divider>
-        <mat-list-item role="listitem">
-          <a>Favorites</a>
-        </mat-list-item>
-      </mat-list>
+        <mat-list-option role="listitem">
+          <a><span>Favorites</span></a>
+        </mat-list-option>
+      </mat-selection-list>
 
     </div>
 
