@@ -259,10 +259,6 @@ export class AppService {
     // return this.temp;
   }
 
-  public initiateLogin(): void {
-    this.store.dispatch(new InitiateLogin());
-  }
-
   public logout(): void {
     this.afAuth.signOut()
       .then(() => this.store.dispatch(new LogoutUser()))

@@ -4,7 +4,7 @@ import {
   INITIATE_LOGIN,
   LoginCompleted
 } from './auth.action';
-import {catchError, exhaustMap, map} from 'rxjs/operators';
+import {catchError, exhaustMap, map, throttle} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 // @ts-ignore
@@ -14,7 +14,6 @@ import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
-import {ReceiveUserData} from '../user';
 
 @Injectable()
 export class AuthEffect {
@@ -27,7 +26,7 @@ export class AuthEffect {
   public initLogIn$: Observable<any> = this.actions$.pipe(
     ofType(INITIATE_LOGIN),
     exhaustMap(() => {
-      return from(this.popupLogin()).pipe(
+      return this.popupLogin().pipe(
         map((userCredentials: firebase.auth.UserCredential) => {
 
           const authDetails: IAuth = {
@@ -56,11 +55,11 @@ export class AuthEffect {
     )
   );
 
-  popupLogin(): Promise<firebase.auth.UserCredential | void> {
+  popupLogin(): Observable<firebase.auth.UserCredential | void> {
 
-    return this.afAuth.setPersistence('local')
+    return from(this.afAuth.setPersistence('session')
       .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
-      .catch(error => error);
+      .catch(error => error)).pipe(map(data => data));
   }
 
   signUpUser(newUserData: IUser): void {
