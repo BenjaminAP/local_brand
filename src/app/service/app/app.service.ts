@@ -5,14 +5,13 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
 import {
   authDetails,
-  IAuthState,
-  connected, RetrieveAuth, ClearAuth
+  IAuthState, ClearAuth, connectedSelector
 } from '../../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import { User} from 'firebase';
-import {ClearUserData, Login, Logout, ReceiveUserData, userDetailsSelector, userFavoriteShops} from '../../store/user';
+import {ClearUserData, favShopsSelector$, Login, Logout, ReceiveUserData, userDetailsSelector} from '../../store/user';
 import {tryCatch} from 'rxjs/internal-compatibility';
 
 
@@ -261,7 +260,7 @@ export class AppService {
   public logout(): void {
       this.store.dispatch(new Logout());
       this.store.dispatch(new ClearAuth());
-      userFavoriteShops.release();
+      favShopsSelector$.release();
   }
 
   /// Todo
@@ -300,7 +299,7 @@ export class AppService {
   }
 
   checkUserConnection(): Observable<boolean> {
-    return this.store.select(connected);
+    return this.store.select(connectedSelector);
   }
 
   userDetails(): Observable<IUser> {

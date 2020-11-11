@@ -4,15 +4,15 @@ import {IUser} from '../../models/i.user';
 
 export const userFeaturesSelector = createFeatureSelector<IUserState>('user');
 
-export const userFavoriteShops = createSelector(
+export const favShopsSelector$ = createSelector(
   userFeaturesSelector,
   (state: IUserState) => {
 
-    if (state.user === undefined){
+    if (state.user === undefined) {
       return new Set<string>();
     }
 
-    return new Set<string>(state.user.fav_stores);
+    return state.user.fav_stores;
   },
 );
 

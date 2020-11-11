@@ -8,19 +8,19 @@ export const authDetails = createSelector(
   (state: IAuthState): IAuthState => state,
 );
 
-export const connected = createSelector(
+export const connectedSelector = createSelector(
   authFeaturesSelector,
   (state: IAuthState): boolean => state.authDetails.connected,
 );
 
 export const adminSelector = createSelector(
   authFeaturesSelector,
-  (state: IAuthState): boolean => {
+  (state: IAuthState): { [p: string]: any } => {
 
-    if (state.authDetails.claims === null || state.authDetails.claims.admin === undefined) {
+    if (state.authDetails.claims === null || state.authDetails.claims['admin'] === undefined) {
       return null;
     }
 
-    return state.authDetails.claims.adimn;
+    return state.authDetails.claims['admin'];
   }
 );

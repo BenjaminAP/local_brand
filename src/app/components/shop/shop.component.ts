@@ -12,14 +12,14 @@ export class ShopComponent implements OnInit{
 
   shops$: Observable<IShop[]>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
-  userFavoriteShops$: Observable<Set<string>>;
+  favoriteShops$: Observable<Set<string>>;
 
   columns: number;
 
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops$;
     this.filteredShops$ = this.shopService.filteredShops$;
-    this.userFavoriteShops$ = this.shopService.userFavoriteShops$;
+    this.favoriteShops$ = this.shopService.favoriteShops$;
   }
 
   ngOnInit(): void {

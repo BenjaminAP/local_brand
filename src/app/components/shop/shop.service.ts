@@ -15,12 +15,12 @@ export class ShopService {
 
   allShops$: Observable<IShop[]>;
   filteredShops$: Observable<Set<IShop> | IShop[]>;
-  userFavoriteShops$: Observable<Set<string>>;
+  favoriteShops$: Observable<Set<string>>;
 
   constructor(private store: Store<IShopState>) {
     this.allShops$ = this.store.select(ShopSelector.allShops);
     this.filteredShops$ = this.store.select(ShopSelector.filteredShops);
-    this.userFavoriteShops$ = this.store.select(UserSelector.userFavoriteShops);
+    this.favoriteShops$ = this.store.select(UserSelector.favShopsSelector$);
     this.store.dispatch(new LoadAllShops());
   }
 

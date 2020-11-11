@@ -10,6 +10,7 @@ export const INIT_LOGIN = '[User] Login';
 export const LOGIN_COMPLETED = '[User] Login Completed';
 export const LOGOUT = '[User] Logout';
 export const LOGOUT_COMPLETED = '[User] Logout Completed';
+export const DOWNLOAD_FAV_SHOPS = '[User] Download users favorite shops';
 
 export class Login implements Action {
   public readonly type = INIT_LOGIN;
@@ -46,6 +47,13 @@ export class UploadFavShops implements Action {
   public readonly type = UPLOAD_FAV_SHOPS;
 }
 
+export class DownloadUserFavShops implements Action {
+  public readonly type = DOWNLOAD_FAV_SHOPS;
+
+  constructor(public payload: string) {
+  }
+}
+
 export class ClearUserData implements Action {
   public readonly type = CLEAR_USER_DATA;
 }
@@ -59,6 +67,7 @@ export class ToggleFavShop implements Action {
 
 export type UserActions =
   Login
+  | DownloadUserFavShops
   | LoginCompleted
   | Logout
   | LogoutCompleted

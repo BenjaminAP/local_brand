@@ -14,7 +14,7 @@ export class SidenavComponent implements OnInit {
   @Input()
   sideNavPosition: boolean;
 
-  isAdmin: Observable<boolean> = of(false);
+  isAdmin: Observable<{ [p: string]: any }> = null;
 
   constructor(private store: Store) { }
 
