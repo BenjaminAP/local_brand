@@ -1,36 +1,26 @@
 import {Action} from '@ngrx/store';
 import {IAuth} from '../../models/i.auth';
 
+export const RETRIEVE_AUTH = '[Auth] Retrieve Authentication Info';
+export const AUTH_RETRIEVED = '[Auth] Login Completed';
+export const CLEAR_AUTH = '[Auth] CLEAR AUTH';
 
-export const INITIATE_LOGIN = '[Auth] Initiate Login';
-export const LOGIN_COMPLETED = '[Auth] Login Completed';
-export const SIGNUP_USER = '[Auth] Signup User';
-export const LOGOUT = '[Auth] Logout';
-export const LOGIN_FROM_STATE = '[Auth] Login from state';
-
-export class InitiateLogin implements Action {
-  public readonly type = INITIATE_LOGIN;
+export class RetrieveAuth implements Action {
+  public readonly type = RETRIEVE_AUTH;
 }
 
-export class LoginCompleted implements Action {
-  public readonly type = LOGIN_COMPLETED;
+export class AuthRetrieved implements Action {
+  public readonly type = AUTH_RETRIEVED;
 
   constructor(public payload: IAuth) {
   }
 }
 
-export class LoginFromState implements Action {
-  public readonly type = LOGIN_FROM_STATE;
-
-  constructor(public payload: IAuth) {}
-}
-
-export class LogoutUser implements Action {
-  public readonly type = LOGOUT;
+export class ClearAuth implements Action {
+  public readonly type = CLEAR_AUTH;
 }
 
 export type AuthActions =
-  InitiateLogin
-| LoginCompleted
-| LogoutUser
-| LoginFromState;
+  RetrieveAuth
+  | AuthRetrieved
+  | ClearAuth;

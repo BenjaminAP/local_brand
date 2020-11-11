@@ -1,6 +1,9 @@
 export interface IAuth {
-  isNewUser: boolean;
-  verified_email: boolean;
-  provider_id: string;
-  connected: boolean;
+  // isNewUser: boolean;
+  // verified_email: boolean;
+  // provider_id: string;
+  connected: boolean | null;
+  token: string | null;
+  signInProvider: string | null;
+  claims: {[key: string]:  any} | null;
 }

@@ -5,16 +5,15 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
 import {
   authDetails,
-  LoginFromState,
   IAuthState,
-  InitiateLogin,
-  connected, LogoutUser,
+  connected, RetrieveAuth, ClearAuth
 } from '../../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import { User} from 'firebase';
-import {ClearUserData, ReceiveUserData, userDetailsSelector, userFavoriteShops} from '../../store/user';
+import {ClearUserData, Login, Logout, ReceiveUserData, userDetailsSelector, userFavoriteShops} from '../../store/user';
+import {tryCatch} from 'rxjs/internal-compatibility';
 
 
 @Injectable({
@@ -260,40 +259,44 @@ export class AppService {
   }
 
   public logout(): void {
-    this.afAuth.signOut()
-      .then(() => this.store.dispatch(new LogoutUser()))
-      .then(() => this.store.dispatch(new ClearUserData()))
-      .then(() => userFavoriteShops.release());
+      this.store.dispatch(new Logout());
+      this.store.dispatch(new ClearAuth());
+      userFavoriteShops.release();
   }
 
+  /// Todo
   public checkForLoginUserData(): void {
-    this.afAuth.onAuthStateChanged((userCredentials: User) => {
 
-      if (userCredentials === null) {
-        this.afAuth.signOut();
-      } else {
+    // this.store.dispatch(new Login());
+    // this.store.dispatch(new RetrieveAuth());
 
-        const userObj: IUser = {
-          email: userCredentials.email,
-          full_name: userCredentials.displayName,
-          picture: userCredentials.photoURL,
-          uid: userCredentials.uid,
-          fav_stores: new Set<string>()
-        };
-
-        const authObj: IAuth = {
-          provider_id: null,
-          verified_email: userCredentials.emailVerified,
-          isNewUser: false,
-          connected: true
-        };
-
-        this.store.dispatch(new LoginFromState(authObj));
-        this.store.dispatch(new ReceiveUserData(userObj));
-      }
-
-    })
-      .catch(error => error);
+    // this.afAuth.onAuthStateChanged((userCredentials: User) => {
+    //
+    //   if (userCredentials === null) {
+    //     this.afAuth.signOut();
+    //   } else {
+    //
+    //     const userObj: IUser = {
+    //       email: userCredentials.email,
+    //       full_name: userCredentials.displayName,
+    //       picture: userCredentials.photoURL,
+    //       uid: userCredentials.uid,
+    //       fav_stores: new Set<string>()
+    //     };
+    //
+    //     const authObj: IAuth = {
+    //       provider_id: null,
+    //       verified_email: userCredentials.emailVerified,
+    //       isNewUser: false,
+    //       connected: true
+    //     };
+    //
+    //     this.store.dispatch(new LoginFromState(authObj));
+    //     this.store.dispatch(new ReceiveUserData(userObj));
+    //   }
+    //
+    // })
+    //   .catch(error => error);
   }
 
   checkUserConnection(): Observable<boolean> {

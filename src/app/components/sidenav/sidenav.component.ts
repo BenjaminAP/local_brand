@@ -1,6 +1,8 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {AdminService} from '../../service/admin/admin.service';
 import {Observable, of} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {adminSelector} from '../../store/auth';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,10 +16,11 @@ export class SidenavComponent implements OnInit {
 
   isAdmin: Observable<boolean> = of(false);
 
-  constructor(private adminService: AdminService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.isAdmin = this.adminService.isAdmin();
+    this.isAdmin = this.store.select(adminSelector);
+    this.isAdmin.subscribe(temp => console.log('adminSelector:', temp));
   }
 
   @HostListener('window:resize', ['$event'])

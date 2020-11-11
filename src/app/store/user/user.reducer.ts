@@ -1,5 +1,13 @@
 import {IUser} from '../../models/i.user';
-import {CLEAR_USER_DATA, RECEIVE_USER_DATA, RECEIVE_USER_FAV_SHOPS, TOGGLE_FAV_SHOP, UserActions} from './user.action';
+import {
+  CLEAR_USER_DATA,
+  LOGIN_COMPLETED,
+  LOGOUT_COMPLETED,
+  RECEIVE_USER_DATA,
+  RECEIVE_USER_FAV_SHOPS,
+  TOGGLE_FAV_SHOP,
+  UserActions
+} from './user.action';
 
 
 export interface IUserState {
@@ -19,6 +27,20 @@ export const initialState: IUserState = {
 export function userReducer(state: IUserState = initialState, action: UserActions): IUserState {
 
   switch (action.type) {
+
+    case LOGIN_COMPLETED: {
+      return {
+        ...state,
+        user: action.payload
+      };
+    }
+
+    case LOGOUT_COMPLETED: {
+      return {
+        ...state,
+        user: initialState.user
+      };
+    }
 
     case RECEIVE_USER_FAV_SHOPS: {
       return {

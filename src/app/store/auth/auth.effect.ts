@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {
-  INITIATE_LOGIN,
-  LoginCompleted
+  AuthRetrieved,
+  RETRIEVE_AUTH
 } from './auth.action';
-import {catchError, exhaustMap, map, throttle} from 'rxjs/operators';
-import {EMPTY, from, Observable} from 'rxjs';
+import {exhaustMap, map, mergeMap} from 'rxjs/operators';
+import { from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 // @ts-ignore
 import * as firebase from 'firebase/app';
@@ -14,6 +14,8 @@ import {IUser} from '../../models/i.user';
 import {IAuth} from '../../models/i.auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
+import {User} from 'firebase';
+import IdTokenResult = firebase.auth.IdTokenResult;
 
 @Injectable()
 export class AuthEffect {
@@ -22,58 +24,24 @@ export class AuthEffect {
               private afAuth: AngularFireAuth,
               private afStore: AngularFirestore) {}
 
+  /// Todo: trigger after user logs in....
   @Effect()
-  public initLogIn$: Observable<any> = this.actions$.pipe(
-    ofType(INITIATE_LOGIN),
-    exhaustMap(() => {
-      return this.popupLogin().pipe(
-        map((userCredentials: firebase.auth.UserCredential) => {
-
+  public initAuth$: Observable<any> = this.actions$.pipe(
+    ofType(RETRIEVE_AUTH),
+    mergeMap(() => {
+      return this.afAuth.idTokenResult.pipe(
+        map((authResult: IdTokenResult) => {
           const authDetails: IAuth = {
-            provider_id: userCredentials.credential.providerId,
-            verified_email: userCredentials.user.emailVerified,
-            isNewUser: userCredentials.additionalUserInfo.isNewUser,
-            connected: true
+            connected: true,
+            claims: authResult.claims,
+            signInProvider: authResult.signInProvider,
+            token: authResult.token
           };
 
-          if (authDetails.isNewUser){
-            const user: IUser = {
-              email: userCredentials.user.email,
-              full_name: userCredentials.user.displayName,
-              picture: userCredentials.user.photoURL,
-              uid: userCredentials.user.uid,
-              fav_stores: new Set<string>()
-            };
-
-            this.signUpUser(user);
-          }
-
-          return new LoginCompleted(authDetails);
-        }),
-        catchError(() => EMPTY));
+          return new AuthRetrieved(authDetails);
+        })
+      );
       }
     )
   );
-
-  popupLogin(): Observable<firebase.auth.UserCredential | void> {
-
-    return from(this.afAuth.setPersistence('session')
-      .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
-      .catch(error => error)).pipe(map(data => data));
-  }
-
-  signUpUser(newUserData: IUser): void {
-
-    const newUser: IUserFireCloud = {
-      email: newUserData.email,
-      fav_shops_ids: [],
-      full_name: newUserData.full_name,
-      isNewUser: false
-    };
-
-    const userDoc = this.afStore.doc<{ isNewUser: boolean }>(`user/${newUserData.uid}`);
-    userDoc.set({isNewUser: true})
-      .then(() => userDoc.set(newUser))
-      .catch(error => error);
-  }
 }
