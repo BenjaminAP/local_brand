@@ -5,14 +5,11 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
 import {
   authDetails,
-  IAuthState, ClearAuth, connectedSelector
+  IAuthState, connectedSelector, Logout
 } from '../../store/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {IUser} from '../../models/i.user';
-import {IAuth} from '../../models/i.auth';
-import { User} from 'firebase';
-import {ClearUserData, favShopsSelector$, Login, Logout, ReceiveUserData, userDetailsSelector} from '../../store/user';
-import {tryCatch} from 'rxjs/internal-compatibility';
+import { userDetailsSelector} from '../../store/user';
 
 
 @Injectable({
@@ -24,8 +21,7 @@ export class AppService {
   temp: Observable<any>;
 
   constructor(private db: AngularFireDatabase,
-              private store: Store<IAuthState>,
-              private afAuth: AngularFireAuth) {
+              private store: Store<IAuthState>) {
 
     this.authDetails$ = this.store.select(authDetails);
     // this.temp = db.list('shops').valueChanges();
@@ -255,12 +251,6 @@ export class AppService {
   public loadShops(): Observable<IShop[]> {
     return of(this.shopList.sort( () => .5 - Math.random() ));
     // return this.temp;
-  }
-
-  public logout(): void {
-      this.store.dispatch(new Logout());
-      // this.store.dispatch(new ClearAuth());
-      // favShopsSelector$.release();
   }
 
   /// Todo

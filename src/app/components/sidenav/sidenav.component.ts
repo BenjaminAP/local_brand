@@ -20,7 +20,6 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin = this.store.select(adminSelector);
-    this.isAdmin.subscribe(temp => console.log('adminSelector:', temp));
   }
 
   @HostListener('window:resize', ['$event'])

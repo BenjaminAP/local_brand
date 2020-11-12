@@ -1,4 +1,4 @@
-import {AUTH_RETRIEVED, AuthActions, CLEAR_AUTH} from './auth.action';
+import {AuthActions, LOGIN_COMPLETED, LOGOUT_COMPLETED} from './auth.action';
 import {IAuth} from '../../models/i.auth';
 
 export interface IAuthState {
@@ -18,14 +18,14 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
 
   switch (action.type) {
 
-    case AUTH_RETRIEVED: {
+    case LOGIN_COMPLETED: {
       return {
         ...state,
         authDetails: action.payload,
       };
     }
 
-    case CLEAR_AUTH: {
+    case LOGOUT_COMPLETED: {
       return {
         ...state,
         authDetails: initialState.authDetails,

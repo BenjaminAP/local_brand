@@ -1,7 +1,7 @@
 
-<h1 mat-dialog-title *ngIf="!(userConnected$ | async); else usernameHeader">Anonymous</h1>
+<h1 mat-dialog-title  *ngIf="!(userConnected$ | async); else usernameHeader">Anonymous</h1>
 <div mat-dialog-content>
-  <button mat-raised-button (click)="login()" *ngIf="!(userConnected$ | async); else logoutTemplate"> LogIn</button>
+  <button mat-raised-button mat-dialog-close (click)="login()" *ngIf="!(userConnected$ | async); else logoutTemplate"> LogIn</button>
 </div>
 
 <ng-template #usernameHeader>
@@ -9,6 +9,6 @@
 </ng-template>
 
 <ng-template #logoutTemplate>
-  <button mat-raised-button (click)="logout()"> LogOut </button>
+  <button mat-raised-button mat-dialog-close (click)="logout()"> LogOut </button>
 </ng-template>
 

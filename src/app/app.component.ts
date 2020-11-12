@@ -31,8 +31,13 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(): void {
-    this.userService.uploadFavoriteShop();
+
+    this.userDetails$
+      .subscribe((user: IUser) => this.userService.uploadFavoriteShop(user))
+      .unsubscribe();
   }
 
+  ngOnDestroy() {
+  }
 
 }
