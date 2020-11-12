@@ -14,8 +14,8 @@ export class UserProfileDialogComponent implements OnInit {
   userConnected$: Observable<boolean>;
 
   constructor(private dialogService: DialogService) {
-    this.userDetails$ = this.dialogService.userData$;
-    this.userConnected$ = this.dialogService.userConnected$;
+    this.userDetails$ = this.dialogService.getUserData();
+    this.userConnected$ = this.dialogService.isUserConnected();
   }
 
   ngOnInit(): void {

@@ -14,12 +14,12 @@ export class SidenavComponent implements OnInit {
   @Input()
   sideNavPosition: boolean;
 
-  isAdmin: Observable<{ [p: string]: any }> = null;
+  isAdmin: Observable<boolean>;
 
-  constructor(private store: Store) { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.isAdmin = this.store.select(adminSelector);
+    this.isAdmin = this.adminService.isAdmin();
   }
 
   @HostListener('window:resize', ['$event'])

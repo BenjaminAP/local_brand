@@ -38,7 +38,7 @@ export class UserEffect {
     ofType(UPLOAD_FAV_SHOPS),
     map((action: UploadFavShops) => {
       this.updateUserFavShops(action.payload);
-      return new UpdatedFavShopsList()
+      return new UpdatedFavShopsList();
     }),
     catchError(err => EMPTY)
   );

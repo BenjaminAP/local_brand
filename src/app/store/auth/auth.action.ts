@@ -2,7 +2,6 @@ import {Action} from '@ngrx/store';
 import {IAuth} from '../../models/i.auth';
 
 export const RETRIEVE_AUTH = '[auth] Retrieve Authentication Info';
-export const AUTH_RETRIEVED = '[auth] Login Completed';
 export const CLEAR_AUTH = '[auth] CLEAR AUTH';
 export const INIT_LOGIN = '[auth] Init Login';
 export const LOGIN_COMPLETED = '[auth] Login Completed';
@@ -40,7 +39,7 @@ export class ClearAuth implements Action {
 export type AuthActions =
   Login
   | RetrieveAuth
-  |LoginCompleted
+  | LoginCompleted
   | ClearAuth
   | Logout
   | LogoutCompleted;

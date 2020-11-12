@@ -17,9 +17,9 @@ export class ShopComponent implements OnInit{
   columns: number;
 
   constructor(private shopService: ShopService) {
-    this.shops$ = this.shopService.allShops$;
-    this.filteredShops$ = this.shopService.filteredShops$;
-    this.favoriteShops$ = this.shopService.favoriteShops$;
+    this.shops$ = this.shopService.allShops();
+    this.filteredShops$ = this.shopService.filteredShops();
+    this.favoriteShops$ = this.shopService.favoriteShops();
   }
 
   ngOnInit(): void {

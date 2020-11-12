@@ -32,15 +32,14 @@ export class AuthEffect {
               private afStore: AngularFirestore,
               private store: Store) {}
 
-
   @Effect()
   public authClear$ = this.actions$.pipe(
     ofType(CLEAR_AUTH),
     concatMap(() => {
-      this.afAuth.signOut()
+      this.afAuth.signOut();
       return [new LogoutCompleted(), new ClearUserData()];
     }),
-  )
+  );
 
   @Effect()
   public beginLogout$: Observable<any> = this.actions$.pipe(

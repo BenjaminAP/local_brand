@@ -1,21 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
-import {AuthService} from "../../service/auth/auth.service";
-import {UserService} from "../../service/user/user.service";
-
+import {AuthService} from '../../service/auth/auth.service';
+import {UserService} from '../../service/user/user.service';
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
 
-  userData$: Observable<IUser>;
-  userConnected$: Observable<boolean>;
-
-  constructor(private authService: AuthService, private userService: UserService) {
-    this.userData$ = this.userService.getUserDataSelector();
-    this.userConnected$ = this.authService.getConnectionSelector();
-  }
+  constructor(private authService: AuthService, private userService: UserService) {}
 
   login(): void {
     this.authService.beginLogin();
@@ -23,5 +16,13 @@ export class DialogService {
 
   logout(): void {
     this.authService.beginLogout();
+  }
+
+  isUserConnected(): Observable<boolean> {
+    return this.authService.getConnectionSelector();
+  }
+
+  getUserData(): Observable<IUser> {
+    return this.userService.getUserDataSelector();
   }
 }

@@ -19,7 +19,7 @@ export class FilterBarComponent implements OnInit {
   ]);
 
   constructor(private filterService: FilterService) {
-    this.filterChips$ = this.filterService.allFilters$;
+    this.filterChips$ = this.filterService.allFilters();
   }
 
   ngOnInit(): void {
