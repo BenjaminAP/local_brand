@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {AppService} from './service/app/app.service';
 import {Observable} from 'rxjs';
 import {IUser} from './models/i.user';
@@ -22,11 +22,16 @@ export class AppComponent {
   constructor(private appService: AppService, private userService: UserService) {
 
     // this.appService.checkForLoginUserData();
-    this.userDetails$ = this.userService.getUserDataSelector()
+    this.userDetails$ = this.userService.getUserDataSelector();
   }
 
-  receiveSideNavEvent(): void {
-    this.sideNavPosition = !this.sideNavPosition;
+  receiveSideNavEvent(closing: boolean): void {
+
+    if (closing === null || closing === undefined) {
+      this.sideNavPosition = !this.sideNavPosition;
+    } else {
+      this.sideNavPosition = !closing;
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -35,9 +40,6 @@ export class AppComponent {
     this.userDetails$
       .subscribe((user: IUser) => this.userService.uploadFavoriteShop(user))
       .unsubscribe();
-  }
-
-  ngOnDestroy() {
   }
 
 }

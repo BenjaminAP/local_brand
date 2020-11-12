@@ -2,7 +2,7 @@
 
 
 <mat-drawer-container class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer opened="{{sideNavPosition}}" mode="{{sideBarMode()}}">
+  <mat-drawer opened="{{sideNavPosition}}" mode="{{sideBarMode()}}"  (closedStart)="sideNavClosing()">
 
     <div style="padding-top: 1em">
       <mat-selection-list role="list" [multiple]="false">
