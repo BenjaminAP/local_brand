@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
 import {Store} from '@ngrx/store';
-import {IAuthState, RetrieveAuth, connectedSelector} from '../../store/auth';
+import {IAuthState, connectedSelector} from '../../store/auth';
 import {AppService} from '../../service/app/app.service';
 import {Login, userDetailsSelector} from '../../store/user';
 import {UserService} from '../../service/user/user.service';
@@ -24,11 +24,9 @@ export class DialogService {
 
   login(): void {
     this.store.dispatch(new Login());
-    // this.store.dispatch(new RetrieveAuth());
   }
 
   logout(): void {
-    this.userService.uploadFavoriteShop();
     this.appService.logout();
   }
 }

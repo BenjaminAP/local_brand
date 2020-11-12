@@ -259,8 +259,8 @@ export class AppService {
 
   public logout(): void {
       this.store.dispatch(new Logout());
-      this.store.dispatch(new ClearAuth());
-      favShopsSelector$.release();
+      // this.store.dispatch(new ClearAuth());
+      // favShopsSelector$.release();
   }
 
   /// Todo
