@@ -41,7 +41,6 @@ export function userReducer(state: IUserState = initialState, action: UserAction
     }
 
     case CLEAR_USER_DATA: {
-      console.log('clearUserState');
       return {
         ...state,
         user: initialState.user

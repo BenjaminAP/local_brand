@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {EMPTY, of} from 'rxjs';
-import {AppService} from '../../service/app/app.service';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from './shop.action';
 import {IShop} from "../../models/i.shop";
@@ -9,8 +7,7 @@ import {IShop} from "../../models/i.shop";
 @Injectable()
 export class ShopEffects {
 
-  constructor(private actions$: Actions,
-              private appService: AppService) {}
+  constructor(private actions$: Actions) {}
 
   @Effect()
   public loadAllShops$ = this.actions$.pipe(

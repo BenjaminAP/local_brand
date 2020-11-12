@@ -20,13 +20,11 @@ import {IFilter} from "../../models/i.filter";
   providedIn: 'root'
 })
 export class AppService {
-  private readonly authDetails$: Observable<IAuthState>;
   temp: Observable<any>;
 
   constructor(private db: AngularFireDatabase,
               private store: Store<IAuthState>) {
 
-    this.authDetails$ = this.store.select(authDetails);
     // this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
   }
@@ -90,14 +88,6 @@ export class AppService {
     //
     // })
     //   .catch(error => error);
-  }
-
-  checkUserConnection(): Observable<boolean> {
-    return this.store.select(connectedSelector);
-  }
-
-  userDetails(): Observable<IUser> {
-    return this.store.select(userDetailsSelector);
   }
 
 }

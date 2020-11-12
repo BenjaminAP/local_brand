@@ -4,6 +4,7 @@ import {UserProfileDialogComponent} from '../user-profile-dialog/user-profile-di
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
 import {AppService} from '../../service/app/app.service';
+import {AuthService} from "../../service/auth/auth.service";
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -26,7 +27,7 @@ export class HeaderToolbarComponent implements OnInit {
 
   userConnected$: Observable<boolean>;
 
-  constructor(public dialog: MatDialog, private appService: AppService) {
+  constructor(public dialog: MatDialog, private authService: AuthService) {
 
     this.USER_DIALOG_CONFIG = {
       position: {
@@ -38,7 +39,7 @@ export class HeaderToolbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userConnected$ = this.appService.checkUserConnection();
+    this.userConnected$ = this.authService.getConnectionSelector();
   }
 
   toggleSideNav(): void {

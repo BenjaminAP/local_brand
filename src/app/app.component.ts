@@ -22,7 +22,7 @@ export class AppComponent {
   constructor(private appService: AppService, private userService: UserService) {
 
     // this.appService.checkForLoginUserData();
-    this.userDetails$ = this.appService.userDetails();
+    this.userDetails$ = this.userService.getUserDataSelector()
   }
 
   receiveSideNavEvent(): void {
