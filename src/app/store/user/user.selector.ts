@@ -6,14 +6,7 @@ export const userFeaturesSelector = createFeatureSelector<IUserState>('user');
 
 export const favShopsSelector$ = createSelector(
   userFeaturesSelector,
-  (state: IUserState) => {
-
-    if (state.user === undefined) {
-      return new Set<string>();
-    }
-
-    return state.user.fav_stores;
-  },
+  (state: IUserState) => state.user.fav_stores,
 );
 
 export const userDetailsSelector = createSelector(

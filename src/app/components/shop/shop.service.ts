@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Store} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
-import {IShopState} from '../../store/shops';
 import {Observable} from 'rxjs';
-import * as ShopSelector from '../../store/shops/shop.selector';
-import * as UserSelector from '../../store/user/user.selector';
-import {LoadAllShops} from '../../store/shops';
-import {ToggleFavShop} from '../../store/user';
+import {UserService} from "../../service/user/user.service";
+import {AppService} from "../../service/app/app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +13,14 @@ export class ShopService {
   filteredShops$: Observable<Set<IShop> | IShop[]>;
   favoriteShops$: Observable<Set<string>>;
 
-  constructor(private store: Store<IShopState>) {
-    this.allShops$ = this.store.select(ShopSelector.allShops);
-    this.filteredShops$ = this.store.select(ShopSelector.filteredShops);
-    this.favoriteShops$ = this.store.select(UserSelector.favShopsSelector$);
-    this.store.dispatch(new LoadAllShops());
+  constructor(private userService: UserService, private appService: AppService) {
+    this.appService.loadShops();
+    this.allShops$ = this.appService.getShopsSelector();
+    this.filteredShops$ = this.appService.getFilteredShopsSelector();
+    this.favoriteShops$ = this.userService.getFavShopIdsSelector();
   }
 
   toggleFavoriteShop(shopId: string): void {
-    this.store.dispatch(new ToggleFavShop(shopId));
+    this.appService.toggleFavShop(shopId);
   }
 }

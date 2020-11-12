@@ -25,6 +25,7 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
       };
     }
 
+
     case LOGOUT_COMPLETED: {
       return {
         ...state,

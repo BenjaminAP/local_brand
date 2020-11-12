@@ -3,7 +3,7 @@ import {IAuthState} from '../../store/auth';
 import {Store} from '@ngrx/store';
 import {IUser} from '../../models/i.user';
 import {Observable} from 'rxjs';
-import {userDetailsSelector} from '../../store/user';
+import {UserService} from "../../service/user/user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class HeaderToolbarService {
 
   userProfile$: Observable<IUser>;
 
-  constructor(private store: Store<IAuthState>) {
-    this.userProfile$ = this.store.select(userDetailsSelector);
+  constructor(private userService: UserService) {
+    this.userProfile$ = this.userService.getUserDataSelector();
   }
 }

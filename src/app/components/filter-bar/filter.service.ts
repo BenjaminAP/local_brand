@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {IFilter} from '../../models/i.filter';
-import {Store} from '@ngrx/store';
-import {IShopState} from '../../store/shops';
-import {allFilters} from '../../store/shops';
-import {ToggleFilter} from '../../store/shops';
+import {AppService} from "../../service/app/app.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +10,11 @@ export class FilterService {
 
   allFilters$: Observable<IFilter[]>;
 
-  constructor(private store: Store<IShopState>) {
-    this.allFilters$ = this.store.select(allFilters);
+  constructor(private appService: AppService) {
+    this.allFilters$ = this.appService.getFiltersSelector()
   }
 
-  toggleFilter(filterType: string): void {
-    this.store.dispatch(new ToggleFilter(filterType));
+  toggleFilter(filterId: string): void {
+    this.appService.toggleFilter(filterId);
   }
 }

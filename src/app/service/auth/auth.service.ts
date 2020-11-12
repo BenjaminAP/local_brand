@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {Login, Logout} from "../../store/auth";
+import {connectedSelector, Login, Logout} from "../../store/auth";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class AuthService {
 
   beginLogout(): void {
     this.store.dispatch(new Logout());
+  }
+
+  getConnectionSelector(): Observable<boolean> {
+    return this.store.select(connectedSelector);
   }
 
 }

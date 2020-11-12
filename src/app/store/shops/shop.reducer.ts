@@ -32,6 +32,7 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
         shops: action.payload
       };
     }
+
     case TOGGLE_FILTER: {
 
       const newFilters = state.filters.map((filter: IFilter) => {

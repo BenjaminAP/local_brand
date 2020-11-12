@@ -38,7 +38,6 @@ export class AuthEffect {
     ofType(CLEAR_AUTH),
     concatMap(() => {
       this.afAuth.signOut()
-
       return [new LogoutCompleted(), new ClearUserData()];
     }),
   )
