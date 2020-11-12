@@ -21,8 +21,8 @@ import {
   ReceiveUserData,
   UploadFavShops,
   userDetailsSelector
-} from "../user";
-import {Store} from "@ngrx/store";
+} from '../user';
+import {Store} from '@ngrx/store';
 
 @Injectable()
 export class AuthEffect {
@@ -97,7 +97,7 @@ export class AuthEffect {
 
   popupLogin(): Observable<firebase.auth.UserCredential | void> {
 
-    return from(this.afAuth.setPersistence('session')
+    return from(this.afAuth.setPersistence('local')
       .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
       .catch(error => error));
   }

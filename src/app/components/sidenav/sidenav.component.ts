@@ -3,6 +3,8 @@ import {AdminService} from '../../service/admin/admin.service';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {adminSelector} from '../../store/auth';
+import {UserService} from '../../service/user/user.service';
+import {AuthService} from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,12 +19,14 @@ export class SidenavComponent implements OnInit {
   @Output()
   sideNavClosingEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  isAdmin: Observable<boolean>;
+  isAdmin: Observable<boolean> = of(false);
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.isAdmin = this.adminService.isAdmin();
+    this.authService.getConnectionSelector().subscribe(temp => console.log(temp));
+    this.isAdmin = this.authService.getConnectionSelector() ? this.adminService.isAdmin() : of(false);
+    this.isAdmin.subscribe(temp => console.log(temp));
   }
 
   sideNavClosing(): void {

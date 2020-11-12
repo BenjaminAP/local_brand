@@ -3,6 +3,8 @@ import {AppService} from './service/app/app.service';
 import {Observable} from 'rxjs';
 import {IUser} from './models/i.user';
 import {UserService} from './service/user/user.service';
+import {AdminService} from './service/admin/admin.service';
+import {AuthService} from './service/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,7 @@ export class AppComponent {
   @Output()
   userDetails$: Observable<IUser>;
 
-  constructor(private appService: AppService, private userService: UserService) {
+  constructor(private appService: AppService, private userService: UserService, private authService: AuthService) {
 
     // this.appService.checkForLoginUserData();
     this.userDetails$ = this.userService.getUserDataSelector();
@@ -37,9 +39,7 @@ export class AppComponent {
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(): void {
 
-    this.userDetails$
-      .subscribe((user: IUser) => this.userService.uploadFavoriteShop(user))
-      .unsubscribe();
+    this.authService.beginLogout();
   }
 
 }

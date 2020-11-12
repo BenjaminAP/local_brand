@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Store} from "@ngrx/store";
-import {connectedSelector, Login, Logout} from "../../store/auth";
-import {Observable} from "rxjs";
+import {Store} from '@ngrx/store';
+import {connectedSelector, Login, Logout} from '../../store/auth';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
