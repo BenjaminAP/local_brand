@@ -27,9 +27,4 @@ export class AuthService {
     this.store.dispatch(new StateLogin());
   }
 
-  temp(): void {
-    this.afAuth.idTokenResult.subscribe(data => console.log('Id Token Result', data));
-    this.afAuth.user.subscribe(data => console.log('user', data));
-  }
-
 }

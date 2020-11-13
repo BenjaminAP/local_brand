@@ -15,9 +15,7 @@ export const DOWNLOAD_FAV_SHOPS = '[User] Download users favorite shops';
 export class ReceiveUserFavShops implements Action {
   public readonly type = RECEIVE_USER_FAV_SHOPS;
 
-  constructor(public payload: Set<string>) {
-    console.log(payload);
-  }
+  constructor(public payload: Set<string>) {}
 }
 
 export class CheckForUserData implements Action {
@@ -27,9 +25,7 @@ export class CheckForUserData implements Action {
 export class ReceiveUserData implements Action {
   public readonly type = RECEIVE_USER_DATA;
 
-  constructor(public payload: IUser) {
-    console.log(payload);
-  }
+  constructor(public payload: IUser) {}
 }
 
 export class UploadFavShops implements Action {

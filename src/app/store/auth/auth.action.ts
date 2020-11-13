@@ -25,9 +25,7 @@ export class RetrieveAuth implements Action {
 export class LoginCompleted implements Action {
   public readonly type = LOGIN_COMPLETED;
 
-  constructor(public payload: IAuth) {
-    console.log(payload);
-  }
+  constructor(public payload: IAuth) {}
 }
 
 export class Logout implements Action {

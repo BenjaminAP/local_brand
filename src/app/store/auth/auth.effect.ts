@@ -88,8 +88,6 @@ export class AuthEffect {
             picture: user.photoURL
           };
 
-          console.log(userDetails);
-
           return userDetails;
         }),
         catchError(err => EMPTY)
