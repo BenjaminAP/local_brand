@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-add-shop-form',
-  templateUrl: './add-shop-form.component.html',
-  styleUrls: ['./add-shop-form.component.css']
+  selector: 'app-shop-form',
+  templateUrl: './shop-form.component.html',
+  styleUrls: ['./shop-form.component.css']
 })
-export class AddShopFormComponent implements OnInit {
+export class ShopFormComponent implements OnInit {
 
   shopForm: FormGroup;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
     this.shopForm = new FormGroup({
-      shopName: new FormControl(''),
+      name: new FormControl(''),
       social_media: new FormControl(''),
       social_media_tag: new FormControl(''),
       email: new FormControl(''),
@@ -29,4 +31,8 @@ export class AddShopFormComponent implements OnInit {
     });
   }
 
+
+  saveForm(): void {
+    console.log(this.shopForm.value);
+  }
 }

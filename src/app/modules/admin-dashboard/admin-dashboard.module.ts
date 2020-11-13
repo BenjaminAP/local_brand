@@ -6,7 +6,7 @@ import {AdminToolbarComponent} from './component/admin-toolbar/admin-toolbar.com
 import {ShopsTableComponent} from './component/shops-table/shops-table.component';
 import {MaterialModule} from '../material/material.module';
 import {AddShopDialogComponent} from './component/add-shop-dialog/add-shop-dialog.component';
-import {AddShopFormComponent} from './component/add-shop-form/add-shop-form.component';
+import {ShopFormComponent} from './component/shop-form/shop-form.component';
 
 
 
@@ -16,7 +16,7 @@ import {AddShopFormComponent} from './component/add-shop-form/add-shop-form.comp
     AdminToolbarComponent,
     ShopsTableComponent,
     AddShopDialogComponent,
-    AddShopFormComponent
+    ShopFormComponent
   ],
   imports: [
     CommonModule,

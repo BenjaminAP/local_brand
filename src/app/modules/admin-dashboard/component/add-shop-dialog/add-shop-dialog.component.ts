@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-add-shop-dialog',
@@ -8,7 +9,11 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class AddShopDialogComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  saveShopForm: FormGroup;
+
+  constructor(public dialog: MatDialog) {
+    this.saveShopForm = new FormGroup({});
+  }
 
   ngOnInit(): void {
   }

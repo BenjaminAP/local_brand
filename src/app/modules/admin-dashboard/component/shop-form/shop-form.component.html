@@ -3,7 +3,7 @@
   <div class="form-container">
     <form [formGroup]="shopForm">
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Name
         </mat-label>
@@ -11,7 +11,7 @@
         <mat-hint>Shop Name</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Social Media
         </mat-label>
@@ -19,7 +19,7 @@
         <mat-hint>Social Media</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Social Media Tag
         </mat-label>
@@ -27,7 +27,7 @@
         <mat-hint>Social Media Tag</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Email
         </mat-label>
@@ -35,7 +35,7 @@
         <mat-hint>Email</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           URL
         </mat-label>
@@ -43,15 +43,15 @@
         <mat-hint>URL</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Image
         </mat-label>
-        <input matInput placeholder="Image URL" formControlName="image">
+        <input matInput placeholder="Image URL" formControlName="img_url">
         <mat-hint>Image URL</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Attire Type
         </mat-label>
@@ -59,7 +59,7 @@
         <mat-hint>Attire Type</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           State
         </mat-label>
@@ -67,7 +67,7 @@
         <mat-hint>State</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Country
         </mat-label>
@@ -75,7 +75,7 @@
         <mat-hint>Country</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           City
         </mat-label>
@@ -83,7 +83,7 @@
         <mat-hint>City</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Store Type
         </mat-label>
@@ -91,7 +91,7 @@
         <mat-hint>Store Type</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field color="accent" class="form-field">
         <mat-label>
           Powered By
         </mat-label>
@@ -101,4 +101,6 @@
 
     </form>
   </div>
+
+  <button class="save-button" mat-button color="accent" (click)="saveForm()">Save</button>
 </div>
