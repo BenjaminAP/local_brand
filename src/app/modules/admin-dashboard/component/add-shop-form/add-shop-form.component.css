@@ -1,0 +1,12 @@
+.main-form-container{
+  text-align: center
+}
+
+.form-container{
+  width: 400px;
+  margin: 0px auto;
+}
+
+.form-field{
+  display: block
+}

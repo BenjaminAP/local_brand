@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogRole} from '@angular/material/dialog/dialog-config';
-import {UserProfileDialogComponent} from '../../../../components/user-profile-dialog/user-profile-dialog.component';
 import {AddShopDialogComponent} from '../add-shop-dialog/add-shop-dialog.component';
 
 @Component({

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import {MatOptionModule, MatRippleModule} from '@angular/material/core';
@@ -17,6 +16,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [],
@@ -41,6 +42,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ],
   exports: [
     MatGridListModule,
@@ -63,6 +66,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    ReactiveFormsModule,
+    MatInputModule
   ]
 })
 export class MaterialModule { }
