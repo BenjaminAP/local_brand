@@ -32,7 +32,7 @@ import appRoutes from './routerConfig';
     FilterBarComponent,
     SidenavComponent,
     HeaderToolbarComponent,
-    UserProfileDialogComponent,
+    UserProfileDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

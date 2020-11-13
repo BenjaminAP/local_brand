@@ -1,0 +1,11 @@
+.container {
+  margin: 30px;
+}
+
+span {
+  padding: 8px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
