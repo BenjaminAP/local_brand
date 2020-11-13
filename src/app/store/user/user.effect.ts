@@ -7,19 +7,21 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
 import {
+  CHECK_USER_DATA,
   DOWNLOAD_FAV_SHOPS,
-  DownloadUserFavShops,
+  DownloadUserFavShops, ReceiveUserData,
   ReceiveUserFavShops, UpdatedFavShopsList,
   UPLOAD_FAV_SHOPS, UploadFavShops,
   UserActions
 } from './user.action';
 import {IUser} from '../../models/i.user';
+import {User} from 'firebase';
+import {RetrieveAuth} from '../auth';
 
 @Injectable()
 export class UserEffect {
 
   constructor(private actions$: Actions,
-              private afAuth: AngularFireAuth,
               private afStore: AngularFirestore) {}
 
   @Effect()

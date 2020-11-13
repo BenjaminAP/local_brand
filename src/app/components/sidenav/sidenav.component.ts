@@ -24,9 +24,7 @@ export class SidenavComponent implements OnInit {
   constructor(private adminService: AdminService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.getConnectionSelector().subscribe(temp => console.log(temp));
     this.isAdmin = this.authService.getConnectionSelector() ? this.adminService.isAdmin() : of(false);
-    this.isAdmin.subscribe(temp => console.log(temp));
   }
 
   sideNavClosing(): void {

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from './shop.action';
-import {IShop} from "../../models/i.shop";
+import {IShop} from '../../models/i.shop';
 
 @Injectable()
 export class ShopEffects {

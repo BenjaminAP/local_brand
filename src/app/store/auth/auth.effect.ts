@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {
   CLEAR_AUTH, ClearAuth, INIT_LOGIN, LoginCompleted, LOGOUT, LogoutCompleted,
-  RETRIEVE_AUTH, RetrieveAuth
+  RETRIEVE_AUTH, RetrieveAuth, STATE_LOGIN
 } from './auth.action';
 import {catchError, concatMap, exhaustMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import {EMPTY, from, Observable} from 'rxjs';
@@ -16,6 +16,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
 import IdTokenResult = firebase.auth.IdTokenResult;
 import {
+  CHECK_USER_DATA,
   ClearUserData,
   DownloadUserFavShops,
   ReceiveUserData,
@@ -23,6 +24,8 @@ import {
   userDetailsSelector
 } from '../user';
 import {Store} from '@ngrx/store';
+import {idTokenResult} from '@angular/fire/auth-guard';
+import {User} from 'firebase';
 
 @Injectable()
 export class AuthEffect {
@@ -67,8 +70,32 @@ export class AuthEffect {
         }),
         catchError(err => EMPTY)
       );
-      }
-    )
+    })
+  );
+
+  @Effect()
+  public authFromState$ = this.actions$.pipe(
+    ofType(STATE_LOGIN),
+    exhaustMap(() => {
+      return this.afAuth.user.pipe(
+        map((user: User) => {
+
+          const userDetails: IUser = {
+            uid: user.uid,
+            fav_stores: new Set<string>(),
+            email: user.email,
+            full_name: user.displayName,
+            picture: user.photoURL
+          };
+
+          console.log(userDetails);
+
+          return userDetails;
+        }),
+        catchError(err => EMPTY)
+      );
+    }),
+    concatMap((user: IUser) => [new ReceiveUserData(user), new DownloadUserFavShops(user.uid), new RetrieveAuth()])
   );
 
   @Effect()
@@ -94,6 +121,7 @@ export class AuthEffect {
     ),
     switchMap((user: IUser) => [new ReceiveUserData(user), new DownloadUserFavShops(user.uid), new RetrieveAuth()])
   );
+
 
   popupLogin(): Observable<firebase.auth.UserCredential | void> {
 

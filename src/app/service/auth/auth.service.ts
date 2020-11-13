@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Store} from '@ngrx/store';
-import {connectedSelector, Login, Logout} from '../../store/auth';
+import {connectedSelector, Login, Logout, StateLogin} from '../../store/auth';
 import {Observable} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private afAuth: AngularFireAuth) { }
 
   beginLogin(): void {
     this.store.dispatch(new Login());
@@ -20,6 +21,15 @@ export class AuthService {
 
   getConnectionSelector(): Observable<boolean> {
     return this.store.select(connectedSelector);
+  }
+
+  checkStateForLogin(): void {
+    this.store.dispatch(new StateLogin());
+  }
+
+  temp(): void {
+    this.afAuth.idTokenResult.subscribe(data => console.log('Id Token Result', data));
+    this.afAuth.user.subscribe(data => console.log('user', data));
   }
 
 }

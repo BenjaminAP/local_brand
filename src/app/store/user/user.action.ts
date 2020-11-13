@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {IUser} from '../../models/i.user';
 
+export const CHECK_USER_DATA = '[User] Check for user on state';
 export const RECEIVE_USER_DATA = '[User] User data';
 export const RECEIVE_USER_FAV_SHOPS = '[User] Received fav shops of User from DB';
 export const TOGGLE_FAV_SHOP = '[User] Toggle favorite shop';
@@ -14,13 +15,21 @@ export const DOWNLOAD_FAV_SHOPS = '[User] Download users favorite shops';
 export class ReceiveUserFavShops implements Action {
   public readonly type = RECEIVE_USER_FAV_SHOPS;
 
-  constructor(public payload: Set<string>) {}
+  constructor(public payload: Set<string>) {
+    console.log(payload);
+  }
+}
+
+export class CheckForUserData implements Action {
+  public readonly type = CHECK_USER_DATA;
 }
 
 export class ReceiveUserData implements Action {
   public readonly type = RECEIVE_USER_DATA;
 
-  constructor(public payload: IUser) {}
+  constructor(public payload: IUser) {
+    console.log(payload);
+  }
 }
 
 export class UploadFavShops implements Action {
@@ -59,4 +68,5 @@ export type UserActions =
   | ReceiveUserData
   | ClearUserData
   | UploadFavShops
-  | UpdatedFavShopsList;
+  | UpdatedFavShopsList
+  | CheckForUserData;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {favShopsSelector$, UploadFavShops, userDetailsSelector} from '../../store/user';
+import {CheckForUserData, favShopsSelector$, UploadFavShops, userDetailsSelector} from '../../store/user';
 import {Store} from '@ngrx/store';
 import {IUser} from '../../models/i.user';
 import {Observable} from 'rxjs';
@@ -23,5 +23,12 @@ export class UserService {
     return this.store.select(userDetailsSelector);
   }
 
+  checkForUserData(): void {
+    this.store.dispatch(new CheckForUserData());
+  }
+
+  saveFavShops(user: IUser): void {
+    this.store.dispatch(new UploadFavShops(user));
+  }
 
 }

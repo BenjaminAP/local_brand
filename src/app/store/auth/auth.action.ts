@@ -4,6 +4,7 @@ import {IAuth} from '../../models/i.auth';
 export const RETRIEVE_AUTH = '[auth] Retrieve Authentication Info';
 export const CLEAR_AUTH = '[auth] CLEAR AUTH';
 export const INIT_LOGIN = '[auth] Init Login';
+export const STATE_LOGIN = '[auth] State Login';
 export const LOGIN_COMPLETED = '[auth] Login Completed';
 export const LOGOUT = '[auth] Begin Logout';
 export const LOGOUT_COMPLETED = '[auth] Logout Completed';
@@ -11,6 +12,10 @@ export const LOGOUT_COMPLETED = '[auth] Logout Completed';
 
 export class Login implements Action {
   public readonly type = INIT_LOGIN;
+}
+
+export class StateLogin implements Action {
+  public readonly type = STATE_LOGIN;
 }
 
 export class RetrieveAuth implements Action {
@@ -21,6 +26,7 @@ export class LoginCompleted implements Action {
   public readonly type = LOGIN_COMPLETED;
 
   constructor(public payload: IAuth) {
+    console.log(payload);
   }
 }
 

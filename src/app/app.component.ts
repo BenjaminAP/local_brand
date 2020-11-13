@@ -5,6 +5,7 @@ import {IUser} from './models/i.user';
 import {UserService} from './service/user/user.service';
 import {AdminService} from './service/admin/admin.service';
 import {AuthService} from './service/auth/auth.service';
+import {UploadFavShops} from './store/user';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +17,17 @@ export class AppComponent {
   title = 'Local Brands';
 
   @Input()
+
   sideNavPosition = false;
 
   @Output()
   userDetails$: Observable<IUser>;
 
-  constructor(private appService: AppService, private userService: UserService, private authService: AuthService) {
+  constructor(private appService: AppService,
+              private userService: UserService,
+              private authService: AuthService) {
 
-    // this.appService.checkForLoginUserData();
+    this.authService.checkStateForLogin();
     this.userDetails$ = this.userService.getUserDataSelector();
   }
 
@@ -38,8 +42,9 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(): void {
-
-    this.authService.beginLogout();
+    this.userDetails$
+      .subscribe((user: IUser) => this.userService.saveFavShops(user))
+      .unsubscribe();
   }
 
 }
