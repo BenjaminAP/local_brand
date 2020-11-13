@@ -3,8 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {UserProfileDialogComponent} from '../user-profile-dialog/user-profile-dialog.component';
 import {Observable} from 'rxjs';
 import {IUser} from '../../models/i.user';
-import {AppService} from '../../service/app/app.service';
-import {AuthService} from "../../service/auth/auth.service";
+import {AuthService} from '../../service/auth/auth.service';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
