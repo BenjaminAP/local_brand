@@ -5,6 +5,8 @@ import {AdminsRoutingModule} from './routing.module';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -15,7 +17,9 @@ import {MatButtonModule} from '@angular/material/button';
     AdminsRoutingModule,
     MatTableModule,
     MatSortModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatPaginatorModule
   ],
 })
 export class AdminDashboardModule { }

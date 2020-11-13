@@ -1,7 +1,10 @@
-import { Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ShopService} from '../../../../components/shop/shop.service';
 import {Observable} from 'rxjs';
 import {IShop} from '../../../../models/i.shop';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export interface PeriodicElement {
   name: string;
@@ -237,23 +240,41 @@ const temp2 = [
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class DashboardComponent implements OnInit  {
+export class DashboardComponent implements AfterViewInit  {
 
   allShops$: Observable<IShop[]>;
 
-  displayedColumns: string[] = [
+  columnsToDisplay: string[] = [
     'id', 'name', 'social_media',
     'social_media_tag', 'email', 'url',
-    'attire_type', 'state', 'image',
+    'attire_type', 'state',
     'country', 'city', 'store_type', 'powered_by' ];
-  dataSource = ELEMENT_DATA;
+
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  expandedElement: PeriodicElement | null;
 
   constructor(private shopService: ShopService) {
 
   }
 
-  ngOnInit(): void {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
+
+  // applyFilter(event: Event): void {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+  // }
 }
