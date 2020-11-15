@@ -1,20 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {Observable, Subject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-shop-form',
   templateUrl: './shop-form.component.html',
   styleUrls: ['./shop-form.component.css']
 })
-export class ShopFormComponent implements OnInit {
+export class ShopFormComponent implements OnInit, OnDestroy {
 
   shopForm: FormGroup;
 
-  constructor() {
+  @Input()
+  saveEvent: Observable<void>;
 
+  subscriptions: Subscription;
+
+  constructor() {
   }
 
   ngOnInit(): void {
+
+    this.subscriptions = this.saveEvent.subscribe(() => this.saveForm());
+
     this.shopForm = new FormGroup({
       name: new FormControl(''),
       social_media: new FormControl(''),
@@ -31,6 +39,9 @@ export class ShopFormComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
   saveForm(): void {
     console.log(this.shopForm.value);

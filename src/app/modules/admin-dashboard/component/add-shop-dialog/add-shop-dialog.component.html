@@ -1,8 +1,9 @@
 
 <mat-dialog-content>
-  <app-shop-form></app-shop-form>
+  <app-shop-form [saveEvent]="saveFormSubject.asObservable()"></app-shop-form>
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions align="end">
+  <button mat-button color="accent" (click)="saveFormTrigger()">save</button>
   <button mat-button color="accent" (click)="closeDialog()">Cancel</button>
 </mat-dialog-actions>
