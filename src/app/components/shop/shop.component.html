@@ -1,6 +1,6 @@
 
 <mat-grid-list cols="{{columns}}" rowHeight="1:1.5">
-  <mat-grid-tile *ngFor="let shop of filteredShops$ | async;">
+  <mat-grid-tile *ngFor="let shop of allShops$ | async;">
 
     <div class="content">
 
@@ -53,7 +53,8 @@
                [pageSize]="10"
                [pageSizeOptions]="[5, 10, 25, 100]"
                (page)="pageHandler($event)"
-               showFirstLastButtons></mat-paginator>
+               showFirstLastButtons>
+</mat-paginator>
 
 
 

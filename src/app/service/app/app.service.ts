@@ -10,7 +10,11 @@ import { ToggleFavShop} from '../../store/user';
 import * as ShopSelector from '../../store/shops/shop.selector';
 import {LoadAllShops, ToggleFilter, allFilters, filteredShops, NextShops} from '../../store/shops';
 import {IFilter} from '../../models/i.filter';
-
+import {AngularFirestore} from '@angular/fire/firestore';
+// @ts-ignore
+import {default as jsonShops} from './local_brands.json';
+import {json} from 'express';
+import {hidePoweredBy} from 'helmet';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +22,7 @@ import {IFilter} from '../../models/i.filter';
 export class AppService {
   temp: Observable<any>;
 
-  constructor(private db: AngularFireDatabase,
+  constructor(private afStore: AngularFirestore,
               private store: Store<IAuthState>) {
 
     // this.temp = db.list('shops').valueChanges();
@@ -53,6 +57,7 @@ export class AppService {
   public getNextShops(): void {
     this.store.dispatch(new NextShops());
   }
+
 
   /// Todo
   // public checkForLoginUserData(): void {

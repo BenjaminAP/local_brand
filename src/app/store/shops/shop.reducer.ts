@@ -10,7 +10,7 @@ export interface IShopState {
 export const initialState: IShopState = {
   filters: [
     {type: 'Boutique', active: false},
-    {type: 'Brand', active: true},
+    {type: 'Brand', active: false},
     {type: 'Shoes', active: false},
     {type: 'Beachwear', active: false},
     {type: 'Store', active: false},

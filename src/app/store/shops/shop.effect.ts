@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {LOAD_SHOPS_STARTED, LoadShopsCompleted, NEXT_SHOPS} from './shop.action';
 import {IShop} from '../../models/i.shop';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
@@ -14,7 +14,7 @@ export class ShopEffects {
   @Effect()
   public loadFirstShops$ = this.actions$.pipe(
     ofType(LOAD_SHOPS_STARTED),
-    map(() => {
+    switchMap(() => {
         const shopList: IShop[] = [
         {
           id: '1',
@@ -236,13 +236,12 @@ export class ShopEffects {
         const ref = this.afStore.collection('/shops', shopsList => {
           return shopsList.limit(10);
         });
-        ref.valueChanges({idField: 'id'}).subscribe(data => console.log(data));
-        // temp.subscribe(data => console.log(data));
-
-        return new LoadShopsCompleted( shopList.sort( () => .5 - Math.random() ));
-        // return temp.pipe(map((shopsList: IShop[]) => new LoadShopsCompleted(shopsList)));
+        return ref.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
       }
-    )
+    ),
+    map((shopsList: IShop[]) => {
+      return new LoadShopsCompleted(shopsList);
+    })
   );
 
   // @Effect()

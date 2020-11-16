@@ -11,7 +11,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 })
 export class ShopComponent implements OnInit{
 
-  shops$: Observable<IShop[]>;
+  allShops$: Observable<IShop[]>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
   columns: number;
@@ -19,9 +19,10 @@ export class ShopComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private shopService: ShopService) {
-    this.shops$ = this.shopService.allShops();
+    this.allShops$ = this.shopService.allShops();
     this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
+    this.allShops$.subscribe((data => console.log(data)));
   }
 
   ngOnInit(): void {
