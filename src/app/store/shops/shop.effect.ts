@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from './shop.action';
+import {LOAD_SHOPS_STARTED, LoadShopsCompleted, NEXT_SHOPS} from './shop.action';
 import {IShop} from '../../models/i.shop';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ShopEffects {
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private afStore: AngularFirestore) {}
 
   @Effect()
-  public loadAllShops$ = this.actions$.pipe(
+  public loadFirstShops$ = this.actions$.pipe(
     ofType(LOAD_SHOPS_STARTED),
     map(() => {
         const shopList: IShop[] = [
@@ -230,10 +232,25 @@ export class ShopEffects {
           email: '',
           image: 'https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/s320x320/120908816_688417291776996_488417178551617383_n.jpg?_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ohc=KqqB72Q3F5EAX8i6tCL&oh=3f8680096791b7bac4e6dd40a8e182b7&oe=5FB7E541'
         }];
+
+        const ref = this.afStore.collection('/shops', shopsList => {
+          return shopsList.limit(10);
+        });
+        ref.valueChanges({idField: 'id'}).subscribe(data => console.log(data));
+        // temp.subscribe(data => console.log(data));
+
         return new LoadShopsCompleted( shopList.sort( () => .5 - Math.random() ));
+        // return temp.pipe(map((shopsList: IShop[]) => new LoadShopsCompleted(shopsList)));
       }
     )
-
   );
+
+  // @Effect()
+  // public nextListOfShops$ = this.actions$.pipe(
+  //   ofType(NEXT_SHOPS),
+  //   map(() => {
+  //     this.afStore.collection()
+  //   })
+  // );
 }
 

@@ -1,7 +1,8 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-shop',
@@ -13,8 +14,9 @@ export class ShopComponent implements OnInit{
   shops$: Observable<IShop[]>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
-
   columns: number;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private shopService: ShopService) {
     this.shops$ = this.shopService.allShops();
@@ -53,6 +55,11 @@ export class ShopComponent implements OnInit{
   @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.columns = this.columnNumber();
+  }
+
+  pageHandler($event: PageEvent): void {
+    console.log($event.pageIndex);
+    this.shopService.nextShops();
   }
 
 }

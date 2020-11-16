@@ -28,4 +28,8 @@ export class ShopService {
   favoriteShops(): Observable<Set<string>> {
     return this.userService.getFavShopIdsSelector();
   }
+
+  nextShops(): void {
+    this.appService.getNextShops();
+  }
 }

@@ -8,7 +8,7 @@ import {
 } from '../../store/auth';
 import { ToggleFavShop} from '../../store/user';
 import * as ShopSelector from '../../store/shops/shop.selector';
-import {LoadAllShops, ToggleFilter, allFilters, filteredShops} from '../../store/shops';
+import {LoadAllShops, ToggleFilter, allFilters, filteredShops, NextShops} from '../../store/shops';
 import {IFilter} from '../../models/i.filter';
 
 
@@ -47,7 +47,11 @@ export class AppService {
   }
 
   public toggleFavShop(shopId: string): void {
-    return this.store.dispatch(new ToggleFavShop(shopId));
+    this.store.dispatch(new ToggleFavShop(shopId));
+  }
+
+  public getNextShops(): void {
+    this.store.dispatch(new NextShops());
   }
 
   /// Todo
