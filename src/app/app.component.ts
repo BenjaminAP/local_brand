@@ -12,6 +12,8 @@ import {AuthService} from './service/auth/auth.service';
 })
 export class AppComponent {
 
+  /// TODO: save user data in browser state to make less read calls.
+
   title = 'Local Brands';
 
   @Input()
