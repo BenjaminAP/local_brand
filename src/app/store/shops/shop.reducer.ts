@@ -7,6 +7,8 @@ export interface IShopState {
   shops: Array<IShop[]>;
 }
 
+/// TODO: add shops list size in DB for pagination purposes.
+
 export const initialState: IShopState = {
   filters: [
     {type: 'Boutique', active: false},

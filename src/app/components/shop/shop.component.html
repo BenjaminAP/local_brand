@@ -49,11 +49,11 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-paginator [length]="(allShops$ | async)?.length * 10"
+
+
+<mat-paginator [length]="(allShops$ | async)?.length * 20"
                [pageSize]="10"
-               [pageSizeOptions]="[10]"
-               (page)="pageHandler($event)"
-               showFirstLastButtons>
+               (page)="pageHandler($event)">
 </mat-paginator>
 
 

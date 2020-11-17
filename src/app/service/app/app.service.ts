@@ -58,10 +58,4 @@ export class AppService {
     this.store.dispatch(new NextShops());
   }
 
-
-  /// Todo
-  // public checkForLoginUserData(): void {
-  //
-  // }
-
 }

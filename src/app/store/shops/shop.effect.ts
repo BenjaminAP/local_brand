@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {map, switchMap} from 'rxjs/operators';
-import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from './shop.action';
+import {LOAD_SHOPS_STARTED, LoadShopsCompleted, NEXT_SHOPS} from './shop.action';
 import {IShop} from '../../models/i.shop';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable()
 export class ShopEffects {
+
+  lastVisibleShop: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
 
   constructor(private actions$: Actions, private afStore: AngularFirestore) {}
 
@@ -233,8 +235,16 @@ export class ShopEffects {
         }];
 
         const ref = this.afStore.collection('/shops', shopsList => {
+
+          const initialShops = shopsList.limit(10);
+
+          initialShops.get().then(documentSnapshots => {
+            this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+          });
+
           return shopsList.limit(10);
         });
+
         return ref.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
       }
     ),
@@ -243,12 +253,27 @@ export class ShopEffects {
     })
   );
 
-  // @Effect()
-  // public nextListOfShops$ = this.actions$.pipe(
-  //   ofType(NEXT_SHOPS),
-  //   map(() => {
-  //     this.afStore.collection()
-  //   })
-  // );
+  @Effect()
+  public nextListOfShops$ = this.actions$.pipe(
+    ofType(NEXT_SHOPS),
+    switchMap(() => {
+      const ref = this.afStore.collection('/shops', shopsList => {
+
+        const nextShops = shopsList.startAfter(this.lastVisibleShop).limit(10);
+
+        nextShops.get()
+          .then(documentSnapshots => {
+            this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+          }
+        );
+
+        return nextShops;
+      });
+      return ref.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
+    }),
+    map((shopsList: IShop[]) => {
+      return new LoadShopsCompleted(shopsList);
+    })
+  );
 }
 

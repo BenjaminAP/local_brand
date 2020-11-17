@@ -50,7 +50,6 @@ export class ClearUserData implements Action {
   public readonly type = CLEAR_USER_DATA;
 }
 
-/// TODO make store file for user.
 export class ToggleFavShop implements Action {
   public readonly type = TOGGLE_FAV_SHOP;
 

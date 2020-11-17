@@ -23,7 +23,6 @@ export class ShopComponent implements OnInit{
     this.allShops$ = this.shopService.allShops();
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
-    this.allShops$.subscribe((data => console.log(data)));
   }
 
   ngOnInit(): void {
@@ -60,8 +59,12 @@ export class ShopComponent implements OnInit{
   }
 
   pageHandler($event: PageEvent): void {
-    console.log($event.pageIndex);
     this.paginationIndex = $event.pageIndex;
-    this.shopService.nextShops();
+
+    this.allShops$.subscribe((shops: Array<IShop[]>) => {
+      if (shops.length <= this.paginationIndex) {
+        this.shopService.nextShops();
+      }
+    }).unsubscribe();
   }
 }
