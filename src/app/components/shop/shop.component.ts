@@ -11,6 +11,8 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 })
 export class ShopComponent implements OnInit{
 
+  /// TODO: make a call to get the count of shops from the DB
+
   allShops$: Observable<Array<IShop[]>>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
