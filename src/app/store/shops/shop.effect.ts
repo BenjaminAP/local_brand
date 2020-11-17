@@ -234,6 +234,8 @@ export class ShopEffects {
           image: 'https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/s320x320/120908816_688417291776996_488417178551617383_n.jpg?_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ohc=KqqB72Q3F5EAX8i6tCL&oh=3f8680096791b7bac4e6dd40a8e182b7&oe=5FB7E541'
         }];
 
+        /// TODO: make a variable than can be initialize as a collection to use throughout the effect.
+        /// App is making double the reads in the db because of how is being used.
         const ref = this.afStore.collection('/shops', shopsList => {
 
           const initialShops = shopsList.limit(10);
