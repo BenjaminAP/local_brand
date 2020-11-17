@@ -13,6 +13,7 @@ import {AuthService} from './service/auth/auth.service';
 export class AppComponent {
 
   /// TODO: save user data in browser state to make less read calls.
+  /// TODO: add shops list to the browser state and check for if its less/greater than chopCount and handle accordingly.
 
   title = 'Local Brands';
 
