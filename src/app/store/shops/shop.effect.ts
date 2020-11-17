@@ -14,7 +14,7 @@ export class ShopEffects {
   constructor(private actions$: Actions, private afStore: AngularFirestore) {}
 
   @Effect()
-  public loadFirstShops$ = this.actions$.pipe(
+  public loadedShops$ = this.actions$.pipe(
     ofType(LOAD_SHOPS_STARTED, NEXT_SHOPS),
     switchMap(() =>  this.loadShops()),
     map((shopsList: IShop[]) => {
@@ -24,8 +24,6 @@ export class ShopEffects {
 
   private loadShops(): Observable<IShop[]> {
     const shopCollection = this.afStore.collection('/shops', shopsList => {
-
-      console.log(this.lastVisibleShop);
 
       const nextShops =
         this.lastVisibleShop ? shopsList.startAfter(this.lastVisibleShop).limit(10) : shopsList.limit(10);
