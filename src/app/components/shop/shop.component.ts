@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
@@ -20,13 +20,13 @@ export class ShopComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private shopService: ShopService) {
-    this.allShops$ = this.shopService.allShops();
-    // this.filteredShops$ = this.shopService.filteredShops();
-    this.favoriteShops$ = this.shopService.favoriteShops();
   }
 
   ngOnInit(): void {
     this.columns = this.columnNumber();
+    this.allShops$ = this.shopService.allShops();
+    // this.filteredShops$ = this.shopService.filteredShops();
+    this.favoriteShops$ = this.shopService.favoriteShops();
   }
 
   toggleFavorite(shopId: string): void {
