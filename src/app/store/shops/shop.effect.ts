@@ -3,13 +3,12 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {map, switchMap} from 'rxjs/operators';
 import {LOAD_SHOPS_STARTED, LoadShopsCompleted, NEXT_SHOPS} from './shop.action';
 import {IShop} from '../../models/i.shop';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable()
 export class ShopEffects {
 
   lastVisibleShop: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
-  private shopCollection: AngularFirestoreCollection<IShop>;
 
   constructor(private actions$: Actions, private afStore: AngularFirestore) {}
 
