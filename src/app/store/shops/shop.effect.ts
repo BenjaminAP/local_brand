@@ -3,59 +3,41 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {map, switchMap} from 'rxjs/operators';
 import {LOAD_SHOPS_STARTED, LoadShopsCompleted, NEXT_SHOPS} from './shop.action';
 import {IShop} from '../../models/i.shop';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ShopEffects {
 
   lastVisibleShop: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
-  private shopCollection: AngularFirestoreCollection<IShop>;
 
   constructor(private actions$: Actions, private afStore: AngularFirestore) {}
 
   @Effect()
   public loadFirstShops$ = this.actions$.pipe(
-    ofType(LOAD_SHOPS_STARTED),
-    switchMap(() =>  {
-      const shopCollection = this.afStore.collection('/shops', shopsList => {
-
-        const initShopCollection = shopsList.limit(10);
-
-        initShopCollection.get().then(documentSnapshots => {
-          this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-        });
-
-        return initShopCollection;
-      });
-
-      return shopCollection.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
-    }),
+    ofType(LOAD_SHOPS_STARTED, NEXT_SHOPS),
+    switchMap(() =>  this.loadShops()),
     map((shopsList: IShop[]) => {
       return new LoadShopsCompleted(shopsList);
     })
   );
 
-  @Effect()
-  public nextListOfShops$ = this.actions$.pipe(
-    ofType(NEXT_SHOPS),
-    switchMap(() => {
+  private loadShops(): Observable<IShop[]> {
+    const shopCollection = this.afStore.collection('/shops', shopsList => {
 
-      const shopCollection = this.afStore.collection('/shops', shopsList => {
+      console.log(this.lastVisibleShop);
 
-        const nextShops = shopsList.startAfter(this.lastVisibleShop).limit(10);
+      const nextShops =
+        this.lastVisibleShop ? shopsList.startAfter(this.lastVisibleShop).limit(10) : shopsList.limit(10);
 
-        nextShops.get().then(documentSnapshots => {
-          this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-        });
-
-        return nextShops;
+      nextShops.get().then(documentSnapshots => {
+        this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];
       });
 
-      return shopCollection.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
-    }),
-    map((shopsList: IShop[]) => {
-      return new LoadShopsCompleted(shopsList);
-    })
-  );
+      return nextShops;
+    });
+
+    return shopCollection.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
+  }
 }
 
