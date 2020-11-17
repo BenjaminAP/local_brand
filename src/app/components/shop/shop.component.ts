@@ -12,6 +12,8 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 export class ShopComponent implements OnInit{
 
   /// TODO: make a call to get the count of shops from the DB
+  /// insert shopsCount  in this line:
+  /// <mat-paginator [length]="(allShops$ | async)?.length * 20"
 
   allShops$: Observable<Array<IShop[]>>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
