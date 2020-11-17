@@ -1,23 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {EMPTY, Observable} from 'rxjs';
-import { Store} from '@ngrx/store';
-import {catchError, exhaustMap, map, mergeMap, switchMap} from 'rxjs/operators';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {catchError, map, mergeMap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
 import {
-  CHECK_USER_DATA,
   DOWNLOAD_FAV_SHOPS,
-  DownloadUserFavShops, ReceiveUserData,
+  DownloadUserFavShops,
   ReceiveUserFavShops, UpdatedFavShopsList,
   UPLOAD_FAV_SHOPS, UploadFavShops,
   UserActions
 } from './user.action';
 import {IUser} from '../../models/i.user';
-import {User} from 'firebase';
-import {RetrieveAuth} from '../auth';
-
 @Injectable()
 export class UserEffect {
 

@@ -1,11 +1,9 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {Component, HostListener, Input, Output} from '@angular/core';
 import {AppService} from './service/app/app.service';
 import {Observable} from 'rxjs';
 import {IUser} from './models/i.user';
 import {UserService} from './service/user/user.service';
-import {AdminService} from './service/admin/admin.service';
 import {AuthService} from './service/auth/auth.service';
-import {UploadFavShops} from './store/user';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +38,8 @@ export class AppComponent {
     }
   }
 
+
+  /// Todo: not upload when no changes have been made to favorite list.
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(): void {
     this.userDetails$
