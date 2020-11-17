@@ -11,16 +11,17 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 })
 export class ShopComponent implements OnInit{
 
-  allShops$: Observable<IShop[]>;
+  allShops$: Observable<Array<IShop[]>>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
   columns: number;
+  paginationIndex = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private shopService: ShopService) {
     this.allShops$ = this.shopService.allShops();
-    this.filteredShops$ = this.shopService.filteredShops();
+    // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
     this.allShops$.subscribe((data => console.log(data)));
   }
@@ -51,7 +52,7 @@ export class ShopComponent implements OnInit{
     }
 
     return columnNumber;
-}
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
@@ -60,7 +61,7 @@ export class ShopComponent implements OnInit{
 
   pageHandler($event: PageEvent): void {
     console.log($event.pageIndex);
+    this.paginationIndex = $event.pageIndex;
     this.shopService.nextShops();
   }
-
 }

@@ -4,7 +4,7 @@ import {IFilter} from '../../models/i.filter';
 
 export interface IShopState {
   filters: IFilter[];
-  shops: IShop[];
+  shops: Array<IShop[]>;
 }
 
 export const initialState: IShopState = {
@@ -29,7 +29,7 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
     case LOAD_SHOPS_COMPLETED: {
       return {
         ...state,
-        shops: action.payload
+        shops: [...state.shops, action.payload]
       };
     }
 

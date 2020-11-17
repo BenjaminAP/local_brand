@@ -8,13 +8,13 @@ import {
 } from '../../store/auth';
 import { ToggleFavShop} from '../../store/user';
 import * as ShopSelector from '../../store/shops/shop.selector';
-import {LoadAllShops, ToggleFilter, allFilters, filteredShops, NextShops} from '../../store/shops';
+import {LoadAllShops, ToggleFilter, allFilters, NextShops} from '../../store/shops';
 import {IFilter} from '../../models/i.filter';
 import {AngularFirestore} from '@angular/fire/firestore';
 // @ts-ignore
-import {default as jsonShops} from './local_brands.json';
-import {json} from 'express';
-import {hidePoweredBy} from 'helmet';
+// import {default as jsonShops} from './local_brands.json';
+// import {json} from 'express';
+// import {hidePoweredBy} from 'helmet';
 
 @Injectable({
   providedIn: 'root'
@@ -38,13 +38,13 @@ export class AppService {
     return this.store.select(allFilters);
   }
 
-  public getShopsSelector(): Observable<IShop[]> {
+  public getShopsSelector(): Observable<Array<IShop[]>> {
     return this.store.select(ShopSelector.allShops);
   }
 
-  public getFilteredShopsSelector(): Observable<IShop[] | Set<IShop>> {
-    return this.store.select(filteredShops);
-  }
+  // public getFilteredShopsSelector(): Observable<IShop[] | Set<IShop>> {
+  //   return this.store.select(filteredShops);
+  // }
 
   public loadShops(): void {
     this.store.dispatch(new LoadAllShops());

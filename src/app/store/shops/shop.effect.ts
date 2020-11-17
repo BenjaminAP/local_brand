@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
-import {LOAD_SHOPS_STARTED, LoadShopsCompleted, NEXT_SHOPS} from './shop.action';
+import {map, switchMap} from 'rxjs/operators';
+import {LOAD_SHOPS_STARTED, LoadShopsCompleted} from './shop.action';
 import {IShop} from '../../models/i.shop';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable()
 export class ShopEffects {

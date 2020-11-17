@@ -17,13 +17,13 @@ export class ShopService {
     this.appService.toggleFavShop(shopId);
   }
 
-  allShops(): Observable<IShop[]> {
+  allShops(): Observable<Array<IShop[]>> {
     return this.appService.getShopsSelector();
   }
-
-  filteredShops(): Observable<Set<IShop> | IShop[]> {
-    return this.appService.getFilteredShopsSelector();
-  }
+  //
+  // filteredShops(): Observable<Set<IShop> | IShop[]> {
+  //   return this.appService.getFilteredShopsSelector();
+  // }
 
   favoriteShops(): Observable<Set<string>> {
     return this.userService.getFavShopIdsSelector();
