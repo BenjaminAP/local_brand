@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {IShop} from '../../models/i.shop';
 import { Observable} from 'rxjs';
-import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
 import {
   IAuthState
@@ -11,6 +10,7 @@ import * as ShopSelector from '../../store/shops/shop.selector';
 import {LoadAllShops, ToggleFilter, allFilters, NextShops} from '../../store/shops';
 import {IFilter} from '../../models/i.filter';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {totalShopCount} from "../../store/shops";
 // @ts-ignore
 // import {default as jsonShops} from './local_brands.json';
 // import {json} from 'express';
@@ -27,6 +27,10 @@ export class AppService {
 
     // this.temp = db.list('shops').valueChanges();
     // this.temp.subscribe(shops => console.log(shops));
+  }
+
+  getTotalShopSelector(): Observable<number> {
+    return this.store.select(totalShopCount)
   }
 
   public toggleFilter(filterId: string): void {

@@ -5,9 +5,21 @@ export const LOAD_SHOPS_STARTED = '[Shops] Load Shops';
 export const LOAD_SHOPS_COMPLETED = '[Shops] Load Shops Successful';
 export const TOGGLE_FILTER = '[Shops] TOGGLE FILTER';
 export const NEXT_SHOPS = '[Shops] Next shops';
+export const TOTAL_SHOP_COUNT = '[Shops] Total shop count';
+export const TOTAL_SHOP_COUNT_LOADED = '[Shops] Total shop count loaded';
 
 export class LoadAllShops implements Action {
   public readonly type = LOAD_SHOPS_STARTED;
+}
+
+export class TotalShopCountLoaded implements Action {
+  public readonly type = TOTAL_SHOP_COUNT_LOADED;
+
+  constructor(public payload: number) {}
+}
+
+export class LoadTotalShopCount implements Action {
+  public readonly type = TOTAL_SHOP_COUNT;
 }
 
 export class LoadShopsCompleted implements Action {
@@ -27,6 +39,8 @@ export class NextShops implements Action {
 }
 
 export type ShopActions = LoadAllShops
+  | TotalShopCountLoaded
+  | LoadTotalShopCount
   | NextShops
   | LoadShopsCompleted
   | ToggleFilter;

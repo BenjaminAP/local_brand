@@ -18,6 +18,8 @@ export class ShopComponent implements OnInit{
   allShops$: Observable<Array<IShop[]>>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
+  totalShops: Observable<number>;
+
   columns: number;
   paginationIndex = 0;
 
@@ -31,6 +33,8 @@ export class ShopComponent implements OnInit{
     this.allShops$ = this.shopService.allShops();
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
+    this.totalShops = this.shopService.totalShops();
+    this.allShops$.subscribe(data => console.log(data));
   }
 
   toggleFavorite(shopId: string): void {

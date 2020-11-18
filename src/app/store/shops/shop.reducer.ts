@@ -1,10 +1,11 @@
 import {IShop} from '../../models/i.shop';
-import {LOAD_SHOPS_COMPLETED, ShopActions, TOGGLE_FILTER} from './shop.action';
+import {LOAD_SHOPS_COMPLETED, ShopActions, TOGGLE_FILTER, TOTAL_SHOP_COUNT_LOADED} from './shop.action';
 import {IFilter} from '../../models/i.filter';
 
 export interface IShopState {
   filters: IFilter[];
   shops: Array<IShop[]>;
+  totalCount: number;
 }
 
 /// TODO: add shops list size in DB for pagination purposes.
@@ -23,6 +24,7 @@ export const initialState: IShopState = {
     {type: 'Swimwear', active: false}
   ],
   shops: [],
+  totalCount: 0,
 };
 
 export function shopReducer(state: IShopState = initialState, action: ShopActions): IShopState {
@@ -58,6 +60,14 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
         filters: newFilters
       };
     }
+
+    case TOTAL_SHOP_COUNT_LOADED: {
+      return {
+        ...state,
+        totalCount: action.payload
+      }
+    }
+
     default: {
       return state;
     }

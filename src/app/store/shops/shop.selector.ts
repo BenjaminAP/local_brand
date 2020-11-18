@@ -38,6 +38,11 @@ export const allShops = createSelector(
 //   },
 // );
 
+export const totalShopCount = createSelector(
+  shopFeaturesSelector,
+  (state: IShopState) => state.totalCount,
+)
+
 export const allFilters = createSelector(
   shopFeaturesSelector,
   (state: IShopState) => state.filters,

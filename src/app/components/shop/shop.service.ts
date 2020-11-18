@@ -13,6 +13,10 @@ export class ShopService {
     this.appService.loadShops();
   }
 
+  totalShops(): Observable<number> {
+    return this.appService.getTotalShopSelector();
+  }
+
   toggleFavoriteShop(shopId: string): void {
     this.appService.toggleFavShop(shopId);
   }

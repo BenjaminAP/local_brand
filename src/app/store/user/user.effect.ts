@@ -50,7 +50,7 @@ export class UserEffect {
       const userDetails: IUser = JSON.parse(localStorage.getItem('userDetails'));
       console.log('fav shops ls', userDetails.fav_shops_ids);
 
-      if (userDetails.fav_shops_ids.size !== 0) {
+      if (userDetails.fav_shops_ids.size > 0) {
         const userFireCloud: IUserFireCloud = {
           email: userDetails.email,
           fav_shops_ids: Object.keys(userDetails.fav_shops_ids).map(favShopsIds => {
