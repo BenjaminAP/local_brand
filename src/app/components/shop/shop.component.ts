@@ -65,10 +65,13 @@ export class ShopComponent implements OnInit{
   pageHandler($event: PageEvent): void {
     this.paginationIndex = $event.pageIndex;
 
+    window.scrollTo(0, 0);
+
     this.allShops$.subscribe((shops: Array<IShop[]>) => {
       if (shops.length <= this.paginationIndex) {
         this.shopService.nextShops();
       }
     }).unsubscribe();
+
   }
 }
