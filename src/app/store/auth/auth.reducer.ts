@@ -19,6 +19,7 @@ export function authReducer(state: IAuthState = initialState, action: AuthAction
   switch (action.type) {
 
     case LOGIN_COMPLETED: {
+
       return {
         ...state,
         authDetails: action.payload,

@@ -6,7 +6,7 @@ export const userFeaturesSelector = createFeatureSelector<IUserState>('user');
 
 export const favShopsSelector$ = createSelector(
   userFeaturesSelector,
-  (state: IUserState): Set<string> => state.user.fav_stores,
+  (state: IUserState): Set<string> => state.user.fav_shops_ids,
 );
 
 export const userDetailsSelector = createSelector(

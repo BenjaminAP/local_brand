@@ -18,7 +18,7 @@ export const initialState: IUserState = {
       picture: null,
       email: null,
       uid: null,
-      fav_stores: null
+      fav_shops_ids: null
   },
 };
 
@@ -27,6 +27,7 @@ export function userReducer(state: IUserState = initialState, action: UserAction
   switch (action.type) {
 
     case RECEIVE_USER_DATA: {
+      localStorage.setItem('userDetails', JSON.stringify(action.payload));
       return {
         ...state,
         user: action.payload
@@ -34,9 +35,17 @@ export function userReducer(state: IUserState = initialState, action: UserAction
     }
 
     case RECEIVE_USER_FAV_SHOPS: {
+
+      if (localStorage.getItem('userDetails')) {
+        const user: IUser = JSON.parse(localStorage.getItem('userDetails'));
+        user.fav_shops_ids = action.payload;
+
+        localStorage.setItem('userDetails', JSON.stringify(user));
+      }
+
       return {
         ...state,
-        user: {...state.user, fav_stores: action.payload}
+        user: {...state.user, fav_shops_ids: action.payload}
       };
     }
 
@@ -49,10 +58,10 @@ export function userReducer(state: IUserState = initialState, action: UserAction
 
     case TOGGLE_FAV_SHOP: {
 
-      if (state.user.fav_stores.has(action.payload)) {
-        state.user.fav_stores.delete(action.payload);
+      if (state.user.fav_shops_ids.has(action.payload)) {
+        state.user.fav_shops_ids.delete(action.payload);
       } else {
-        state.user.fav_stores.add(action.payload);
+        state.user.fav_shops_ids.add(action.payload);
       }
 
       return {

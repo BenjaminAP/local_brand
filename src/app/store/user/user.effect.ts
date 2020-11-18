@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, Observable, of} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IUserFireCloud} from '../../models/iuser-fire-cloud';
@@ -22,6 +22,7 @@ export class UserEffect {
   public downloadedShops$: Observable<UserActions> = this.actions$.pipe(
     ofType(DOWNLOAD_FAV_SHOPS),
     mergeMap((action: DownloadUserFavShops) => {
+
       return this.downloadFavShops(action.payload).pipe(
         map(userData =>
           new ReceiveUserFavShops(new Set<string>(userData.fav_shops_ids)))
@@ -44,12 +45,30 @@ export class UserEffect {
   }
 
   downloadFavShops(userId: string): Observable<IUserFireCloud | undefined> {
+
+    if (localStorage.getItem('userDetails')) {
+      const userDetails: IUser = JSON.parse(localStorage.getItem('userDetails'));
+      console.log('fav shops ls', userDetails.fav_shops_ids);
+
+      if (userDetails.fav_shops_ids.size !== 0) {
+        const userFireCloud: IUserFireCloud = {
+          email: userDetails.email,
+          fav_shops_ids: Object.keys(userDetails.fav_shops_ids).map(favShopsIds => {
+            return userDetails.fav_shops_ids[favShopsIds];
+          }),
+          full_name: userDetails.full_name,
+          isNewUser: false}
+
+        return of(userFireCloud);
+      }
+    }
+
     return this.afStore.doc<IUserFireCloud>(`user/${userId}`)
       .valueChanges();
   }
 
   updateUserFavShops(user: IUser): void {
     this.afStore.doc<IUserFireCloud>(`user/${user.uid}`)
-      .set({email: user.email, full_name: user.full_name, isNewUser: false, fav_shops_ids: [...user.fav_stores]});
+      .set({email: user.email, full_name: user.full_name, isNewUser: false, fav_shops_ids: [...user.fav_shops_ids]});
   }
 }

@@ -29,6 +29,9 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
 
   switch (action.type) {
     case LOAD_SHOPS_COMPLETED: {
+      const totalShops = [...state.shops, action.payload];
+      localStorage.setItem('shops', JSON.stringify(totalShops));
+
       return {
         ...state,
         shops: [...state.shops, action.payload]
@@ -47,6 +50,8 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
 
         return filter;
       });
+
+      localStorage.setItem('activeFilters', JSON.stringify(newFilters));
 
       return {
         ...state,

@@ -3,5 +3,5 @@ export interface IUser {
   full_name: string;
   picture: string;
   uid: string;
-  fav_stores: Set<string>;
+  fav_shops_ids: Set<string>;
 }

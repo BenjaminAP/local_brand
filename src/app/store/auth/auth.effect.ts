@@ -5,7 +5,7 @@ import {
   RETRIEVE_AUTH, RetrieveAuth, STATE_LOGIN
 } from './auth.action';
 import {catchError, concatMap, exhaustMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
-import {EMPTY, from, Observable} from 'rxjs';
+import {EMPTY, from, Observable, of} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 // @ts-ignore
 import * as firebase from 'firebase/app';
@@ -77,12 +77,19 @@ export class AuthEffect {
   public authFromState$ = this.actions$.pipe(
     ofType(STATE_LOGIN),
     exhaustMap(() => {
+
+      if (localStorage.getItem('userDetails')) {
+        console.log('user details ls', JSON.parse(localStorage.getItem('userDetails')));
+        const user: IUser = JSON.parse(localStorage.getItem('userDetails'));
+        return of(user);
+      }
+
       return this.afAuth.user.pipe(
         map((user: User) => {
 
           const userDetails: IUser = {
             uid: user.uid,
-            fav_stores: new Set<string>(),
+            fav_shops_ids: null,
             email: user.email,
             full_name: user.displayName,
             picture: user.photoURL
@@ -107,7 +114,7 @@ export class AuthEffect {
           full_name: userCredentials.user.displayName,
           picture: userCredentials.user.photoURL,
           uid: userCredentials.user.uid,
-          fav_stores: new Set<string>()
+          fav_shops_ids: new Set<string>()
         };
 
         if (userCredentials.additionalUserInfo.isNewUser){
