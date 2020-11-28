@@ -34,7 +34,6 @@ export class ShopComponent implements OnInit{
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
     this.totalShops = this.shopService.totalShops();
-    this.allShops$.subscribe(data => console.log(data));
   }
 
   toggleFavorite(shopId: string): void {
@@ -71,8 +70,6 @@ export class ShopComponent implements OnInit{
 
     this.allShops$.subscribe((shops: Array<IShop[]>) => {
       if (shops.length === this.paginationIndex) {
-        console.log('page index', this.paginationIndex);
-        console.log('shop length', shops.length);
         this.shopService.nextShops();
       }
     }).unsubscribe();

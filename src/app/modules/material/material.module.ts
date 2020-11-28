@@ -18,6 +18,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -44,6 +45,7 @@ import {MatInputModule} from '@angular/material/input';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatProgressBarModule,
   ],
   exports: [
     MatGridListModule,
@@ -67,7 +69,8 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule { }

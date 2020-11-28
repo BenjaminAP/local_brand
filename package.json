@@ -33,6 +33,7 @@
     "@angular/router": "~10.1.5",
     "@ngrx/effects": "^10.0.1",
     "@ngrx/store": "^10.0.1",
+    "@ngrx/store-devtools": "^10.0.1",
     "express": "^4.17.1",
     "firebase": "^7.23.0",
     "firebase-admin": "^9.3.0",

@@ -57,7 +57,7 @@ export class UserEffect {
             return userDetails.fav_shops_ids[favShopsIds];
           }),
           full_name: userDetails.full_name,
-          isNewUser: false}
+          isNewUser: false};
 
         return of(userFireCloud);
       }

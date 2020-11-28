@@ -65,7 +65,7 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
       return {
         ...state,
         totalCount: action.payload
-      }
+      };
     }
 
     default: {

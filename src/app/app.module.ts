@@ -24,6 +24,7 @@ import {CommonModule} from '@angular/common';
 import {MaterialModule} from './modules/material/material.module';
 import {UserEffect} from './store/user';
 import appRoutes from './routerConfig';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,10 @@ import appRoutes from './routerConfig';
     BrowserModule,
     EffectsModule.forRoot([ShopEffects, AuthEffect, UserEffect]),
     StoreModule.forRoot(fromStore.reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 20,
+      logOnly: environment.production
+    }),
     BrowserAnimationsModule,
     MaterialModule,
     RouterModule.forRoot(appRoutes),

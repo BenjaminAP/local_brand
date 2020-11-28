@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {concatMap, map, switchMap} from 'rxjs/operators';
+import {concatMap, exhaustMap, map, switchMap} from 'rxjs/operators';
 import {
   LOAD_SHOPS_STARTED,
   LoadShopsCompleted, LoadTotalShopCount,
@@ -48,6 +48,7 @@ export class ShopEffects {
 
       const nextShops =
         this.lastVisibleShop ? shopsList.startAfter(this.lastVisibleShop).limit(10) : shopsList.limit(10);
+
 
       nextShops.get().then(documentSnapshots => {
         this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];

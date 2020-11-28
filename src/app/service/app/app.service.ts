@@ -11,6 +11,7 @@ import {LoadAllShops, ToggleFilter, allFilters, NextShops} from '../../store/sho
 import {IFilter} from '../../models/i.filter';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {totalShopCount} from "../../store/shops";
+import {isLoadingSelector} from '../../store/loading';
 // @ts-ignore
 // import {default as jsonShops} from './local_brands.json';
 // import {json} from 'express';
@@ -29,8 +30,12 @@ export class AppService {
     // this.temp.subscribe(shops => console.log(shops));
   }
 
+  getIsLoadingSelector(): Observable<boolean> {
+    return this.store.select(isLoadingSelector);
+  }
+
   getTotalShopSelector(): Observable<number> {
-    return this.store.select(totalShopCount)
+    return this.store.select(totalShopCount);
   }
 
   public toggleFilter(filterId: string): void {

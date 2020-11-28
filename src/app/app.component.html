@@ -3,6 +3,7 @@
 
   <app-header-toolbar (toggleSideNavEvent)="receiveSideNavEvent(null)" [userDetails$]="userDetails$"></app-header-toolbar>
 
+
   <div class="app-content">
     <app-sidenav [sideNavPosition]="sideNavPosition" (sideNavClosingEvent)="receiveSideNavEvent(true)"></app-sidenav>
   </div>
