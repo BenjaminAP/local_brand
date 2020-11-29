@@ -21,21 +21,21 @@ export class ShopEffects {
   constructor(private actions$: Actions, private afStore: AngularFirestore) {}
 
   @Effect()
-  public loadedShops$ = this.actions$.pipe(
+  public shopCountLoadCompleted$ = this.actions$.pipe(
     ofType(TOTAL_SHOP_COUNT),
     mergeMap(() =>  this.loadShopCount()),
-    map((totalShopCount: number) => {
-      return new TotalShopCountLoaded(totalShopCount);
+    concatMap((totalShopCount: number) => {
+      return [new TotalShopCountLoaded(totalShopCount), new StopLoading()];
     })
   );
 
 
   @Effect()
-  public shopCountLoadCompleted$ = this.actions$.pipe(
+  public loadedShops$ = this.actions$.pipe(
     ofType(LOAD_SHOPS_STARTED, NEXT_SHOPS),
     switchMap(() =>  this.loadShops()),
     concatMap((shopsList: IShop[]) => {
-      return [new LoadShopsCompleted(shopsList), new LoadTotalShopCount(), new StopLoading()];
+      return [new LoadShopsCompleted(shopsList), new LoadTotalShopCount()];
     })
   );
 

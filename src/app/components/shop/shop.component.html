@@ -53,7 +53,7 @@
 
 <mat-paginator [length]="(totalShops | async)"
                [pageSize]="10"
-               (page)="pageHandler($event)">
+               (page)="pageHandler($event)" [disabled]="isLoading$ | async">
 </mat-paginator>
 
 

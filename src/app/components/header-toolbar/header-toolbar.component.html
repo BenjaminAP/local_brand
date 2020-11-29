@@ -16,7 +16,7 @@
     </button>
 </mat-toolbar>
 
-<div [hidden]="!(isLoading$ | async)">
+<div *ngIf="(isLoading$ | async)">
   <mat-progress-bar
     color="warn"
     value="50"

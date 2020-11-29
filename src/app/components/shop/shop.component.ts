@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {AppService} from "../../service/app/app.service";
 
 @Component({
   selector: 'app-shop',
@@ -19,13 +20,14 @@ export class ShopComponent implements OnInit{
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
   totalShops: Observable<number>;
+  isLoading$: Observable<boolean>;
 
   columns: number;
   paginationIndex = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private shopService: ShopService) {
+  constructor(private shopService: ShopService, private appService: AppService) {
   }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class ShopComponent implements OnInit{
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
     this.totalShops = this.shopService.totalShops();
+    this.isLoading$ = this.appService.getIsLoadingSelector();
   }
 
   toggleFavorite(shopId: string): void {
