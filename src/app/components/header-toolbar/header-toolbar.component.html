@@ -16,10 +16,13 @@
     </button>
 </mat-toolbar>
 
-<mat-progress-bar
-  color="warn"
-  value="50"
-  mode="query" *ngIf="isLoading$ | async"></mat-progress-bar>
+<div [hidden]="!(isLoading$ | async)">
+  <mat-progress-bar
+    color="warn"
+    value="50"
+    mode="indeterminate"></mat-progress-bar>
+</div>
+
 
 <ng-template #userProfileImage>
   <img mat-card-avatar class="avatar-image" src="{{(userDetails$ | async)?.picture}}">

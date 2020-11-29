@@ -31,6 +31,8 @@ export class HeaderToolbarComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private authService: AuthService, private appService: AppService) {
 
+    this.isLoading$ = this.appService.getIsLoadingSelector();
+
     this.USER_DIALOG_CONFIG = {
       position: {
         top: '5em',
@@ -40,7 +42,6 @@ export class HeaderToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading$ = this.appService.getIsLoadingSelector();
     this.userConnected$ = this.authService.getConnectionSelector();
   }
 

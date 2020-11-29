@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {concatMap, exhaustMap, map, switchMap} from 'rxjs/operators';
+import {concatMap, exhaustMap, map, mergeMap, switchMap} from 'rxjs/operators';
 import {
   LOAD_SHOPS_STARTED,
   LoadShopsCompleted, LoadTotalShopCount,
@@ -11,6 +11,7 @@ import {
 import {IShop} from '../../models/i.shop';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
+import {BeginLoading, StopLoading} from "../loading";
 
 @Injectable()
 export class ShopEffects {
@@ -22,7 +23,7 @@ export class ShopEffects {
   @Effect()
   public loadedShops$ = this.actions$.pipe(
     ofType(TOTAL_SHOP_COUNT),
-    switchMap(() =>  this.loadShopCount()),
+    mergeMap(() =>  this.loadShopCount()),
     map((totalShopCount: number) => {
       return new TotalShopCountLoaded(totalShopCount);
     })
@@ -34,7 +35,7 @@ export class ShopEffects {
     ofType(LOAD_SHOPS_STARTED, NEXT_SHOPS),
     switchMap(() =>  this.loadShops()),
     concatMap((shopsList: IShop[]) => {
-      return [new LoadShopsCompleted(shopsList), new LoadTotalShopCount()];
+      return [new LoadShopsCompleted(shopsList), new LoadTotalShopCount(), new StopLoading()];
     })
   );
 
