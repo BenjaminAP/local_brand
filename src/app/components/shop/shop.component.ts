@@ -35,6 +35,7 @@ export class ShopComponent implements OnInit{
     this.allShops$ = this.shopService.allShops();
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
+    this.favoriteShops$.subscribe(data => console.log(data));
     this.totalShops = this.shopService.totalShops();
     this.isLoading$ = this.appService.getIsLoadingSelector();
   }

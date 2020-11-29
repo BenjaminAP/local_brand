@@ -18,7 +18,7 @@ export const initialState: IUserState = {
       picture: null,
       email: null,
       uid: null,
-      fav_shops_ids: null
+      fav_shops_ids: new Set<string>()
   },
 };
 
