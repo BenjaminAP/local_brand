@@ -4,7 +4,7 @@ import {IFilter} from '../../models/i.filter';
 
 export interface IShopState {
   filters: IFilter[];
-  shops: Array<IShop[]>;
+  shops: IShop[];
   totalCount: number;
 }
 
@@ -23,7 +23,7 @@ export const initialState: IShopState = {
     {type: 'Clothing', active: false},
     {type: 'Swimwear', active: false}
   ],
-  shops: [],
+  shops: null,
   totalCount: 0,
 };
 
@@ -31,12 +31,11 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
 
   switch (action.type) {
     case LOAD_SHOPS_COMPLETED: {
-      const totalShops = [...state.shops, action.payload];
-      localStorage.setItem('shops', JSON.stringify(totalShops));
+      localStorage.setItem('shops', JSON.stringify(action.payload));
 
       return {
         ...state,
-        shops: [...state.shops, action.payload]
+        shops: action.payload
       };
     }
 

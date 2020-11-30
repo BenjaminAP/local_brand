@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {concatMap, exhaustMap, map, mergeMap, switchMap} from 'rxjs/operators';
+import {concatMap, exhaustMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import {
   LOAD_SHOPS_STARTED,
   LoadShopsCompleted, LoadTotalShopCount,
@@ -11,19 +11,24 @@ import {
 import {IShop} from '../../models/i.shop';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
-import {BeginLoading, StopLoading} from "../loading";
+import {BeginLoading, StopLoading} from '../loading';
+import {Store} from '@ngrx/store';
+import {allShops} from './shop.selector';
+import {snapshotChanges} from '@angular/fire/database';
 
 @Injectable()
 export class ShopEffects {
 
   lastVisibleShop: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
 
-  constructor(private actions$: Actions, private afStore: AngularFirestore) {}
+  constructor(private actions$: Actions, private afStore: AngularFirestore, private store: Store) {}
 
   @Effect()
   public shopCountLoadCompleted$ = this.actions$.pipe(
     ofType(TOTAL_SHOP_COUNT),
-    mergeMap(() =>  this.loadShopCount()),
+    mergeMap((s) => {
+      return this.loadShopCount();
+    }),
     concatMap((totalShopCount: number) => {
       return [new TotalShopCountLoaded(totalShopCount), new StopLoading()];
     })
@@ -33,7 +38,10 @@ export class ShopEffects {
   @Effect()
   public loadedShops$ = this.actions$.pipe(
     ofType(LOAD_SHOPS_STARTED, NEXT_SHOPS),
-    switchMap(() =>  this.loadShops()),
+    withLatestFrom(this.store.select(allShops)),
+    switchMap(([action, stateShops]) => {
+      return  this.loadShops(stateShops);
+    }),
     concatMap((shopsList: IShop[]) => {
       return [new LoadShopsCompleted(shopsList), new LoadTotalShopCount()];
     })
@@ -44,12 +52,11 @@ export class ShopEffects {
       .pipe(map((data: {shops_count: number}) => data.shops_count));
   }
 
-  private loadShops(): Observable<IShop[]> {
+  private loadShops(stateShops: IShop[]): Observable<IShop[]> {
     const shopCollection = this.afStore.collection('/shops', shopsList => {
 
       const nextShops =
         this.lastVisibleShop ? shopsList.startAfter(this.lastVisibleShop).limit(10) : shopsList.limit(10);
-
 
       nextShops.get().then(documentSnapshots => {
         this.lastVisibleShop = documentSnapshots.docs[documentSnapshots.docs.length - 1];
@@ -58,7 +65,13 @@ export class ShopEffects {
       return nextShops;
     });
 
-    return shopCollection.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => shopsList));
+    return shopCollection.valueChanges({idField: 'id'}).pipe(map((shopsList: IShop[]) => {
+      if (!stateShops) {
+        return shopsList;
+      }
+
+      return stateShops.concat(shopsList);
+    }));
   }
 }
 

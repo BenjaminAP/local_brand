@@ -47,7 +47,7 @@ export class AppService {
     return this.store.select(allFilters);
   }
 
-  public getShopsSelector(): Observable<Array<IShop[]>> {
+  public getShopsSelector(): Observable<IShop[]> {
     return this.store.select(ShopSelector.allShops);
   }
 

@@ -10,13 +10,13 @@ import {AppService} from "../../service/app/app.service";
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })
-export class ShopComponent implements OnInit{
+export class ShopComponent implements OnInit, AfterViewInit{
 
   /// TODO: make a call to get the count of shops from the DB
   /// insert shopsCount  in this line:
   /// <mat-paginator [length]="(allShops$ | async)?.length * 20"
 
-  allShops$: Observable<Array<IShop[]>>;
+  allShops$: Observable<IShop[]>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
   totalShops: Observable<number>;
@@ -35,9 +35,12 @@ export class ShopComponent implements OnInit{
     this.allShops$ = this.shopService.allShops();
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
-    this.favoriteShops$.subscribe(data => console.log(data));
     this.totalShops = this.shopService.totalShops();
     this.isLoading$ = this.appService.getIsLoadingSelector();
+  }
+
+  ngAfterViewInit(): void {
+    this.allShops$ = this.shopService.allShops();
   }
 
   toggleFavorite(shopId: string): void {
@@ -72,8 +75,9 @@ export class ShopComponent implements OnInit{
   pageHandler($event: PageEvent): void {
     this.paginationIndex = $event.pageIndex;
 
-    this.allShops$.subscribe((shops: Array<IShop[]>) => {
-      if (shops.length === this.paginationIndex) {
+    this.allShops$.subscribe((shops: IShop[]) => {
+      if (shops.length <= this.paginationIndex * 10) {
+        console.log('pagination', this.paginationIndex);
         this.shopService.nextShops();
       }
     }).unsubscribe();

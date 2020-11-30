@@ -79,7 +79,7 @@ export class AuthEffect {
     exhaustMap(() => {
 
       if (localStorage.getItem('userDetails')) {
-        console.log('user details ls', JSON.parse(localStorage.getItem('userDetails')));
+        // console.log('user details ls', JSON.parse(localStorage.getItem('userDetails')));
         const user: IUser = JSON.parse(localStorage.getItem('userDetails'));
         return of(user);
       }

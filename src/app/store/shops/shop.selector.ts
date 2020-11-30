@@ -38,11 +38,13 @@ export const allShops = createSelector(
 //   },
 // );
 
+// @ts-ignore
 export const totalShopCount = createSelector(
   shopFeaturesSelector,
   (state: IShopState) => state.totalCount,
-)
+);
 
+// @ts-ignore
 export const allFilters = createSelector(
   shopFeaturesSelector,
   (state: IShopState) => state.filters,

@@ -21,7 +21,7 @@ export class ShopService {
     this.appService.toggleFavShop(shopId);
   }
 
-  allShops(): Observable<Array<IShop[]>> {
+  allShops(): Observable<IShop[]> {
     return this.appService.getShopsSelector();
   }
   //
