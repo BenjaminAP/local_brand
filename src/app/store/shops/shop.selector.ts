@@ -9,6 +9,20 @@ export const allShops = createSelector(
   (state: IShopState) => state.shops,
 );
 
+export const allShopsMatrix = createSelector(
+  shopFeaturesSelector,
+  (state: IShopState) => {
+    const stateShopsList = Object.assign([], state.shops);
+    const shopMatrix: IShop[][] = [];
+
+    while (stateShopsList != null && stateShopsList.length > 0) {
+      shopMatrix.push(stateShopsList.splice(0, 10));
+    }
+
+    return shopMatrix;
+  },
+);
+
 // export const filteredShops = createSelector(
 //   shopFeaturesSelector,
 // (state : IShopState) => {

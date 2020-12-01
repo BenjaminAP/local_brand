@@ -51,6 +51,10 @@ export class AppService {
     return this.store.select(ShopSelector.allShops);
   }
 
+  public getShopsMatrixSelector(): Observable<IShop[][]> {
+    return this.store.select(ShopSelector.allShopsMatrix);
+  }
+
   // public getFilteredShopsSelector(): Observable<IShop[] | Set<IShop>> {
   //   return this.store.select(filteredShops);
   // }

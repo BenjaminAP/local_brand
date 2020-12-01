@@ -24,6 +24,10 @@ export class ShopService {
   allShops(): Observable<IShop[]> {
     return this.appService.getShopsSelector();
   }
+
+  allShopsMatrix(): Observable<IShop[][]> {
+    return this.appService.getShopsMatrixSelector();
+  }
   //
   // filteredShops(): Observable<Set<IShop> | IShop[]> {
   //   return this.appService.getFilteredShopsSelector();
