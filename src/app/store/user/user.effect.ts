@@ -70,4 +70,5 @@ export class UserEffect {
     this.afStore.doc<IUserFireCloud>(`user/${user.uid}`)
       .set({email: user.email, full_name: user.full_name, isNewUser: false, fav_shops_ids: [...user.fav_shops_ids]});
   }
+
 }

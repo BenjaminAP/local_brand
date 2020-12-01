@@ -75,4 +75,8 @@ export class AppService {
     this.store.dispatch(new NextShops());
   }
 
+  public getFilterTempSelector(): Observable<any> {
+    return this.store.select(ShopSelector.filterTemp);
+  }
+
 }

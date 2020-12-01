@@ -3,6 +3,7 @@ import {IShop} from '../../models/i.shop';
 import {Observable} from 'rxjs';
 import {UserService} from '../../service/user/user.service';
 import {AppService} from '../../service/app/app.service';
+import {Store} from "@ngrx/store";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class ShopService {
 
   constructor(private userService: UserService, private appService: AppService) {
     this.appService.loadShops();
+  }
+
+  filterTempSelector(): Observable<any> {
+    return this.appService.getFilterTempSelector();
   }
 
   totalShops(): Observable<number> {
