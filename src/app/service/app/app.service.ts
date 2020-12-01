@@ -67,8 +67,11 @@ export class AppService {
     this.store.dispatch(new ToggleFavShop(shopId));
   }
 
-  public getNextShops(): void {
+  public beginLoading(): void {
     this.store.dispatch(new BeginLoading());
+  }
+
+  public getNextShops(): void {
     this.store.dispatch(new NextShops());
   }
 

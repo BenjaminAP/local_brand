@@ -16,7 +16,6 @@ export class ShopComponent implements OnInit, AfterViewInit{
   /// insert shopsCount  in this line:
   /// <mat-paginator [length]="(allShops$ | async)?.length * 20"
 
-  allShops$: Observable<IShop[]>;
   allShopsMatrix$: Observable<IShop[][]>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
@@ -37,12 +36,10 @@ export class ShopComponent implements OnInit, AfterViewInit{
     this.favoriteShops$ = this.shopService.favoriteShops();
     this.totalShops = this.shopService.totalShops();
     this.isLoading$ = this.appService.getIsLoadingSelector();
+    this.allShopsMatrix$ = this.shopService.allShopsMatrix();
   }
 
   ngAfterViewInit(): void {
-    this.allShops$ = this.shopService.allShops();
-    this.allShopsMatrix$ = this.shopService.allShopsMatrix();
-    this.allShopsMatrix$.subscribe(data => console.log('shop matrix', data));
   }
 
   toggleFavorite(shopId: string): void {
@@ -77,9 +74,9 @@ export class ShopComponent implements OnInit, AfterViewInit{
   pageHandler($event: PageEvent): void {
     this.paginationIndex = $event.pageIndex;
 
-    this.allShops$.subscribe((shops: IShop[]) => {
-      if (shops.length <= this.paginationIndex * 10) {
-        console.log('pagination', this.paginationIndex);
+    this.allShopsMatrix$.subscribe((shops: IShop[][]) => {
+      if (shops.length <= this.paginationIndex) {
+        this.appService.beginLoading();
         this.shopService.nextShops();
       }
     }).unsubscribe();

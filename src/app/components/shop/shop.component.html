@@ -1,6 +1,6 @@
 
 <mat-grid-list cols="{{columns}}" rowHeight="1:1.5">
-  <mat-grid-tile *ngFor="let shop of (allShops$ | async);">
+  <mat-grid-tile *ngFor="let shop of (allShopsMatrix$ | async)[paginationIndex];">
 
     <div class="content">
 
