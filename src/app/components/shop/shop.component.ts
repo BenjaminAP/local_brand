@@ -17,6 +17,7 @@ export class ShopComponent implements OnInit, AfterViewInit{
   /// <mat-paginator [length]="(allShops$ | async)?.length * 20"
 
   allShopsMatrix$: Observable<IShop[][]>;
+  filterTemp$: Observable<any>;
   filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
   totalShops: Observable<number>;
@@ -32,6 +33,7 @@ export class ShopComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void {
     this.columns = this.columnNumber();
+    this.filterTemp$ = this.shopService.filterTempSelector();
     // this.filteredShops$ = this.shopService.filteredShops();
     this.favoriteShops$ = this.shopService.favoriteShops();
     this.totalShops = this.shopService.totalShops();
@@ -40,6 +42,8 @@ export class ShopComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
+
+    this.filterTemp$.subscribe(data => console.log(data));
   }
 
   toggleFavorite(shopId: string): void {

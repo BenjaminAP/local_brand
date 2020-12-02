@@ -63,3 +63,35 @@ export const allFilters = createSelector(
   shopFeaturesSelector,
   (state: IShopState) => state.filters,
 );
+
+export const filterTemp = createSelector(
+  shopFeaturesSelector,
+  (state: IShopState) => {
+
+    if(state.shops === null){return null}
+
+    const filterType: {
+      'attire_type': Set<string>
+      'city': Set<string>,
+      'country': Set<string>,
+      'state': Set<string>,
+      'store_type': Set<string>
+    } = {
+      attire_type: new Set<string>(),
+      city: new Set<string>(),
+      country: new Set<string>(),
+      state: new Set<string>(),
+      store_type: new Set<string>()
+    }
+
+    state.shops.map((shop: IShop) => {
+      shop.attire_type.forEach(a => (a !== null && a !== '')? filterType.attire_type.add(a) : null);
+      shop.city.forEach(c => (c !== null && c !== '') ? filterType.city.add(c) : null);
+      shop.country.forEach(cy => (cy !== null && cy !== '') ? filterType.country.add(cy) : null);
+      filterType.store_type.add(shop.store_type);
+      filterType.state.add(shop.state);
+    });
+
+    return filterType;
+  }
+);
