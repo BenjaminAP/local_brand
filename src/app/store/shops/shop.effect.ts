@@ -30,7 +30,7 @@ export class ShopEffects {
     ofType(SAVE_FILTERS_TYPE),
     withLatestFrom(this.store.select(filterTemp)),
     map(([action, stateFilters]) => {
-      this.saveFilters(stateFilters);
+      this.updateFilters(stateFilters);
       return new SaveFilterTypeCompleted();
     }),
     catchError(err => err)
@@ -87,7 +87,7 @@ export class ShopEffects {
     }));
   }
 
-  private saveFilters(filters: IFilter2): void {
+  private updateFilters(filters: IFilter2): void {
     console.log("save Filters");
      this.afStore.collection(`app/`).doc<any>('filters')
       .set({'v1' : {
