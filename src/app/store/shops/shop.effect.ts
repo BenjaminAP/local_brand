@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, concatMap, exhaustMap, map, mergeMap, startWith, switchMap, withLatestFrom} from 'rxjs/operators';
 import {
-  LOAD_SHOPS_STARTED,
+  LOAD_FILTER_TYPE_STARTED,
+  LOAD_SHOPS_STARTED, LoadFilterTypes, LoadFilterTypesCompleted,
   LoadShopsCompleted, LoadTotalShopCount,
   NEXT_SHOPS, SAVE_FILTERS_TYPE, SaveFilterTypeCompleted,
   TOTAL_SHOP_COUNT,
@@ -47,16 +48,34 @@ export class ShopEffects {
     })
   );
 
+  @Effect()
+  public LoadedFilterTypes$ = this.actions$.pipe(
+    ofType(LOAD_FILTER_TYPE_STARTED),
+    mergeMap(() => this.loadFilters()),
+    map((filterTypes: IFilter2) => new LoadFilterTypesCompleted(filterTypes))
+  )
 
   @Effect()
   public loadedShops$ = this.actions$.pipe(
-    ofType(LOAD_SHOPS_STARTED, NEXT_SHOPS),
+    ofType(LOAD_SHOPS_STARTED),
     withLatestFrom(this.store.select(allShops)),
     switchMap(([action, stateShops]) => {
       return  this.loadShops(stateShops);
     }),
     concatMap((shopsList: IShop[]) => {
-      return [new LoadShopsCompleted(shopsList), new LoadTotalShopCount()];
+      return [new LoadShopsCompleted(shopsList), new LoadFilterTypes(), new LoadTotalShopCount()];
+    })
+  );
+
+  @Effect()
+  public loadedNextShops$ = this.actions$.pipe(
+    ofType(NEXT_SHOPS),
+    withLatestFrom(this.store.select(allShops)),
+    switchMap(([action, stateShops]) => {
+      return  this.loadShops(stateShops);
+    }),
+    concatMap((shopsList: IShop[]) => {
+      return [new LoadShopsCompleted(shopsList), new StopLoading()];
     })
   );
 
@@ -85,6 +104,13 @@ export class ShopEffects {
 
       return stateShops.concat(shopsList);
     }));
+  }
+
+  private loadFilters(): Observable<IFilter2> {
+    return this.afStore.collection('app').doc('filters').valueChanges()
+      .pipe(map((filtersVersion: {v1 :  IFilter2}) => {
+        return filtersVersion.v1;
+      }));
   }
 
   private updateFilters(filters: IFilter2): void {

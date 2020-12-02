@@ -25,6 +25,7 @@ import {MaterialModule} from './modules/material/material.module';
 import {UserEffect} from './store/user';
 import appRoutes from './routerConfig';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { FilterTypesComponent } from './modules/admin-dashboard/component/filter-types/filter-types.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     FilterBarComponent,
     SidenavComponent,
     HeaderToolbarComponent,
-    UserProfileDialogComponent,
+    UserProfileDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

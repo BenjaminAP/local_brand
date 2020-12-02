@@ -68,25 +68,25 @@ export const allFilters = createSelector(
 export const filterTemp = createSelector(
   shopFeaturesSelector,
   (state: IShopState) => {
+    //
+    // if(state.shops === null){return null}
+    //
+    // const filterType: IFilter2 = {
+    //   attire_type: new Set<string>(),
+    //   city: new Set<string>(),
+    //   country: new Set<string>(),
+    //   state: new Set<string>(),
+    //   store_type: new Set<string>()
+    // }
+    //
+    // state.shops.map((shop: IShop) => {
+    //   shop.attire_type.forEach(a => (a !== null && a !== '')? filterType.attire_type.add(a) : null);
+    //   shop.city.forEach(c => (c !== null && c !== '') ? filterType.city.add(c) : null);
+    //   shop.country.forEach(cy => (cy !== null && cy !== '') ? filterType.country.add(cy) : null);
+    //   filterType.store_type.add(shop.store_type);
+    //   filterType.state.add(shop.state);
+    // });
 
-    if(state.shops === null){return null}
-
-    const filterType: IFilter2 = {
-      attire_type: new Set<string>(),
-      city: new Set<string>(),
-      country: new Set<string>(),
-      state: new Set<string>(),
-      store_type: new Set<string>()
-    }
-
-    state.shops.map((shop: IShop) => {
-      shop.attire_type.forEach(a => (a !== null && a !== '')? filterType.attire_type.add(a) : null);
-      shop.city.forEach(c => (c !== null && c !== '') ? filterType.city.add(c) : null);
-      shop.country.forEach(cy => (cy !== null && cy !== '') ? filterType.country.add(cy) : null);
-      filterType.store_type.add(shop.store_type);
-      filterType.state.add(shop.state);
-    });
-
-    return filterType;
+    return state.filters2;
   }
 );

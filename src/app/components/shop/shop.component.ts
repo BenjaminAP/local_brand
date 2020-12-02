@@ -42,8 +42,6 @@ export class ShopComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-
-    this.filterTemp$.subscribe(data => console.log(data));
   }
 
   toggleFavorite(shopId: string): void {

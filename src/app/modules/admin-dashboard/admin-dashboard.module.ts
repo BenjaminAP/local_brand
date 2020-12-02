@@ -7,6 +7,7 @@ import {ShopsTableComponent} from './component/shops-table/shops-table.component
 import {MaterialModule} from '../material/material.module';
 import {AddShopDialogComponent} from './component/add-shop-dialog/add-shop-dialog.component';
 import {ShopFormComponent} from './component/shop-form/shop-form.component';
+import {FilterTypesComponent} from "./component/filter-types/filter-types.component";
 
 
 
@@ -16,7 +17,8 @@ import {ShopFormComponent} from './component/shop-form/shop-form.component';
     AdminToolbarComponent,
     ShopsTableComponent,
     AddShopDialogComponent,
-    ShopFormComponent
+    ShopFormComponent,
+    FilterTypesComponent
   ],
   imports: [
     CommonModule,

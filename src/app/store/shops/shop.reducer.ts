@@ -1,15 +1,16 @@
 import {IShop} from '../../models/i.shop';
 import {
+  LOAD_FILTER_TYPE_COMPLETED,
   LOAD_SHOPS_COMPLETED,
-  SAVE_FILTERS_TYPE_COMPLETED,
   ShopActions,
   TOGGLE_FILTER,
   TOTAL_SHOP_COUNT_LOADED
 } from './shop.action';
-import {IFilter} from '../../models/i.filter';
+import {IFilter, IFilter2} from '../../models/i.filter';
 
 export interface IShopState {
   filters: IFilter[];
+  filters2: IFilter2;
   shops: IShop[];
   totalCount: number;
 }
@@ -29,6 +30,7 @@ export const initialState: IShopState = {
     {type: 'Clothing', active: false},
     {type: 'Swimwear', active: false}
   ],
+  filters2: null,
   shops: null,
   totalCount: 0,
 };
@@ -36,6 +38,16 @@ export const initialState: IShopState = {
 export function shopReducer(state: IShopState = initialState, action: ShopActions): IShopState {
 
   switch (action.type) {
+
+
+    case LOAD_FILTER_TYPE_COMPLETED: {
+
+      return {
+        ...state,
+        filters2: action.payload
+      };
+    }
+
     case LOAD_SHOPS_COMPLETED: {
       localStorage.setItem('shops', JSON.stringify(action.payload));
 

@@ -10,6 +10,8 @@ export const TOTAL_SHOP_COUNT = '[Shops] Total shop count';
 export const TOTAL_SHOP_COUNT_LOADED = '[Shops] Total shop count loaded';
 export const SAVE_FILTERS_TYPE = '[Shops] Save Filters in DB';
 export const SAVE_FILTERS_TYPE_COMPLETED = '[Shops] Save Filters in DB Completed';
+export const LOAD_FILTER_TYPE_STARTED = '[Shops] Started Filters Type Download';
+export const LOAD_FILTER_TYPE_COMPLETED = '[Shops] Completed Filters Type Download';
 
 
 export class SaveFilterTypeCompleted implements Action {
@@ -18,6 +20,16 @@ export class SaveFilterTypeCompleted implements Action {
 
 export class SaveFiltersType implements Action {
   public readonly type = SAVE_FILTERS_TYPE;
+}
+
+export class LoadFilterTypes implements Action {
+  public readonly type = LOAD_FILTER_TYPE_STARTED;
+}
+
+export class LoadFilterTypesCompleted implements Action {
+  public readonly type = LOAD_FILTER_TYPE_COMPLETED;
+
+  constructor(public payload: IFilter2) {}
 }
 
 export class LoadAllShops implements Action {
@@ -57,4 +69,6 @@ export type ShopActions = LoadAllShops
   | LoadShopsCompleted
   | SaveFiltersType
   | SaveFilterTypeCompleted
-  | ToggleFilter;
+  | ToggleFilter
+  | LoadFilterTypes
+  | LoadFilterTypesCompleted;
