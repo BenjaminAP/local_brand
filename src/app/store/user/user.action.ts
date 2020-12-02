@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {IUser} from '../../models/i.user';
+import {IFilter2} from "../../models/i.filter";
 
 export const CHECK_USER_DATA = '[User] Check for user on state';
 export const RECEIVE_USER_DATA = '[User] User data';
@@ -9,7 +10,6 @@ export const CLEAR_USER_DATA = '[User] Clear User Data';
 export const UPLOAD_FAV_SHOPS = '[User] UploadFav Shops';
 export const UPDATED_FAV_SHOPS = '[User] Uploaded Fav Shops';
 export const DOWNLOAD_FAV_SHOPS = '[User] Download users favorite shops';
-
 
 
 export class ReceiveUserFavShops implements Action {

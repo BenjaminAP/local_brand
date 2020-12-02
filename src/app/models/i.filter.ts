@@ -5,10 +5,10 @@ export interface IFilter {
 }
 
 export interface IFilter2 {
-  store_type: string[];
-  attire_type: string[];
-  country: string[];
-  state: string[];
-  city: string[];
+  store_type: Set<string>;
+  attire_type: Set<string>;
+  country: Set<string>;
+  state: Set<string>;
+  city: Set<string>;
 }
 

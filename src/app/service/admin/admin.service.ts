@@ -3,14 +3,15 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {auth} from 'firebase';
+import {Store} from "@ngrx/store";
+import {SaveFiltersType} from "../../store/shops";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  constructor(
-    private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth, private store: Store) { }
 
     isAdmin(): Observable<boolean> {
       return this.afAuth.idTokenResult.pipe(
@@ -23,5 +24,9 @@ export class AdminService {
           return tokenData.claims['admin'];
         })
       );
+    }
+
+    updateFilterTypes(): void {
+    this.store.dispatch(new SaveFiltersType())
     }
 }

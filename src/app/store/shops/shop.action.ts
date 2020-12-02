@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
+import {IFilter2} from "../../models/i.filter";
 
 export const LOAD_SHOPS_STARTED = '[Shops] Load Shops';
 export const LOAD_SHOPS_COMPLETED = '[Shops] Load Shops Successful';
@@ -7,6 +8,17 @@ export const TOGGLE_FILTER = '[Shops] TOGGLE FILTER';
 export const NEXT_SHOPS = '[Shops] Next shops';
 export const TOTAL_SHOP_COUNT = '[Shops] Total shop count';
 export const TOTAL_SHOP_COUNT_LOADED = '[Shops] Total shop count loaded';
+export const SAVE_FILTERS_TYPE = '[Shops] Save Filters in DB';
+export const SAVE_FILTERS_TYPE_COMPLETED = '[Shops] Save Filters in DB Completed';
+
+
+export class SaveFilterTypeCompleted implements Action {
+  public readonly type = SAVE_FILTERS_TYPE;
+}
+
+export class SaveFiltersType implements Action {
+  public readonly type = SAVE_FILTERS_TYPE;
+}
 
 export class LoadAllShops implements Action {
   public readonly type = LOAD_SHOPS_STARTED;
@@ -43,4 +55,6 @@ export type ShopActions = LoadAllShops
   | LoadTotalShopCount
   | NextShops
   | LoadShopsCompleted
+  | SaveFiltersType
+  | SaveFilterTypeCompleted
   | ToggleFilter;

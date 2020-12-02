@@ -1,5 +1,11 @@
 import {IShop} from '../../models/i.shop';
-import {LOAD_SHOPS_COMPLETED, ShopActions, TOGGLE_FILTER, TOTAL_SHOP_COUNT_LOADED} from './shop.action';
+import {
+  LOAD_SHOPS_COMPLETED,
+  SAVE_FILTERS_TYPE_COMPLETED,
+  ShopActions,
+  TOGGLE_FILTER,
+  TOTAL_SHOP_COUNT_LOADED
+} from './shop.action';
 import {IFilter} from '../../models/i.filter';
 
 export interface IShopState {

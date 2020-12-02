@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {concatMap, exhaustMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, concatMap, exhaustMap, map, mergeMap, startWith, switchMap, withLatestFrom} from 'rxjs/operators';
 import {
   LOAD_SHOPS_STARTED,
   LoadShopsCompleted, LoadTotalShopCount,
-  NEXT_SHOPS,
+  NEXT_SHOPS, SAVE_FILTERS_TYPE, SaveFilterTypeCompleted,
   TOTAL_SHOP_COUNT,
   TotalShopCountLoaded
 } from './shop.action';
@@ -13,8 +13,10 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {BeginLoading, StopLoading} from '../loading';
 import {Store} from '@ngrx/store';
-import {allShops} from './shop.selector';
+import {allShops, filterTemp} from './shop.selector';
 import {snapshotChanges} from '@angular/fire/database';
+import {IUserFireCloud} from "../../models/iuser-fire-cloud";
+import {IFilter2} from "../../models/i.filter";
 
 @Injectable()
 export class ShopEffects {
@@ -22,6 +24,17 @@ export class ShopEffects {
   lastVisibleShop: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
 
   constructor(private actions$: Actions, private afStore: AngularFirestore, private store: Store) {}
+
+  @Effect({dispatch: false})
+  public saveFiltersCompleted$ = this.actions$.pipe(
+    ofType(SAVE_FILTERS_TYPE),
+    withLatestFrom(this.store.select(filterTemp)),
+    map(([action, stateFilters]) => {
+      this.saveFilters(stateFilters);
+      return new SaveFilterTypeCompleted();
+    }),
+    catchError(err => err)
+  );
 
   @Effect()
   public shopCountLoadCompleted$ = this.actions$.pipe(
@@ -73,5 +86,18 @@ export class ShopEffects {
       return stateShops.concat(shopsList);
     }));
   }
+
+  private saveFilters(filters: IFilter2): void {
+    console.log("save Filters");
+     this.afStore.collection(`app/`).doc<any>('filters')
+      .set({'v1' : {
+        attire_type: [...filters.attire_type],
+        city: [...filters.city],
+        country: [...filters.country],
+        state: [...filters.state],
+        store_type: [...filters.store_type]
+      }});
+  }
+
 }
 

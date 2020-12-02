@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AdminService} from "../../../../service/admin/admin.service";
 
 
 @Component({
@@ -11,5 +12,6 @@ export class DashboardComponent implements OnInit  {
   constructor() {}
 
   ngOnInit(): void {}
+
 
 }

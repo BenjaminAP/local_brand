@@ -1,6 +1,7 @@
 import {IShopState} from './shop.reducer';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
+import {IFilter2} from "../../models/i.filter";
 
 export const shopFeaturesSelector = createFeatureSelector<IShopState>('shops');
 
@@ -70,13 +71,7 @@ export const filterTemp = createSelector(
 
     if(state.shops === null){return null}
 
-    const filterType: {
-      'attire_type': Set<string>
-      'city': Set<string>,
-      'country': Set<string>,
-      'state': Set<string>,
-      'store_type': Set<string>
-    } = {
+    const filterType: IFilter2 = {
       attire_type: new Set<string>(),
       city: new Set<string>(),
       country: new Set<string>(),
