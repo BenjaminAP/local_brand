@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {UserService} from '../../service/user/user.service';
 import {AppService} from '../../service/app/app.service';
 import {Store} from "@ngrx/store";
+import {IFilter2} from "../../models/i.filter";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class ShopService {
 
   constructor(private userService: UserService, private appService: AppService) {
     this.appService.loadShops();
+  }
+
+  filtersTypeSelector(): Observable<IFilter2> {
+    return this.appService.getFilterTypeSelector();
   }
 
   filterTempSelector(): Observable<any> {

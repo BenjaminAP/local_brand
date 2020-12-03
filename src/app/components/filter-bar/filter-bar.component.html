@@ -3,23 +3,87 @@
                        (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
+
       <mat-panel-title>
         Filter By:
       </mat-panel-title>
+
       <mat-panel-description>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <mat-chip-list aria-label="Fish selection">
+    <h5><span>Old Filters</span></h5>
+    <mat-chip-list >
 
       <div class="chips-container">
+
         <mat-chip
           color="{{chipColor.get(chip.active)}}"
           *ngFor="let chip of filterChips$ | async" (click)="toggleFilter(chip)" selected>
           {{chip.type}}
         </mat-chip>
       </div>
-
     </mat-chip-list>
+
+    <h5><span>Attire:</span></h5>
+    <mat-chip-list >
+
+      <div class="chips-container">
+
+        <mat-chip
+          *ngFor="let attire of (filterTypeChips$ | async)?.attire_type" selected>
+          {{attire}}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+
+    <h5><span>Store Type:</span></h5>
+    <mat-chip-list >
+
+      <div class="chips-container">
+
+        <mat-chip
+          *ngFor="let store_type of (filterTypeChips$ | async)?.store_type" selected>
+          {{store_type}}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+
+    <h5><span>Country:</span></h5>
+    <mat-chip-list >
+
+      <div class="chips-container">
+
+        <mat-chip
+          *ngFor="let country of (filterTypeChips$ | async)?.country" selected>
+          {{country}}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+
+    <h5><span>City:</span></h5>
+    <mat-chip-list >
+
+      <div class="chips-container">
+
+        <mat-chip
+          *ngFor="let city of (filterTypeChips$ | async)?.city" selected>
+          {{city}}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+
+    <h5><span>State:</span></h5>
+    <mat-chip-list >
+
+      <div class="chips-container">
+
+        <mat-chip
+          *ngFor="let state of (filterTypeChips$ | async)?.state" selected>
+          {{state}}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+
   </mat-expansion-panel>
 </mat-accordion>

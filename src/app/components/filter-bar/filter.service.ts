@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {IFilter} from '../../models/i.filter';
+import {IFilter, IFilter2} from '../../models/i.filter';
 import {AppService} from '../../service/app/app.service';
 
 @Injectable({
@@ -16,5 +16,9 @@ export class FilterService {
 
   allFilters(): Observable<IFilter[]> {
     return this.appService.getFiltersSelector();
+  }
+
+  filterTypes(): Observable<IFilter2> {
+    return this.appService.getFilterTypeSelector();
   }
 }

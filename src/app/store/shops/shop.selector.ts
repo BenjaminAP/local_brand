@@ -65,6 +65,11 @@ export const allFilters = createSelector(
   (state: IShopState) => state.filters,
 );
 
+export const filtersTypeSelector = createSelector(
+  shopFeaturesSelector,
+  (state: IShopState) => state.filters2,
+)
+
 export const filterTemp = createSelector(
   shopFeaturesSelector,
   (state: IShopState) => {

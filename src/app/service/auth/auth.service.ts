@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {connectedSelector, Login, Logout, StateLogin} from '../../store/auth';
 import {Observable} from 'rxjs';
+import {BeginLoading} from "../../store/loading";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class AuthService {
   }
 
   checkStateForLogin(): void {
+    this.store.dispatch(new BeginLoading());
     this.store.dispatch(new StateLogin());
   }
 

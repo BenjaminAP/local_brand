@@ -4,6 +4,7 @@ import {IShop} from '../../models/i.shop';
 import {ShopService} from './shop.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {AppService} from "../../service/app/app.service";
+import {IFilter2} from "../../models/i.filter";
 
 @Component({
   selector: 'app-shop',
@@ -17,8 +18,6 @@ export class ShopComponent implements OnInit, AfterViewInit{
   /// <mat-paginator [length]="(allShops$ | async)?.length * 20"
 
   allShopsMatrix$: Observable<IShop[][]>;
-  filterTemp$: Observable<any>;
-  filteredShops$: Observable<IShop[] | Set<IShop>>;
   favoriteShops$: Observable<Set<string>>;
   totalShops: Observable<number>;
   isLoading$: Observable<boolean>;
@@ -33,11 +32,9 @@ export class ShopComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void {
     this.columns = this.columnNumber();
-    this.filterTemp$ = this.shopService.filterTempSelector();
-    // this.filteredShops$ = this.shopService.filteredShops();
+    this.isLoading$ = this.appService.getIsLoadingSelector();
     this.favoriteShops$ = this.shopService.favoriteShops();
     this.totalShops = this.shopService.totalShops();
-    this.isLoading$ = this.appService.getIsLoadingSelector();
     this.allShopsMatrix$ = this.shopService.allShopsMatrix();
   }
 
