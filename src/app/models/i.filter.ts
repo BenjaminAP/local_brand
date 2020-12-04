@@ -12,3 +12,11 @@ export interface IFilter2 {
   city: Set<string>;
 }
 
+export interface IFilter3 {
+  store_type: IFilter[];
+  attire_type: IFilter[];
+  country: IFilter[];
+  state: IFilter[];
+  city: IFilter[];
+}
+

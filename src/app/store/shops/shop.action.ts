@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
-import {IFilter2} from "../../models/i.filter";
+import {IFilter, IFilter2, IFilter3} from '../../models/i.filter';
 
 export const LOAD_SHOPS_STARTED = '[Shops] Load Shops';
 export const LOAD_SHOPS_COMPLETED = '[Shops] Load Shops Successful';
@@ -29,7 +29,7 @@ export class LoadFilterTypes implements Action {
 export class LoadFilterTypesCompleted implements Action {
   public readonly type = LOAD_FILTER_TYPE_COMPLETED;
 
-  constructor(public payload: IFilter2) {}
+  constructor(public payload: IFilter3) {}
 }
 
 export class LoadAllShops implements Action {
@@ -55,7 +55,7 @@ export class LoadShopsCompleted implements Action {
 export class ToggleFilter implements Action {
   public readonly type = TOGGLE_FILTER;
 
-  constructor(public payload: string) {}
+  constructor(public payload: {filter: IFilter, section: string} ) {}
 }
 
 export class NextShops implements Action {

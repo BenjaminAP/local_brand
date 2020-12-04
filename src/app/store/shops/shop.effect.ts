@@ -5,7 +5,7 @@ import {
   LOAD_FILTER_TYPE_STARTED,
   LOAD_SHOPS_STARTED, LoadFilterTypes, LoadFilterTypesCompleted,
   LoadShopsCompleted, LoadTotalShopCount,
-  NEXT_SHOPS, SAVE_FILTERS_TYPE, SaveFilterTypeCompleted,
+  NEXT_SHOPS,
   TOTAL_SHOP_COUNT,
   TotalShopCountLoaded
 } from './shop.action';
@@ -15,9 +15,7 @@ import {Observable} from 'rxjs';
 import {BeginLoading, StopLoading} from '../loading';
 import {Store} from '@ngrx/store';
 import {allShops, filterTemp} from './shop.selector';
-import {snapshotChanges} from '@angular/fire/database';
-import {IUserFireCloud} from "../../models/iuser-fire-cloud";
-import {IFilter2} from "../../models/i.filter";
+import {IFilter, IFilter2, IFilter3} from '../../models/i.filter';
 
 @Injectable()
 export class ShopEffects {
@@ -26,16 +24,16 @@ export class ShopEffects {
 
   constructor(private actions$: Actions, private afStore: AngularFirestore, private store: Store) {}
 
-  @Effect({dispatch: false})
-  public saveFiltersCompleted$ = this.actions$.pipe(
-    ofType(SAVE_FILTERS_TYPE),
-    withLatestFrom(this.store.select(filterTemp)),
-    map(([action, stateFilters]) => {
-      this.updateFilters(stateFilters);
-      return new SaveFilterTypeCompleted();
-    }),
-    catchError(err => err)
-  );
+  // @Effect({dispatch: false})
+  // public saveFiltersCompleted$ = this.actions$.pipe(
+  //   ofType(SAVE_FILTERS_TYPE),
+  //   withLatestFrom(this.store.select(filterTemp)),
+  //   map(([action, stateFilters]) => {
+  //     this.updateFilters(stateFilters);
+  //     return new SaveFilterTypeCompleted();
+  //   }),
+  //   catchError(err => err)
+  // );
 
   @Effect()
   public shopCountLoadCompleted$ = this.actions$.pipe(
@@ -52,8 +50,66 @@ export class ShopEffects {
   public LoadedFilterTypes$ = this.actions$.pipe(
     ofType(LOAD_FILTER_TYPE_STARTED),
     mergeMap(() => this.loadFilters()),
-    map((filterTypes: IFilter2) => new LoadFilterTypesCompleted(filterTypes))
-  )
+    map((filterTypes: IFilter2) => {
+
+      const storeType: IFilter[] = [];
+      const attireType: IFilter[] = [];
+      const countryObj: IFilter[] = [];
+      const stateObj: IFilter[] = [];
+      const cityObj: IFilter[] = [];
+
+      filterTypes.store_type.forEach(
+        (typeName: string) => {
+          storeType.push({
+            type: typeName,
+            active: false,
+          });
+        });
+
+      filterTypes.attire_type.forEach(
+        (typeName: string) => {
+          attireType.push({
+            type: typeName,
+            active: false,
+          });
+        });
+
+      filterTypes.country.forEach(
+        (typeName: string) => {
+          countryObj.push({
+            type: typeName,
+            active: false,
+          });
+        });
+
+      filterTypes.state.forEach(
+        (typeName: string) => {
+          stateObj.push({
+            type: typeName,
+            active: false,
+          });
+        });
+
+      filterTypes.city.forEach(
+        (typeName: string) => {
+          cityObj.push({
+            type: typeName,
+            active: false,
+          });
+        });
+
+      const mappedFilters: IFilter3 = {
+        store_type: storeType,
+        attire_type: attireType,
+        country: countryObj,
+        state: stateObj,
+        city: cityObj,
+      };
+
+
+      return new LoadFilterTypesCompleted(mappedFilters);
+    })
+  );
 
   @Effect()
   public loadedShops$ = this.actions$.pipe(
@@ -114,9 +170,9 @@ export class ShopEffects {
   }
 
   private updateFilters(filters: IFilter2): void {
-    console.log("save Filters");
-     this.afStore.collection(`app/`).doc<any>('filters')
-      .set({'v1' : {
+    console.log('save Filters');
+    this.afStore.collection(`app/`).doc<any>('filters')
+      .set({v1 : {
         attire_type: [...filters.attire_type],
         city: [...filters.city],
         country: [...filters.country],

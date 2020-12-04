@@ -7,10 +7,10 @@ import {
 } from '../../store/auth';
 import { ToggleFavShop} from '../../store/user';
 import * as ShopSelector from '../../store/shops/shop.selector';
-import {LoadAllShops, ToggleFilter, allFilters, NextShops} from '../../store/shops';
-import {IFilter} from '../../models/i.filter';
+import {LoadAllShops, ToggleFilter, NextShops} from '../../store/shops';
+import {IFilter, IFilter3} from '../../models/i.filter';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {totalShopCount} from "../../store/shops";
+import {totalShopCount} from '../../store/shops';
 import {BeginLoading, isLoadingSelector} from '../../store/loading';
 // @ts-ignore
 // import {default as jsonShops} from './local_brands.json';
@@ -25,9 +25,6 @@ export class AppService {
 
   constructor(private afStore: AngularFirestore,
               private store: Store<IAuthState>) {
-
-    // this.temp = db.list('shops').valueChanges();
-    // this.temp.subscribe(shops => console.log(shops));
   }
 
   getIsLoadingSelector(): Observable<boolean> {
@@ -38,17 +35,8 @@ export class AppService {
     return this.store.select(totalShopCount);
   }
 
-  public toggleFilter(filterId: string): void {
-    this.store.dispatch(new ToggleFilter(filterId));
-  }
-
-
-  public getFiltersSelector(): Observable<IFilter[]> {
-    return this.store.select(allFilters);
-  }
-
-  public getShopsSelector(): Observable<IShop[]> {
-    return this.store.select(ShopSelector.allShops);
+  public toggleFilter(f: IFilter, s: string): void {
+    this.store.dispatch(new ToggleFilter({filter: f, section: s}));
   }
 
   public getShopsMatrixSelector(): Observable<IShop[][]> {
@@ -75,12 +63,8 @@ export class AppService {
     this.store.dispatch(new NextShops());
   }
 
-  public getFilterTypeSelector(): Observable<any> {
+  public getFilterTypeSelector(): Observable<IFilter3> {
     return this.store.select(ShopSelector.filtersTypeSelector);
-  }
-
-  public getFilterTempSelector(): Observable<any> {
-    return this.store.select(ShopSelector.filterTemp);
   }
 
 }

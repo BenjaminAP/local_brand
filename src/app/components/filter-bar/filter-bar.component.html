@@ -12,27 +12,15 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <h5><span>Old Filters</span></h5>
-    <mat-chip-list >
-
-      <div class="chips-container">
-
-        <mat-chip
-          color="{{chipColor.get(chip.active)}}"
-          *ngFor="let chip of filterChips$ | async" (click)="toggleFilter(chip)" selected>
-          {{chip.type}}
-        </mat-chip>
-      </div>
-    </mat-chip-list>
-
     <h5><span>Attire:</span></h5>
     <mat-chip-list >
 
       <div class="chips-container">
 
         <mat-chip
-          *ngFor="let attire of (filterTypeChips$ | async)?.attire_type" selected>
-          {{attire}}
+          color="{{chipColor.get(attire.active)}}"
+          *ngFor="let attire of (filterTypeChips$ | async)?.attire_type" (click)="toggleFilter(attire, 'attire_type')" selected>
+          {{attire.type}}
         </mat-chip>
       </div>
     </mat-chip-list>
@@ -43,8 +31,9 @@
       <div class="chips-container">
 
         <mat-chip
+          color="{{chipColor.get(store_type.active)}}"
           *ngFor="let store_type of (filterTypeChips$ | async)?.store_type" selected>
-          {{store_type}}
+          {{store_type.type}}
         </mat-chip>
       </div>
     </mat-chip-list>
@@ -55,8 +44,9 @@
       <div class="chips-container">
 
         <mat-chip
+          color="{{chipColor.get(country.active)}}"
           *ngFor="let country of (filterTypeChips$ | async)?.country" selected>
-          {{country}}
+          {{country.type}}
         </mat-chip>
       </div>
     </mat-chip-list>
@@ -67,8 +57,9 @@
       <div class="chips-container">
 
         <mat-chip
+          color="{{chipColor.get(city.active)}}"
           *ngFor="let city of (filterTypeChips$ | async)?.city" selected>
-          {{city}}
+          {{city.type}}
         </mat-chip>
       </div>
     </mat-chip-list>
@@ -79,8 +70,9 @@
       <div class="chips-container">
 
         <mat-chip
+          color="{{chipColor.get(state.active)}}"
           *ngFor="let state of (filterTypeChips$ | async)?.state" selected>
-          {{state}}
+          {{state.type}}
         </mat-chip>
       </div>
     </mat-chip-list>

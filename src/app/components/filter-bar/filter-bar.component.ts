@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FilterService} from './filter.service';
 import {Observable} from 'rxjs';
-import {IFilter, IFilter2} from '../../models/i.filter';
+import {IFilter, IFilter2, IFilter3} from '../../models/i.filter';
 
 @Component({
   selector: 'app-filter-bar',
@@ -12,7 +12,7 @@ export class FilterBarComponent implements OnInit {
 
   panelOpenState = false;
   filterChips$: Observable<IFilter[]>;
-  filterTypeChips$: Observable<IFilter2>;
+  filterTypeChips$: Observable<IFilter3>;
 
   chipColor = new Map([
     [true, 'primary'],
@@ -20,16 +20,13 @@ export class FilterBarComponent implements OnInit {
   ]);
 
   constructor(private filterService: FilterService) {
-    this.filterChips$ = this.filterService.allFilters();
     this.filterTypeChips$ = this.filterService.filterTypes();
   }
 
-  ngOnInit(): void {
-    this.filterTypeChips$.subscribe(data => console.log(data));
-  }
+  ngOnInit(): void {}
 
-  public toggleFilter(chip: IFilter): void {
-    this.filterService.toggleFilter(chip.type);
+  public toggleFilter(chip: IFilter, section: string): void {
+    this.filterService.toggleFilter(chip, section);
   }
 
   public toggleFilter2(chip: string, filterType): void {

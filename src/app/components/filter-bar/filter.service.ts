@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {IFilter, IFilter2} from '../../models/i.filter';
+import {IFilter, IFilter2, IFilter3} from '../../models/i.filter';
 import {AppService} from '../../service/app/app.service';
 
 @Injectable({
@@ -10,15 +10,11 @@ export class FilterService {
 
   constructor(private appService: AppService) {}
 
-  toggleFilter(filterId: string): void {
-    this.appService.toggleFilter(filterId);
+  toggleFilter(filter: IFilter, section: string): void {
+    this.appService.toggleFilter(filter, section);
   }
 
-  allFilters(): Observable<IFilter[]> {
-    return this.appService.getFiltersSelector();
-  }
-
-  filterTypes(): Observable<IFilter2> {
+  filterTypes(): Observable<IFilter3> {
     return this.appService.getFilterTypeSelector();
   }
 }

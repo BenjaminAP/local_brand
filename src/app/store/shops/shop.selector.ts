@@ -1,7 +1,6 @@
 import {IShopState} from './shop.reducer';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {IShop} from '../../models/i.shop';
-import {IFilter2} from "../../models/i.filter";
 
 export const shopFeaturesSelector = createFeatureSelector<IShopState>('shops');
 
@@ -59,16 +58,10 @@ export const totalShopCount = createSelector(
   (state: IShopState) => state.totalCount,
 );
 
-// @ts-ignore
-export const allFilters = createSelector(
-  shopFeaturesSelector,
-  (state: IShopState) => state.filters,
-);
-
 export const filtersTypeSelector = createSelector(
   shopFeaturesSelector,
-  (state: IShopState) => state.filters2,
-)
+  (state: IShopState) => state.filters3,
+);
 
 export const filterTemp = createSelector(
   shopFeaturesSelector,
@@ -92,6 +85,6 @@ export const filterTemp = createSelector(
     //   filterType.state.add(shop.state);
     // });
 
-    return state.filters2;
+    return state.filters3;
   }
 );

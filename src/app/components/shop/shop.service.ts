@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {UserService} from '../../service/user/user.service';
 import {AppService} from '../../service/app/app.service';
 import {Store} from "@ngrx/store";
-import {IFilter2} from "../../models/i.filter";
+import {IFilter2, IFilter3} from '../../models/i.filter';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,8 @@ export class ShopService {
     this.appService.loadShops();
   }
 
-  filtersTypeSelector(): Observable<IFilter2> {
+  filtersTypeSelector(): Observable<IFilter3> {
     return this.appService.getFilterTypeSelector();
-  }
-
-  filterTempSelector(): Observable<any> {
-    return this.appService.getFilterTempSelector();
   }
 
   totalShops(): Observable<number> {
@@ -29,10 +25,6 @@ export class ShopService {
 
   toggleFavoriteShop(shopId: string): void {
     this.appService.toggleFavShop(shopId);
-  }
-
-  allShops(): Observable<IShop[]> {
-    return this.appService.getShopsSelector();
   }
 
   allShopsMatrix(): Observable<IShop[][]> {
