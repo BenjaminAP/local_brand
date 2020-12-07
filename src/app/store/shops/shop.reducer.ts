@@ -46,8 +46,8 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
 
       // const newFiltersTemp =  state.filters3[`${action.payload}`].
 
-      console.log(state.filters3[action.payload.section].filter((data: IFilter) => data.type === action.payload.filter.type));
-      console.log(action.payload);
+      console.log('payload', action.payload);
+      console.log('Filters', state.filters3);
       // const newFilters = state.filters.map((filter: IFilter) => {
       //   if (filter.type === action.payload) {
       //     return {
@@ -59,9 +59,27 @@ export function shopReducer(state: IShopState = initialState, action: ShopAction
       //   return filter;
       // });
 
+
+    /// TODO: action for every filter section for less computation;
+
       return {
         ...state,
-        // filters: newFilters
+        filters3: {
+          country: state.filters3.country,
+          state: state.filters3.state,
+          city: state.filters3.city,
+          attire_type: state.filters3[action.payload.section].map((data: IFilter) => {
+            if (data.type === action.payload.filter.type) {
+              return {
+                type: action.payload.filter.type,
+                active: !action.payload.filter.active
+              };
+            }
+
+            return data;
+          }),
+          store_type: state.filters3.store_type
+        }
       };
     }
 
